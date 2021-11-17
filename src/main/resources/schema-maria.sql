@@ -14,28 +14,26 @@ drop table if exists authorities;
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS users (
-                       `username` VARCHAR(50) NOT NULL,
-                       `password` VARCHAR(100) NOT NULL,
-                       `enabled` TINYINT NOT NULL DEFAULT 1,
-                       PRIMARY KEY (`username`)
+                       username VARCHAR_IGNORECASE(50) NOT NULL PRIMARY KEY,
+                       password VARCHAR_IGNORECASE(100) NOT NULL,
+                       enabled BOOLEAN NOT NULL
 );
-ENGINE = InnoDB;
+
 
 -- ------------------------------------
 -- Table authorities
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS authorities (
-                             `username` VARCHAR(50) NOT NULL,
-                             `authority` VARCHAR(50) NOT NULL,
-                             FOREIGN KEY (`username`) REFERENCES users(`username`)
+                             username VARCHAR_IGNORECASE(50) NOT NULL,
+                             authority VARCHAR_IGNORECASE(50) NOT NULL,
+                             CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES users(username)
 );
-ENGINE = InnoDB;
 -- ------------------------------------
 -- Unique Usernames - ensures that all values in a coloumn are different
 -- ------------------------------------
 
 CREATE UNIQUE INDEX ix_auth_username
-    on authorities (`username`,`authority`);
+    on authorities (username,authority);
 
 
