@@ -7,15 +7,14 @@ use graphium_schema;
 drop table if exists users;
 drop table if exists authorities;
 
--- Code based on from https://www.baeldung.com/spring-security-jdbc-authentication tutorial
-
 -- ------------------------------------
 -- Table users
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS users (
-                       username VARCHAR_IGNORECASE(50) NOT NULL PRIMARY KEY,
-                       password VARCHAR_IGNORECASE(100) NOT NULL,
+    -- add id
+                       username VARCHAR(50) NOT NULL PRIMARY KEY,
+                       password VARCHAR(100) NOT NULL,
                        enabled BOOLEAN NOT NULL
 );
 
@@ -25,8 +24,8 @@ CREATE TABLE IF NOT EXISTS users (
 -- ------------------------------------
 
 CREATE TABLE IF NOT EXISTS authorities (
-                             username VARCHAR_IGNORECASE(50) NOT NULL,
-                             authority VARCHAR_IGNORECASE(50) NOT NULL,
+                             username VARCHAR(50) NOT NULL,
+                             authority VARCHAR(50) NOT NULL,
                              CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES users(username)
 );
 -- ------------------------------------
