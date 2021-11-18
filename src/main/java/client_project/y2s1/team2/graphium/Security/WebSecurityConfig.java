@@ -27,12 +27,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();
     }
 
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled from users where username = ?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username = ?");
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+
+        manager.createUser(User.
+                withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build());
+
+        return manager;
     }
 
 }
