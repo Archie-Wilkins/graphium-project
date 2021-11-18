@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<!-- This is a html page used to test the header (Not for production)-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>TEST</title>
+    </head>
+    <body>
+    <!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
+        <div th:replace="fragments/header :: header"/>
+        <h1>THIS IS A TEST</h1>
+    </body>
+</html>
