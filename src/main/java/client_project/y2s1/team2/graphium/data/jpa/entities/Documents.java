@@ -16,4 +16,15 @@ public class Documents {
     private Long id;
     private String title;
     private String typePdf;
+
+    @Column(length = 45, nullable = true)
+    private String document;
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
 }
