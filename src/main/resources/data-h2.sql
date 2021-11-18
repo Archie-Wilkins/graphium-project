@@ -25,4 +25,3 @@ INSERT INTO `authorities`(`username`,`authority`) VALUES ("admin","admin");
 INSERT INTO `documents` (`title`, `type_pdf`) VALUES ('Test 1', 2);
 INSERT INTO `documents` (`title`, `type_pdf`) VALUES ('Test 2', 2);
 INSERT INTO `documents` (`title`, `type_pdf`) VALUES ('Test 3', 2);
-INSERT INTO `documents` (`title`, `type_pdf`) VALUES ('Test 4', 2);

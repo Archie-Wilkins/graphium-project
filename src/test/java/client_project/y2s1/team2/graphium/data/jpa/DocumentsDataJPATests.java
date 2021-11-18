@@ -8,14 +8,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
-import javax.print.Doc;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Sql(scripts={"/schema-h2.sql","/data-h2.sql"})
+@Sql(scripts={"/schema-h2.sql", "/data-h2.sql"})
 @DirtiesContext
 public class DocumentsDataJPATests {
     @Autowired
