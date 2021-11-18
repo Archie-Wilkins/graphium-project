@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-@Sql(scripts={"/database/schema-h2.sql", "/database/data-h2.sql"})
+@Sql(scripts={"/schema-h2.sql", "/data-h2.sql"})
 @DirtiesContext
 public class DocumentsDataJPATests {
     @Autowired
