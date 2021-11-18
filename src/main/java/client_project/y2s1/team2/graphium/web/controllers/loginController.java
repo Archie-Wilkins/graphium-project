@@ -11,11 +11,11 @@ public class loginController {
         @Autowired
         DocumentsRepositoryJPA docsRep;
 
-        @GetMapping({"/loginForm", "loginForm"})
+        @GetMapping({"/login", "login"})
         public String index(Model model) {
             int thing = docsRep.findAll().size();
             model.addAttribute("test", thing);
-            return "loginForm.html";
+            return "login.html";
         }
 }
 
