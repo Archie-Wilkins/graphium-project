@@ -8,7 +8,7 @@
   <div align="center">
     <h1>Upload documents here:</h1>
   </div>
-  <form action="/upload" th:method="get">
+  <form th:action="@{/upload}" th:method="post" enctype="multipart/form-data">
     <p>
         <label>Document Title: </label>
         <input type="text" placeholder="Title" required minlength="2">
