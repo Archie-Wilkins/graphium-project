@@ -13,8 +13,6 @@ public class loginController {
 
         @GetMapping({"/login", "login"})
         public String index(Model model) {
-            int thing = docsRep.findAll().size();
-            model.addAttribute("test", thing);
             return "login.html";
         }
 }
