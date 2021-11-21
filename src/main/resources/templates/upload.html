@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Document Upload</title>
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
   <div align="center">
-    <h1>Upload documents here:</h1>
+    <h1>Select a file to upload:</h1>
   </div>
-  <form th:action="@{/upload}" th:method="post" enctype="multipart/form-data">
+  <form class="form-signin" th:action="@{/upload}" th:method="post" enctype="multipart/form-data">
     <p>
         <label>Document Title: </label>
-        <input type="text" placeholder="Title" required minlength="2">
+        <input class="form-control" type="text" placeholder="Title" required minlength="2">
     </p>
     <p>
-        <label>Select document: </label>
+        <label>Select document: </label><br>
         <input type="file" name="document" id="document" accept=".pdf, .docx" />
+        Visible: <input type="checkbox">
     </p>
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
   </form>
 </body>
 </html>
