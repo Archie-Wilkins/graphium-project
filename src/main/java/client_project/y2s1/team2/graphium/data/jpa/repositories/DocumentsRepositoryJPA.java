@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
     List<Documents> findAll();
     Optional<Documents> findByTitle(String title);
+    Optional<Documents> findByFileType(String type);
     Documents save(Documents document);
 }
