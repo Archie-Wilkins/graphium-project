@@ -21,6 +21,8 @@ public class DocumentsDataJPATests {
 
     @Test
     public void shouldGet3Documents() throws Exception {
+        System.out.println("Test begin");
+        System.out.println("Reeee");
         List<Documents> docs = docRepository.findAll();
         System.out.println("Amt Docs ="+docs.size());
         assertEquals(3, docs.size());
