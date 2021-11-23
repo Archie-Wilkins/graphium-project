@@ -15,16 +15,11 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String typePdf;
+    private String fileType;
+    @Lob
+    private byte[] fileData;
 
-    @Column(length = 45, nullable = true)
-    private String document;
-
-    public String getDocument() {
-        return document;
-    }
-
-    public void setDocument(String document) {
-        this.document = document;
+    public Documents(String aTitle, String aFileType, byte[] someFileData) {
+        this(null, aTitle, aFileType, someFileData);
     }
 }
