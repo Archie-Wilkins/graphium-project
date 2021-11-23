@@ -16,7 +16,7 @@ drop table if exists `documents`;
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `users` (
     `username` VARCHAR(50) NOT NULL PRIMARY KEY,
-    `password` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(500) NOT NULL,
     `enabled` BOOLEAN NOT NULL
 );
 
