@@ -16,10 +16,15 @@ public class Documents {
     private Long id;
     private String title;
     private String fileType;
+    private String visibility;
     @Lob
     private byte[] fileData;
 
-    public Documents(String aTitle, String aFileType, byte[] someFileData) {
-        this(null, aTitle, aFileType, someFileData);
+    @ManyToOne
+    @JoinColumn(name="fk_username")
+    private Users user;
+
+    public Documents(String aTitle, Users aUser, String aFileType, String aVisibility, byte[] someFileData) {
+        this(null, aTitle, aFileType, aVisibility, someFileData, aUser);
     }
 }

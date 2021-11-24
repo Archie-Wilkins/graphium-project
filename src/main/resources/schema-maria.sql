@@ -36,11 +36,14 @@ CREATE TABLE IF NOT EXISTS `authorities` (
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `documents` (
     `id` INT(4) NOT NULL AUTO_INCREMENT,
+    `fk_username` VARCHAR(50) NOT NULL,
     `title` VARCHAR(100) NOT NULL,
-    `file_type` VARCHAR(25) NOT NULL,
+    `file_type` VARCHAR(20) NOT NULL,
+    `visibility` VARCHAR(45) NOT NULL,
     `file_data` LONGBLOB NOT NULL,
 
-    PRIMARY KEY(`id`)
+    PRIMARY KEY(`id`),
+    FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
 );
 
 
