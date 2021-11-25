@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Users {
-
     @Id
     private String username;
     private String password;
     private Boolean enabled;
+    @OneToMany(mappedBy="user")
+    private List<Documents> ownedDocuments = new ArrayList<>();
 }
