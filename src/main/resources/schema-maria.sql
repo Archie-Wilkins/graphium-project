@@ -16,28 +16,28 @@ drop table if exists `organisations`;
 -- Table 'users'
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `users` (
-    `user_ID` INT NOT NULL PRIMARY KEY,
+    `id` INT NOT NULL PRIMARY KEY,
     `username` VARCHAR(50),
     `password` VARCHAR(500) NOT NULL,
     `enabled` BOOLEAN NOT NULL,
-    `organisation_id` INT NOT NULL,
+    `fk_organisation_id` INT NOT NULL,
     `first_name` VARCHAR(50) NOT NULL,
     `last_name` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `authority_title` VARCHAR(50) NOT NULL, 
     `authority_set_date` DATETIME NOT NULL,
     
-     FOREIGN KEY (`organisation_id`) REFERENCES organisations(`id`)
+     FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
 );
 
 -- ------------------------------------
 -- Table 'authorities'
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `authorities` (
-    `username` VARCHAR(50) NOT NULL,
+    `fk_username` VARCHAR(50) NOT NULL,
     `authority` VARCHAR(50) NOT NULL,
 
-    FOREIGN KEY (`username`) REFERENCES users(`username`)
+    FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
 );
 
 -- ------------------------------------
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
 -- Unique Usernames - ensures that all values in a coloumn are different
 -- ------------------------------------
 CREATE UNIQUE INDEX `ix_auth_username`
-    on authorities(`username`,`authority`);
+    on authorities(`fk_username`,`authority`);
 
 -- ------------------------------------
 -- organisations
