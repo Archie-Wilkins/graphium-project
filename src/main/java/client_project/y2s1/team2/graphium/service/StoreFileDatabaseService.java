@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.Document;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -19,11 +20,21 @@ public class StoreFileDatabaseService {
     private DocumentsRepositoryJPA docRepository;
     @Autowired
     private UsersRepositoryJPA userRepository;
+    private String[] allowedFileExstensions = {"pdf", "docx"};
 
     public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file, String docVisibility) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            return new SubmissionError(true, "User_not_found", "Error finding user from given username.");
+            return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
+        }
+        if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
+            return new SubmissionError(true, "duplicate_title_and_user", "You already have a document with that title.");
+        }
+        if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
+            return new SubmissionError(true, "file_type_invalid", "Document file is the wrong format.");
+        }
+        if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
+            return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
         Documents newDoc = new Documents(
                 docTitle,
@@ -32,9 +43,6 @@ public class StoreFileDatabaseService {
                 docVisibility,
                 file.getBytes()
         );
-        if (docRepository.findByTitleAndUser(newDoc.getTitle(), currentUser.get()).isPresent()) {
-            return new SubmissionError(true, "titles", "You already have a document with that title.");
-        }
         docRepository.save(newDoc);
         return new SubmissionError(false);
     }
