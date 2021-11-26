@@ -34,6 +34,9 @@ VALUES ('testOrgAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
 VALUES ('testSystemAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
+-- ------------------------
+-- Authorities
+-- ------------------------
 
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser', 'researcher');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser2', 'researcher');
@@ -41,4 +44,16 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin', '
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin', 'systemAdmin');
 
 
--- INSERT INTO ``
+-- --------------------------
+-- Documents
+-- ---------------------------
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 1, 'An Excellent File', 'pdf', 'Hello there');
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 1, 'A Fun PDF', 'pdf', 'Welcome');
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 1, 'Word Test', 'docx', 'Yolo');
+
