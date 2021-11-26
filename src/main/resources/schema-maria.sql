@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `fk_creator` VARCHAR(50) NOT NULL,
     `title` VARCHAR(100) NOT NULL,
     `file_type` VARCHAR(20) NOT NULL,
-    `file_data` LONGBLOB NOT NULL,
+    -- need to make Not NUll just for testing
+    `file_data` LONGBLOB,
 
     CONSTRAINT `fk_documents_users` FOREIGN KEY (`fk_creator`) REFERENCES users(`username`)
 );

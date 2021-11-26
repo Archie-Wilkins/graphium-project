@@ -49,11 +49,11 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin'
 -- ---------------------------
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 1, 'An Excellent File', 'pdf', 'Hello there');
+VALUES (null, 'testUser', 'An Excellent File', 'pdf', LOAD_FILE('charity-guide.pdf'));
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 1, 'A Fun PDF', 'pdf', 'Welcome');
+VALUES (null, 'testUser', 'A Fun PDF', 'pdf', LOAD_FILE('C:\Users\c2043958\OneDrive - Cardiff University\Documents\Year 2\Assessments\Semester 1\ClientProject\src\main\resources\Documents\study-guide.pdf'));
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 1, 'Word Test', 'docx', 'Yolo');
+VALUES (null, 'testUser', 'Word Test', 'docx', LOAD_FILE('C:\Users\c2043958\OneDrive - Cardiff University\Documents\Year 2\Assessments\Semester 1\ClientProject\src\main\resources\Documents\word-document.docx'));
 
