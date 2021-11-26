@@ -15,5 +15,16 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String typePdf;
+    private String fileType;
+    private String visibility;
+    @Lob
+    private byte[] fileData;
+
+    @ManyToOne
+    @JoinColumn(name="fk_username")
+    private Users user;
+
+    public Documents(String aTitle, Users aUser, String aFileType, String aVisibility, byte[] someFileData) {
+        this(null, aTitle, aFileType, aVisibility, someFileData, aUser);
+    }
 }
