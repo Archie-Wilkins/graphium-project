@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts={"/schema-h2.sql", "/data-h2.sql"})
+@Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
 public class DocumentsDatabaseStoringTests {
     @Autowired
@@ -38,7 +38,7 @@ public class DocumentsDatabaseStoringTests {
         // Creating file for storing
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
         // Attempting to store the document
-        SubmissionError storeResult = storeFileService.storeFile("Document Title", "testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload, "public");
+        SubmissionError storeResult = storeFileService.storeFile("Document Title", "testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         // Did the store have an issue and did it store correctly
         assertEquals(false, storeResult.errored());
         if (storeResult.succeed()) {
@@ -47,7 +47,6 @@ public class DocumentsDatabaseStoringTests {
             assertEquals("Document Title", lastDoc.getTitle());
             assertEquals("testUser", lastDoc.getUser().getUsername());
             assertEquals("pdf", lastDoc.getFileType());
-            assertEquals("public", lastDoc.getVisibility());
         }
     }
 
@@ -65,7 +64,6 @@ public class DocumentsDatabaseStoringTests {
             assertEquals("Document Title", lastDoc.getTitle());
             assertEquals("testUser", lastDoc.getUser().getUsername());
             assertEquals("docx", lastDoc.getFileType());
-            assertEquals("public", lastDoc.getVisibility());
         }
     }
 

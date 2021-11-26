@@ -22,7 +22,7 @@ public class StoreFileDatabaseService {
     private UsersRepositoryJPA userRepository;
     private String[] allowedFileExstensions = {"pdf", "docx"};
 
-    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file, String docVisibility) throws IOException {
+    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
             return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
@@ -40,7 +40,6 @@ public class StoreFileDatabaseService {
                 docTitle,
                 currentUser.get(),
                 fileType,
-                docVisibility,
                 file.getBytes()
         );
         docRepository.save(newDoc);
