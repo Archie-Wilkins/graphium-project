@@ -55,8 +55,8 @@ public class DocumentsDatabaseStoringTests {
         // Creating file for storing
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "The Text".getBytes());
         // Attempting to store the document
-        SubmissionError storeResult = storeFileService.storeFile("Document Title", "testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload,"public");
-        // Did the store have an issue and did it store correctly
+        SubmissionError storeResult = storeFileService.storeFile("Document Title", "testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
+        // Did the store have an issue and did it store correct
         assertEquals(false, storeResult.errored());
         if (storeResult.succeed()) {
             List<Documents> storedDoc = docRepository.findAll();
@@ -72,10 +72,10 @@ public class DocumentsDatabaseStoringTests {
         // Creating file for storing
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "The Text".getBytes());
         // Storing first document
-        SubmissionError firstStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload, "public");
+        SubmissionError firstStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         assertEquals(false, firstStoreResult.errored());
         // Storing second document
-        SubmissionError secondStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload,"public");
+        SubmissionError secondStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         assertEquals(true, secondStoreResult.errored());
         assertEquals("duplicate_title_and_user", secondStoreResult.getError());
     }
@@ -85,10 +85,10 @@ public class DocumentsDatabaseStoringTests {
         // Creating file for storing
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "The Text".getBytes());
         // Storing first document
-        SubmissionError firstStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload,"public");
+        SubmissionError firstStoreResult = storeFileService.storeFile("Document Title","testUser", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         assertEquals(false, firstStoreResult.errored());
         // Storing first document
-        SubmissionError secondStoreResult = storeFileService.storeFile("Document Title","testUser2", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload,"public");
+        SubmissionError secondStoreResult = storeFileService.storeFile("Document Title","testUser2", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         assertEquals(false, secondStoreResult.errored());
     }
 
@@ -96,12 +96,12 @@ public class DocumentsDatabaseStoringTests {
     public void canNotStoreInvalidFileType() throws Exception {
         // Storing correct pdf file with Incorrect file type
         MockMultipartFile fileOne = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
-        SubmissionError StoreResultOne = storeFileService.storeFile("Document Title","testUser", "jpg", fileOne,"public");
+        SubmissionError StoreResultOne = storeFileService.storeFile("Document Title","testUser", "jpg", fileOne);
         assertEquals(true, StoreResultOne.errored());
         assertEquals("file_type_invalid", StoreResultOne.getError());
         // Storing correct pdf file with Incorrect file type
         MockMultipartFile fileTwo = new MockMultipartFile("data", "testName.jpg", "application/pdf", "The Text".getBytes());
-        SubmissionError StoreResultTwo = storeFileService.storeFile("Document Title","testUser", "pdf", fileTwo,"public");
+        SubmissionError StoreResultTwo = storeFileService.storeFile("Document Title","testUser", "pdf", fileTwo);
         assertEquals(true, StoreResultTwo.errored());
         assertEquals("file_extension_invalid", StoreResultTwo.getError());
     }
@@ -111,7 +111,7 @@ public class DocumentsDatabaseStoringTests {
         // Creating file for storing
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
         // Storing first document
-        SubmissionError StoreResult = storeFileService.storeFile("Document Title","invalidUsername", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload,"public");
+        SubmissionError StoreResult = storeFileService.storeFile("Document Title","invalidUsername", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
         assertEquals(true, StoreResult.errored());
         assertEquals("invalid_username", StoreResult.getError());
     }

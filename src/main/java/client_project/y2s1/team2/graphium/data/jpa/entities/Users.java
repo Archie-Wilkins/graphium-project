@@ -17,6 +17,7 @@ public class Users {
     private String username;
     private String password;
     private Boolean enabled;
+
     @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
 }
