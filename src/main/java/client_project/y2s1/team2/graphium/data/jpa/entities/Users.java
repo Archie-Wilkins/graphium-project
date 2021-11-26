@@ -17,6 +17,13 @@ public class Users {
     private String username;
     private String password;
     private Boolean enabled;
+    private Integer fK_organisation_id;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String authority_set_date;
+
+//   Need to set foreign key to organisations
 
     @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
