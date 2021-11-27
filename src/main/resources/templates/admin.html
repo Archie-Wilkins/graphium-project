@@ -11,7 +11,20 @@
 <body>
 <!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
 <div th:replace="fragments/header :: header"/>
-<h1>Welcome to admin</h1>
+
+    <h1>Welcome <span th:text="${userName}"></span> </h1>
+
+    <h2>Documents</h2>
+    <div th:each="document: ${allDocuments}">
+        <div>
+            <p th:text="${document.title}"></p>
+            <p th:text="${document.user.getUsername()}"></p>
+<!--            <p th:text="${document.title}"></p>-->
+        </div>
+
+    </div>
+
+
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

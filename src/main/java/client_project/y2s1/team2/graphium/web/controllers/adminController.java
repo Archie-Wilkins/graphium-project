@@ -21,11 +21,18 @@ public class adminController {
 
     @GetMapping({"/admin", "admin"})
     public String index(Model model, Principal principal) {
-        String userName = principal.getName();
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        List<Documents> AllDocuments = docsRepo.findAll();
-        System.out.println("Hi");
-        return "admin.html";
+        String name = auth.getName();
+        //if (auth.getAuthorities().get(0) == "orgAdmin" || auth.getAuthorities() == "systemAdmin"){
+            String userName = principal.getName();
+            List<Documents> AllDocuments = docsRepo.findAll();
+            model.addAttribute("userName",userName);
+            model.addAttribute("allDocuments",AllDocuments);
+            return "admin.html";
+//        }else{
+//            return "index.html";
+//        }
     }
 }
