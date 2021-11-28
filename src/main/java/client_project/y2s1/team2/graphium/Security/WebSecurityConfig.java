@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorizeRequests ->
                         authorizeRequests
+                                .mvcMatchers("/admin/**").hasAnyAuthority("orgAdmin","systemAdmin")
                                 .mvcMatchers("/css/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
                                 .anyRequest().authenticated()

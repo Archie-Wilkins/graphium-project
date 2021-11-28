@@ -22,7 +22,7 @@ public class DocumentsDataRetrievalJPA {
 
     @Autowired
     DocumentsRepositoryJPA docRepository;
-    
+
     @Test
     public void canRetrieveDocumentTitle() throws Exception{
         List<Documents> retrievedDocuments = docRepository.findAll();
@@ -58,7 +58,5 @@ public class DocumentsDataRetrievalJPA {
         int DocumentsListLength = retrievedDocuments.size();
         assertEquals(3, DocumentsListLength);
     }
-
-
 
 }
