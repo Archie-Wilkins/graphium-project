@@ -14,20 +14,22 @@
 <!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
 <div th:replace="fragments/header :: header"/>
 
+<div class="container">
 <h1>Welcome <span th:text="${userName}"></span></h1>
 
 <h2>Documents</h2>
 <div th:each="document: ${allDocuments}">
-    <div class="card">
+    <div class="card mt-2">
         <div class="card-body">
             <h2 class="card-title" th:text="${document.title}"></h2>
             <p th:text="${document.user.getUsername()}"></p>
-            <p th:text="${document.user.getFk_organisation_id}"></p>
+            <p th:text="${document.user.organisation.getName()}"></p>
             <a href="#" class="btn btn-danger">Delete</a>
             <a href="#" class="btn btn-primary">View</a>
             <a href="#" class="btn btn-secondary">Download</a>
         </div>
     </div>
+</div>
 </div>
 
 

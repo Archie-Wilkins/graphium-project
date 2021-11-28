@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +21,6 @@ public class Organisations {
 
     private String email;
 
-    @OneToMany(mappedBy = "organisation")
-    private ArrayList<Users> = new ArrayList<>();
+//    @OneToMany(mappedBy = "organisation")
+//    private List<Users> users = new ArrayList<>();
 }

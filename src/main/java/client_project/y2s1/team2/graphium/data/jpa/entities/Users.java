@@ -36,7 +36,6 @@ public class Users {
     private List<Documents> ownedDocuments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "fk_organisation_id")
+    @JoinColumn(name = "fk_organisation_id",insertable = false,updatable = false)
     private Organisations organisation;
-
 }
