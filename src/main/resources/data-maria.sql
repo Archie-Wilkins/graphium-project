@@ -13,7 +13,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Organisations 
 -- -----------------------------------
 
-INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Cardiff Universit', 'Cardiff@CardiffEmail.com');
+INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Cardiff University', 'Cardiff@CardiffEmail.com');
 INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Swansea University', 'Swansea@SwanseaEmail.com');
 
 -- ------------------------------------
