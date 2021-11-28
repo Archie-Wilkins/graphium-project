@@ -19,4 +19,5 @@ public class Users {
     private Boolean enabled;
     @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
+
 }
