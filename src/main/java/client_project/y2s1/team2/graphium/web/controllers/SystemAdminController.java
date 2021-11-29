@@ -14,13 +14,13 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class adminController {
+public class SystemAdminController {
 
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
 
-    @GetMapping({"/admin", "admin"})
-    public String index(Model model, Principal principal) {
+    @GetMapping({"/systemAdmin", "systemAdmin"})
+    public String systemAdminHome(Model model, Principal principal) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -29,7 +29,15 @@ public class adminController {
             List<Documents> AllDocuments = docsRepo.findAll();
             model.addAttribute("userName",userName);
             model.addAttribute("allDocuments",AllDocuments);
-            return "admin.html";
+            return "systemAdminHome.html";
 
     }
+//
+//    @GetMapping({"/systemAdmin/organisation", "systemAdmin"})
+//    public String systemAdminOrganisation(Model model, Principal principal){
+//        return "systemAdminNewOrganisation.html";
+//    }
+
+
+
 }
