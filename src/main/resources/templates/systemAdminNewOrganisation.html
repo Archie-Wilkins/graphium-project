@@ -21,7 +21,7 @@
 <!--    organisation name -->
 <!--    organisation email -->
 <!--    Create straight into entity -->
-    <form th:action="@{/systemAdmin/organisation}" th:method="post" th:object="${Organisations}" class="form">
+    <form th:action="@{/systemAdmin/organisation}" th:method="post" th:object="${organisation}" class="form">
         <div class="form-group">
             <label for="organisationNameInput">Organisation Name</label>
             <input type="text" th:field="*{name}" class="form-control" id="organisationNameInput"  placeholder="organisationName">

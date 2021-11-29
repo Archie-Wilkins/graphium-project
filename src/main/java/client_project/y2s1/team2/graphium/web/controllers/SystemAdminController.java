@@ -1,7 +1,9 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.SubmissionError;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class SystemAdminController {
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
 
+    @Autowired
+    private OrganisationsRepositoryJPA orgRepo;
+
     @GetMapping({"/systemAdmin", "systemAdmin"})
     public String systemAdminHome(Model model, Principal principal) {
 
@@ -39,21 +44,16 @@ public class SystemAdminController {
 
     @GetMapping({"/systemAdmin/organisation"})
     public String systemAdminOrganisation(
-            Model model,
-            Principal principal){
+            Model model){
+        Organisations organisation = new Organisations();
+        model.addAttribute("organisation",organisation);
         return "systemAdminNewOrganisation.html";
     }
 
     @PostMapping({"/systemAdmin/organisation"})
-    public String systemAdminOrganisation(
-    @RequestParam("organisationNameInput") String receivedName,
-    @RequestParam("emailInput") String recievedEmail,
-    Model model,
-    Principal principal){
+    public String systemAdminOrganisation(Organisations organisation, Model model){
+        orgRepo.save(organisation);
 
-        try{
-
-        }
         return "systemAdminNewOrganisation.html";
 
     }
