@@ -15,16 +15,17 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+
+    @Column(name = "file_type")
     private String fileType;
-    private String visibility;
     @Lob
     private byte[] fileData;
 
     @ManyToOne
-    @JoinColumn(name="fk_username")
+    @JoinColumn(name="fk_creator")
     private Users user;
 
-    public Documents(String aTitle, Users aUser, String aFileType, String aVisibility, byte[] someFileData) {
-        this(null, aTitle, aFileType, aVisibility, someFileData, aUser);
+    public Documents(String aTitle, Users aUser, String aFileType, byte[] someFileData) {
+        this(null, aTitle, aFileType, someFileData, aUser);
     }
 }
