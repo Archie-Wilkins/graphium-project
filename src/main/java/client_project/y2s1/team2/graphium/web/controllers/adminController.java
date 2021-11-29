@@ -25,14 +25,11 @@ public class adminController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String name = auth.getName();
-        //if (auth.getAuthorities().get(0) == "orgAdmin" || auth.getAuthorities() == "systemAdmin"){
             String userName = principal.getName();
             List<Documents> AllDocuments = docsRepo.findAll();
             model.addAttribute("userName",userName);
             model.addAttribute("allDocuments",AllDocuments);
             return "admin.html";
-//        }else{
-//            return "index.html";
-//        }
+
     }
 }
