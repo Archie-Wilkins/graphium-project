@@ -52,8 +52,15 @@ public class SystemAdminController {
 
     @PostMapping({"/systemAdmin/organisation"})
     public String systemAdminOrganisation(Organisations organisation, Model model){
-        orgRepo.save(organisation);
+        String userFeedback = "";
+        try{
+            orgRepo.save(organisation);
+            userFeedback = organisation.getName() + "saved.";
+        }catch(Exception e){
+            userFeedback = "Oh no something went wrong. Please try again.";
+        }
 
+        model.addAttribute("userFeedback",userFeedback);
         return "systemAdminNewOrganisation.html";
 
     }

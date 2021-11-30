@@ -16,11 +16,9 @@
 
 <div class="container">
 
+    <div class="alert" th:text="${userFeedback?}">Look theirs feedback</div>
     <h1>Create New Organisation</h1>
-<!--    id auto generated -->
-<!--    organisation name -->
-<!--    organisation email -->
-<!--    Create straight into entity -->
+
     <form th:action="@{/systemAdmin/organisation}" th:method="post" th:object="${organisation}" class="form">
         <div class="form-group">
             <label for="organisationNameInput">Organisation Name</label>
