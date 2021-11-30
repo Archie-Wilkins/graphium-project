@@ -9,7 +9,23 @@
 </head>
 <body>
     <div th:replace="fragments/header :: header"/>
-        <h1>Test</h1>
+    <div class="container">
+        <h2>Documents</h2>
+        <div th:each="document: ${allDocuments}">
+            <div class="card mt-2">
+                <div class ="card-body">
+                    <h2 class="card-title" th:text="${document.title}"></h2>
+                    <div class="d-flex justify-content-around">
+                        <div class="d-flex align-items-center justify-content-around">
+                            <a href="#" class="btn btn-danger ">Delete</a>
+                            <a href="#" class="btn btn-danger ">Delete</a>
+                            <a href="#" class="btn btn-danger ">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
