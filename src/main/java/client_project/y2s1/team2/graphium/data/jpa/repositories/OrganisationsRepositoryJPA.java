@@ -9,5 +9,5 @@ public interface OrganisationsRepositoryJPA extends JpaRepository<Organisations,
 
     List<Organisations> findAll();
     Organisations save(Organisations organisation);
-
+    boolean existsByName(String name);
 }

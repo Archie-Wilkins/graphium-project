@@ -31,9 +31,6 @@ public class SystemAdminController {
     @GetMapping({"/systemAdmin", "systemAdmin"})
     public String systemAdminHome(Model model, Principal principal) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        String name = auth.getName();
             String userName = principal.getName();
             List<Documents> AllDocuments = docsRepo.findAll();
             model.addAttribute("userName",userName);
@@ -47,22 +44,38 @@ public class SystemAdminController {
             Model model){
         Organisations organisation = new Organisations();
         model.addAttribute("organisation",organisation);
+        model.addAttribute("userFeedback","");
         return "systemAdminNewOrganisation.html";
     }
 
     @PostMapping({"/systemAdmin/organisation"})
     public String systemAdminOrganisation(Organisations organisation, Model model){
+
+//        Need to push into interface
+        Organisations newOrganisation = new Organisations();
+
         String userFeedback = "";
-        try{
-            orgRepo.save(organisation);
-            userFeedback = organisation.getName() + "saved.";
-        }catch(Exception e){
-            userFeedback = "Oh no something went wrong. Please try again.";
+
+        if(orgRepo.existsByName(organisation.getName()) != true) {
+
+            try {
+                orgRepo.save(organisation);
+                userFeedback = organisation.getName() + " has been saved.";
+                model.addAttribute("organisation", newOrganisation);
+
+            } catch (Exception e) {
+                model.addAttribute("organisation", organisation);
+
+                userFeedback = "Oh no something went wrong. Please try again.";
+            }
+        } else{
+            userFeedback = organisation.getName() + " already exists";
+            model.addAttribute("organisation", organisation);
+
         }
 
         model.addAttribute("userFeedback",userFeedback);
         return "systemAdminNewOrganisation.html";
-
     }
 
 
