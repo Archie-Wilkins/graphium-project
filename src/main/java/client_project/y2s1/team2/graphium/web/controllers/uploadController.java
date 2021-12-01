@@ -27,7 +27,6 @@ public class uploadController {
     public String uploadDocument(
             @RequestParam("documentTitle") String receivedTitle,
             @RequestParam("documentData") MultipartFile receivedDocumentData,
-            @RequestParam("documentVisibility") String receivedDocumentVisibility,
             Principal principal,
             Model model
     ) {
@@ -37,8 +36,7 @@ public class uploadController {
                     receivedTitle,
                     principal.getName(),
                     receivedDocumentData.getOriginalFilename().split("[.]")[1],
-                    receivedDocumentData,
-                    receivedDocumentVisibility
+                    receivedDocumentData
             );
             // Checking if the storing went through, appending returned error if not
             if (storeResult.errored() == true) {
