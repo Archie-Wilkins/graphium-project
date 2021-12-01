@@ -15,8 +15,27 @@ import java.util.List;
 public class Users {
     @Id
     private String username;
+
     private String password;
+
     private Boolean enabled;
+
+    private Integer fk_organisation_id;
+
+    private String first_name;
+
+    private String last_name;
+
+    private String email;
+
+    private String authority_set_date;
+
+//   Need to set foreign key to organisations
+
     @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "fk_organisation_id",insertable = false,updatable = false)
+    private Organisations organisation;
 }
