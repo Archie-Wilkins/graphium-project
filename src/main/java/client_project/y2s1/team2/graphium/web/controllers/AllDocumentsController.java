@@ -15,7 +15,7 @@ public class AllDocumentsController {
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
 
-    @GetMapping ({"/download", "download"})
+    @GetMapping ({"/documents", "documents"})
     public String index(Model model){
         List<Documents> AllDocs = docsRepo.findAll();
         model.addAttribute("allDocs", AllDocs);
