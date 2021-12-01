@@ -3,6 +3,7 @@
      <head>
          <meta charset="UTF-8">
          <title>header</title>
+         <div th:replace="fragments/standardHead :: standardCSS"></div>
      </head>
      <body>
      <nav th:fragment="header">
@@ -18,11 +19,11 @@
                          <li class="nav-item">
                              <a class="nav-link" href="/upload">Upload</a>
                          </li>
+<!--                         <li class="nav-item">-->
+<!--                             <a class="nav-link" href="#">Search</a>-->
+<!--                         </li>-->
                          <li class="nav-item">
-                             <a class="nav-link" href="#">Search</a>
-                         </li>
-                         <li class="nav-item">
-                             <button class="btn color-primary" type="button" href="/Log-out">Log Out</button>
+                             <a href="/logout" class="btn color-primary" type="button">Log Out</a>
                          </li>
                      </ul>
                  </div>
