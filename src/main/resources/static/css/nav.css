@@ -1,9 +1,6 @@
-body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-}
+/*
+    For the navigation bar at the top of every page
+*/
 
 /* This is the main nav bar area */
 .navbar {

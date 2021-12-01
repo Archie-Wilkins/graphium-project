@@ -1,13 +1,13 @@
 -- ------------------------------------
 -- Database 'graphium'
 -- ------------------------------------
+drop table if exists `users` CASCADE;
+drop table if exists `authorities` CASCADE;
+drop table if exists `documents` CASCADE;
+
 drop schema if exists `graphium`;
 create schema `graphium`;
 use `graphium`;
-
-drop table if exists `users`;
-drop table if exists `authorities`;
-drop table if exists `documents`;
 
 -- Code based on from https://www.baeldung.com/spring-security-jdbc-authentication tutorial
 

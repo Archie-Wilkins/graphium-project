@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts={"/schema-h2.sql", "/data-h2.sql"})
+@Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
 public class DocumentsDatabaseStoringTests {
     @Autowired
