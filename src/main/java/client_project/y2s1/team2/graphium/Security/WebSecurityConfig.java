@@ -39,8 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .loginPage("/login")
                         .permitAll()
                 ).logout(logout ->
-                        logout.permitAll());
+                        logout.permitAll())
+                .headers().frameOptions().disable();
     }
+
+
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
