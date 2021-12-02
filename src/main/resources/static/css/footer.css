@@ -1,4 +1,16 @@
-.page-footer{
+/*
+    For the information footer at the bottom of every page
+*/
+
+body {
+    display: table;
+}
+body > footer {
+    display: table-row;
+    height: 0;
+}
+
+.page-footer {
     background: #1E4C63;
 }
 

@@ -3,6 +3,7 @@
      <head>
          <meta charset="UTF-8">
          <title>header</title>
+         <div th:replace="fragments/standardHead :: standardCSS"></div>
      </head>
      <body>
      <nav th:fragment="header">
@@ -16,16 +17,13 @@
                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                          <li class="nav-item">
-                             <a class="nav-link" href="#">Upload</a>
+                             <a class="nav-link" href="/upload">Upload</a>
                          </li>
+<!--                         <li class="nav-item">-->
+<!--                             <a class="nav-link" href="#">Search</a>-->
+<!--                         </li>-->
                          <li class="nav-item">
-                             <a class="nav-link" href="/My_Uploads">My Uploads</a>
-                         </li>
-                         <li class="nav-item">
-                             <a class="nav-link" href="#">Search</a>
-                         </li>
-                         <li class="nav-item">
-                             <button class="btn color-primary" type="button" href="/Log-out">Log Out</button>
+                             <a href="/logout" class="btn color-primary" type="button">Log Out</a>
                          </li>
                      </ul>
                  </div>
