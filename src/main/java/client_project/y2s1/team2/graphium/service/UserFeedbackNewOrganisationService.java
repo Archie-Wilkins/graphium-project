@@ -29,7 +29,7 @@ public class UserFeedbackNewOrganisationService {
             }
 
        } else{
-            userFeedback = givenOrganisation.getName() + " already exists";
+            userFeedback = givenOrganisation.getName() + " already exists.";
             organisationDTO = givenOrganisation;
         }
 
