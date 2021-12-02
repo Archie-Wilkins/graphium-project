@@ -11,4 +11,3 @@ public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
     List<Documents> findAll();
     Optional<Documents> findByTitleAndUser(String title, Users user);
     Documents save(Documents document);
-}
