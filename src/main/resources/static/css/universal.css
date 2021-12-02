@@ -14,3 +14,8 @@ body{
 .color-bg-accent{
     background: #1E4C63;
 }
+
+.page_content{
+    background: #F5F8FA;
+    padding: 10%;
+}
