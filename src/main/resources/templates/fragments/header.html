@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
      <head>
          <meta charset="UTF-8">
          <title>header</title>
@@ -15,6 +16,10 @@
                  </div>
                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('admin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="#">admin</a>
+                         </li>
                          <li class="nav-item">
                              <a class="nav-link" href="#">Upload</a>
                          </li>
