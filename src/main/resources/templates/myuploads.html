@@ -12,11 +12,11 @@
 <div class="container">
     <h2>My Uploads:</h2><br>
     <div class="container">
-        <form action="/uploadsearch" th:method="get">
+        <form th:action="@{/myuploads}" th:method="get">
             <div clas="form-group">
-                <label class="form-label" for="search">Search documents:</label>
-                <input aria-describedby="Search for documents" class="form-control" id="search"
-                       name="search" placeholder="Search for documents" type="text" value=""/>
+                <label class="form-label" for="txtSearch">Search documents:</label>
+                <input aria-describedby="Search for documents" class="form-control" id="txtSearch"
+                       name="keyword" placeholder="Search for documents" type="text" value=""/>
             </div>
             <button class="btn btn-primary">Submit</button>
         </form>
