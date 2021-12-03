@@ -10,4 +10,5 @@ public interface UsersRepositoryJPA extends JpaRepository<Users, Long> {
     List<Users> findAll();
     Optional<Users> findByUsername(String username);
     Users save(Users user);
+
 }

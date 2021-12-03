@@ -9,5 +9,10 @@ import java.util.Optional;
 
 public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
     List<Documents> findAll();
+
     Optional<Documents> findByTitleAndUser(String title, Users user);
+
     Documents save(Documents document);
+
+    List<Documents> findAllByUser_Organisation_Name(String orgName);
+}

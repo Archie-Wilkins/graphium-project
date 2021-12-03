@@ -1,4 +1,4 @@
-package client_project.y2s1.team2.graphium.web.controllers.FormObjects;
+package client_project.y2s1.team2.graphium.domain;
 
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import lombok.AllArgsConstructor;

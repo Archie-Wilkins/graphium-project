@@ -6,7 +6,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRep
 import client_project.y2s1.team2.graphium.service.UserFeedbackNewOrganisationService;
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
-import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationFeedbackDTO;
+import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

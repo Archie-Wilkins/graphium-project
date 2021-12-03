@@ -4,13 +4,12 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.service.UserFeedbackNewOrganisationService;
-import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationFeedbackDTO;
+import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 

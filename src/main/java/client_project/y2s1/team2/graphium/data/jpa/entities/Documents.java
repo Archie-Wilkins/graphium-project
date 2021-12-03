@@ -1,5 +1,6 @@
 package client_project.y2s1.team2.graphium.data.jpa.entities;
 
+import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,13 @@ public class Documents {
 
     public Documents(String aTitle, Users aUser, String aFileType, byte[] someFileData) {
         this(null, aTitle, aFileType, someFileData, aUser);
+    }
+
+    public DocumentDTO toDTO(){
+        DocumentDTO documentDTO = new DocumentDTO(
+                this.id, this.title, this.fileType, this.fileData,
+                this.user);
+        return documentDTO;
     }
 
 

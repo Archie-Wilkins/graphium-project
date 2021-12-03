@@ -26,7 +26,7 @@ INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`fir
 VALUES ('testUser','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('testUser2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
 VALUES ('testOrgAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
@@ -57,3 +57,13 @@ VALUES (null, 'testUser', 'A Fun PDF', 'pdf', null);
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
 VALUES (null, 'testUser', 'Word Test', 'docx', null);
 
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 1', 'pdf', null);
+
+
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 2', 'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 3', 'pdf', null);
