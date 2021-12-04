@@ -15,6 +15,7 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String date;
 
     @Column(name = "file_type")
     private String fileType;
@@ -25,7 +26,7 @@ public class Documents {
     @JoinColumn(name="fk_creator")
     private Users user;
 
-    public Documents(String aTitle, Users aUser, String aFileType, byte[] someFileData) {
-        this(null, aTitle, aFileType, someFileData, aUser);
+    public Documents(String aTitle, String aDate, Users aUser, String aFileType, byte[] someFileData) {
+        this(null, aTitle, aDate, aFileType, someFileData, aUser);
     }
 }

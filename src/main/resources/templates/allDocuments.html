@@ -22,9 +22,14 @@
                 <div class="card-body">
                     <h2 class="card-title" th:text="${document.title}"></h2>
                     <div class="d-flex justify-content-around">
+                        <div>
+                            <p th:text="${document.date}"></p>
+                        </div>
+                        <div class="d-flex justify-content-around">
                         <div class="d-flex align-items-center justify-content-around">
                             <a th:href="'/downloadPDF/'+${document.id}" class="btn btn-secondary">Download</a>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

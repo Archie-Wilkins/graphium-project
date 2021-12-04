@@ -36,8 +36,11 @@ public class StoreFileDatabaseService {
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
             return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
+        String date = String.valueOf(java.time.LocalDate.now());
+
         Documents newDoc = new Documents(
                 docTitle,
+                date,
                 currentUser.get(),
                 fileType,
                 file.getBytes()
