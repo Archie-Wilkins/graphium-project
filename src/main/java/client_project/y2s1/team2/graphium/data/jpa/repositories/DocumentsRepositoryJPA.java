@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
     List<Documents> findAll();
     Optional<Documents> findByTitleAndUser(String title, Users user);
+//    Optional<Documents> findByUser(String user);
     Documents save(Documents document);
 
     @Query(value="select * from Documents d where d.title like %:keyword%", nativeQuery = true)
