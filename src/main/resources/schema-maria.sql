@@ -3,9 +3,10 @@
 -- ------------------------------------
 
 drop table if exists `authorities`;
-drop table if exists `documents`;
 drop table if exists `users`;
 drop table if exists `organisations`;
+drop table if exists `access_audit_actions`;
+drop table if exists `access_audit_reports`;
 
 drop schema if exists `graphium`;
 create schema `graphium`;
@@ -67,10 +68,29 @@ CREATE TABLE IF NOT EXISTS `authorities` (
     CONSTRAINT `fk_authorities_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
 );
 
+-- ------------------------------------
+-- Table 'access'
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS `access_audit_actions` (
+    `pk_action_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `action_description` VARCHAR(200) NOT NULL
+);
 
 
+-- ------------------------------------
+-- Table 'access_audit_reports'
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS `access_audit_reports` (
+	`pk_report_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    `fk_username` VARCHAR(50) NOT NULL,
+    `fk_document_id` INT,
+    `fk_action_id` INT NOT NULL, 
+    `action_date` DATETIME NOT NULL,
 
-
+     CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
+     CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+     CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`pk_action_id`)
+);
 
 
 -- ------------------------------------
