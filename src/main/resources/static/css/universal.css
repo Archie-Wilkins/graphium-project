@@ -18,4 +18,20 @@ body{
 .page_content{
     background: #F5F8FA;
     padding: 10%;
+<<<<<<< HEAD
 }
+
+#search {
+    margin-left: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.documents {
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}
+=======
+}
+>>>>>>> master

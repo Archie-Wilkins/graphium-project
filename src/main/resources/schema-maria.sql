@@ -2,10 +2,17 @@
 -- Database 'graphium'
 -- ------------------------------------
 
-drop table if exists `authorities`;
-drop table if exists `documents`;
-drop table if exists `users`;
+create schema if not exists `graphium`;
+use `graphium`;
+
+SET FOREIGN_KEY_CHECKS = 0;
 drop table if exists `organisations`;
+drop table if exists `authorities`;
+drop table if exists `users`;
+drop table if exists `access_audit_reports`;
+drop table if exists `access_audit_actions`;
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 drop schema if exists `graphium`;
 create schema `graphium`;
@@ -49,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `id` INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fk_creator` VARCHAR(50) NOT NULL,
     `title` VARCHAR(100) NOT NULL,
+    `date` VARCHAR(20) NOT NULL,
     `file_type` VARCHAR(20) NOT NULL,
     -- need to make Not NUll just for testing
     `file_data` LONGBLOB,
@@ -67,10 +75,29 @@ CREATE TABLE IF NOT EXISTS `authorities` (
     CONSTRAINT `fk_authorities_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
 );
 
+-- ------------------------------------
+-- Table 'access'
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS `access_audit_actions` (
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `action_description` VARCHAR(200) NOT NULL
+);
 
 
+-- ------------------------------------
+-- Table 'access_audit_reports'
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS `access_audit_reports` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    `fk_username` VARCHAR(50) NOT NULL,
+    `fk_document_id` INT,
+    `fk_action_id` INT NOT NULL, 
+    `action_date` DATETIME NOT NULL,
 
-
+     CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
+     CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+     CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`id`)
+);
 
 
 -- ------------------------------------

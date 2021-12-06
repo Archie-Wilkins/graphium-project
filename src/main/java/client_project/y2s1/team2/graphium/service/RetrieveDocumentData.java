@@ -5,6 +5,8 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,4 +20,5 @@ public class RetrieveDocumentData {
     public Optional<Documents> getDocumentByID(Long docID) {
         return docRepository.findById(docID);
     }
+
 }
