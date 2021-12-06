@@ -16,6 +16,9 @@ public class DocumentDTO {
     private String title;
 
     @Getter
+    private String date;
+
+    @Getter
     private String fileType;
 
     @Getter
@@ -26,7 +29,7 @@ public class DocumentDTO {
 
     public Documents toEntity(){
         Documents documentEntity = new Documents(
-                this.id, this.title, this.fileType, this.fileData,
+                this.id, this.title, this.date, this.fileType, this.fileData,
                 this.user);
         return documentEntity;
     }

@@ -17,6 +17,8 @@ public class Documents {
     private Long id;
     private String title;
 
+    private String date;
+
     @Column(name = "file_type")
     private String fileType;
     @Lob
@@ -26,13 +28,13 @@ public class Documents {
     @JoinColumn(name="fk_creator")
     private Users user;
 
-    public Documents(String aTitle, Users aUser, String aFileType, byte[] someFileData) {
-        this(null, aTitle, aFileType, someFileData, aUser);
+    public Documents(String aTitle, String aDate, Users aUser, String aFileType, byte[] someFileData) {
+        this(null, aTitle, aDate, aFileType, someFileData, aUser);
     }
 
     public DocumentDTO toDTO(){
         DocumentDTO documentDTO = new DocumentDTO(
-                this.id, this.title, this.fileType, this.fileData,
+                this.id, this.title, this.date,  this.fileType, this.fileData,
                 this.user);
         return documentDTO;
     }

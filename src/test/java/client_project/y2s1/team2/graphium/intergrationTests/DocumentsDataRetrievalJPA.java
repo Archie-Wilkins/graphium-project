@@ -56,7 +56,7 @@ public class DocumentsDataRetrievalJPA {
     public void canRetrieveAll6TestDocuments() throws Exception{
         List<Documents> retrievedDocuments = docRepository.findAll();
         int DocumentsListLength = retrievedDocuments.size();
-        assertEquals(6, DocumentsListLength);
+        assertEquals(7, DocumentsListLength);
     }
 
 

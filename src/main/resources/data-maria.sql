@@ -52,23 +52,23 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin'
 -- Documents
 -- ---------------------------
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'An Excellent File', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser', 'An Excellent File', '2021-10-13' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'A Fun PDF', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser', 'A Fun PDF', '2021-12-14' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'Word Test', 'docx', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser', 'Word Test', '2021-11-08' ,'docx', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 1', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 1', '2021-07-26' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 2', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 2', '2021-04-06' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 3', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Different Org 3', '2020-12-31' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Swansea Uni PDF', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser2', 'Swansea Uni PDF', '2021-12-03' ,'pdf', null);
