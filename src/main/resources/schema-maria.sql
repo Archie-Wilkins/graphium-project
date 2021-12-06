@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `id` INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fk_creator` VARCHAR(50) NOT NULL,
     `title` VARCHAR(100) NOT NULL,
+    `date` VARCHAR(20) NOT NULL,
     `file_type` VARCHAR(20) NOT NULL,
     -- need to make Not NUll just for testing
     `file_data` LONGBLOB,
