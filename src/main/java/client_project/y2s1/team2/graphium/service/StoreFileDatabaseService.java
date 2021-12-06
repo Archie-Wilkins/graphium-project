@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.Document;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -36,8 +38,14 @@ public class StoreFileDatabaseService {
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
             return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
+
+        DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = String.valueOf(dateTime.format(now));
+
         Documents newDoc = new Documents(
                 docTitle,
+                date,
                 currentUser.get(),
                 fileType,
                 file.getBytes()
