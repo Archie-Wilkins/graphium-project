@@ -1,7 +1,9 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,7 @@ public class adminController {
 
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
+    private OrganisationsRepositoryJPA orgRepo;
 
     @GetMapping({"/admin", "admin"})
     public String index(Model model, Principal principal) {
@@ -31,5 +34,14 @@ public class adminController {
             model.addAttribute("allDocuments",AllDocuments);
             return "admin.html";
 
+    }
+
+    @GetMapping({"/adminreg", "adminreg"})
+    public String register(Model model, Principal principal){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        String name = auth.getName();
+            return "adminRegister.html";
     }
 }
