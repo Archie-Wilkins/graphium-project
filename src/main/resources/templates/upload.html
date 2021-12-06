@@ -9,7 +9,7 @@
 <body>
     <div th:replace="fragments/header :: header"/>
 
-    <div align="center">
+    <div class="center">
         <h1>Select a file to upload:</h1>
     </div>
     <form class="form-signin" th:action="@{/uploadDocument}" th:method="post" enctype="multipart/form-data">
