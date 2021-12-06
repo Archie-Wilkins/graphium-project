@@ -28,4 +28,8 @@ public class Documents {
     public Documents(String aTitle, Users aUser, String aFileType, byte[] someFileData) {
         this(null, aTitle, aFileType, someFileData, aUser);
     }
+
+    public boolean isOwner(Users possibleUser) {
+        return this.user.getUsername() == possibleUser.getUsername();
+    }
 }

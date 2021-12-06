@@ -4,9 +4,11 @@
 use `graphium`;
 
 SET FOREIGN_KEY_CHECKS = 0;
-truncate table `users`;
-truncate table `authorities`;
+truncate table `document_access_rights`;
 truncate table `documents`;
+truncate table `authorities`;
+truncate table `users`;
+truncate table `organisations`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- -----------------------------------

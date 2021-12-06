@@ -65,6 +65,12 @@ public class DocumentsAccessRightsServiceTests {
         assertEquals(beforeCount+1, accessRightService.getSharedUsers(document).size());
     }
 
+    @Test
+    public void canCheckUserCanShareDocument() throws Exception {
+        assertEquals(true, accessRightService.canUserShareDocument(1l, "testUser"));
+        assertEquals(false, accessRightService.canUserShareDocument(1l, "testUser2"));
+    }
+
     // Issues with JPA delete function
 //    @Test
 //    public void canRemoveSharedUser() throws Exception {

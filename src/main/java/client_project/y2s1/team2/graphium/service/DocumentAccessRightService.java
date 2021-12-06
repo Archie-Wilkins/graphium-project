@@ -5,7 +5,10 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentAccessRightsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.ReturnError;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,9 +18,30 @@ import java.util.Optional;
 @Service
 public class DocumentAccessRightService {
     private DocumentAccessRightsRepositoryJPA accessRightsRepository;
+    private UsersRepositoryJPA userRepository;
+    private DocumentsRepositoryJPA docRepository;
 
-    public DocumentAccessRightService(DocumentAccessRightsRepositoryJPA aAccessRightRepo) {
+    public DocumentAccessRightService(DocumentAccessRightsRepositoryJPA aAccessRightRepo, UsersRepositoryJPA aUserRepo, DocumentsRepositoryJPA aDocRepo) {
         accessRightsRepository = aAccessRightRepo;
+        userRepository = aUserRepo;
+        docRepository = aDocRepo;
+    }
+
+    public Boolean canUserShareDocument(long documentID, String username) {
+        Optional<Users> owner = userRepository.findByUsername(username);
+        if (owner.isPresent()) {
+            Optional<Documents> document = docRepository.findById(documentID);
+            if (document.isPresent()) {
+                if (document.get().isOwner(owner.get())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Optional<Documents> getDocument(long documentID) {
+        return docRepository.findById(documentID);
     }
 
     public List<Organisations> getSharedOrganisations(Documents document) {

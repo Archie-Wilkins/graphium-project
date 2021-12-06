@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Document Uploaded</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <h1>Share Document</h1>
+    <h1 th:text="${documentTitle}"></h1>
+
+    <form th:action="@{/newOrgAccessRight}" th:mentod="post">
+        <div class="form-group">
+            <label for="newOrganisation">Share to an Organisation</label>
+            <select name="newOrganisation" id="newOrganisation">
+                <option value="org1">Cardiff University</option>
+                <option value="org1">Swansea University</option>
+            </select>
+        </div>
+        <button class="btn btn-success">Submit</button>
+    </form>
+    <form th:action="@{/newUserAccessRight}" th:mentod="post">
+        <div class="form-group">
+            <label for="newUser">Share to an Organisation</label>
+            <select name="newUser" id="newUser">
+                <option value="user1">Will</option>
+                <option value="user2">John</option>
+            </select>
+        </div>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+    <div>
+        <h2>Current Shared Organisations</h2>
+        <ul>
+            <li th:each="organisation: ${currentSharedOrganisations}">
+                <span th:text="${organisation.getName()}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
