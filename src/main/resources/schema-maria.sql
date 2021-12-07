@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
     `fk_username` VARCHAR(50) NOT NULL,
     `fk_document_id` INT,
     `fk_action_id` INT NOT NULL, 
-    `action_date` DATETIME NOT NULL,
+    `action_date` VARCHAR(50) NOT NULL,
 
      CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
      CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
