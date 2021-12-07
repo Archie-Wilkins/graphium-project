@@ -3,6 +3,7 @@ package client_project.y2s1.team2.graphium.web.controllers;
 import client_project.y2s1.team2.graphium.data.jpa.entities.DocumentAccessRights;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.service.DocumentAccessRightService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,17 @@ public class AccessRightsController {
         if (accessRightService.canUserShareDocument(documentID, principal.getName()) == false) { return "forbidden-error.html"; }
         Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
         if (sharingDocument.isEmpty()) { return "error.html"; }
-        List<Organisations> organisations = accessRightService.getSharedOrganisations(sharingDocument.get());
-        model.addAttribute("currentSharedOrganisations", organisations);
+
+        List<Organisations> shareableOrganisations = accessRightService.getShareableOrganisations(sharingDocument.get());
+        List<Organisations> sharedOrganisations = accessRightService.getSharedOrganisations(sharingDocument.get());
+        List<Users> shareableUsers = accessRightService.getShareableUsers(sharingDocument.get());
+        List<Users> sharedUsers = accessRightService.getSharedUsers(sharingDocument.get());
+
+        model.addAttribute("documentTitle", sharingDocument.get().getTitle());
+        model.addAttribute("shareableOrganisations", shareableOrganisations);
+        model.addAttribute("shareableUsers", shareableUsers);
+        model.addAttribute("currentSharedOrganisations", sharedOrganisations);
+        model.addAttribute("currentSharedUsers", sharedUsers);
         return "accessRights.html";
     }
 

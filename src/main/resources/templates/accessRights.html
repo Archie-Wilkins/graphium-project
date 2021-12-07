@@ -8,38 +8,55 @@
 <body>
     <div th:replace="fragments/header :: header"/>
 
-    <h1>Share Document</h1>
-    <h1 th:text="${documentTitle}"></h1>
-
-    <form th:action="@{/newOrgAccessRight}" th:mentod="post">
-        <div class="form-group">
-            <label for="newOrganisation">Share to an Organisation</label>
-            <select name="newOrganisation" id="newOrganisation">
-                <option value="org1">Cardiff University</option>
-                <option value="org1">Swansea University</option>
-            </select>
+    <div class="container">
+        <div class="row">
+            <h1>Share Document</h1>
+            <h1 th:text="${documentTitle}"></h1>
         </div>
-        <button class="btn btn-success">Submit</button>
-    </form>
-    <form th:action="@{/newUserAccessRight}" th:mentod="post">
-        <div class="form-group">
-            <label for="newUser">Share to an Organisation</label>
-            <select name="newUser" id="newUser">
-                <option value="user1">Will</option>
-                <option value="user2">John</option>
-            </select>
+        <div class="row">
+            <div class="col">
+                <h3>Share to organisation</h3>
+                <form th:action="@{/newOrgAccessRight}" th:mentod="post">
+                    <div class="form-group">
+                        <label for="newOrganisation">Select Organisation</label>
+                        <select name="newOrganisation" id="newOrganisation">
+                            <option th:each="organisation: ${shareableOrganisations}" th:value="${organisation.getId}" th:text="${organisation.getName()}"></option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h3>Shared organisations</h3>
+                <ul>
+                    <li th:each="organisation: ${currentSharedOrganisations}">
+                        <span th:text="${organisation.getName()}"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <button class="btn btn-success">Submit</button>
-    </form>
-
-    <div>
-        <h2>Current Shared Organisations</h2>
-        <ul>
-            <li th:each="organisation: ${currentSharedOrganisations}">
-                <span th:text="${organisation.getName()}"></span>
-            </li>
-        </ul>
+        <div class="row">
+            <div class="col">
+                <h3>Share to users</h3>
+                <form th:action="@{/newUserAccessRight}" th:mentod="post">
+                    <div class="form-group">
+                        <label for="newUser">Select a user</label>
+                        <select name="newUser" id="newUser">
+                            <option th:each="user: ${shareableUsers}" th:value="${user.getUsername}" th:text="${user.getUsername()}"></option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h3>Shared users</h3>
+                <ul>
+                    <li th:each="user: ${currentSharedUsers}">
+                        <span th:text="${user.getUsername()}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div th:replace="fragments/footer :: footer"/>

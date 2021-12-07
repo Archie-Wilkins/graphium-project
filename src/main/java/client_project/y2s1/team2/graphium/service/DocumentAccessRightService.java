@@ -6,6 +6,7 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentAccessRightsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.ReturnError;
 import org.apache.catalina.User;
@@ -20,11 +21,13 @@ public class DocumentAccessRightService {
     private DocumentAccessRightsRepositoryJPA accessRightsRepository;
     private UsersRepositoryJPA userRepository;
     private DocumentsRepositoryJPA docRepository;
+    private OrganisationsRepositoryJPA orgRepository;
 
-    public DocumentAccessRightService(DocumentAccessRightsRepositoryJPA aAccessRightRepo, UsersRepositoryJPA aUserRepo, DocumentsRepositoryJPA aDocRepo) {
+    public DocumentAccessRightService(DocumentAccessRightsRepositoryJPA aAccessRightRepo, UsersRepositoryJPA aUserRepo, DocumentsRepositoryJPA aDocRepo, OrganisationsRepositoryJPA aOrgRepo) {
         accessRightsRepository = aAccessRightRepo;
         userRepository = aUserRepo;
         docRepository = aDocRepo;
+        orgRepository = aOrgRepo;
     }
 
     public Boolean canUserShareDocument(long documentID, String username) {
@@ -66,6 +69,44 @@ public class DocumentAccessRightService {
             }
         }
         return users;
+    }
+
+    public List<Organisations> getShareableOrganisations(Documents document) {
+        List<DocumentAccessRights> accessRights = accessRightsRepository.findByDocument(document);
+        List<Organisations> shareableOrganisations = orgRepository.findAll();
+
+        // Loop through and remove any organisation that already has access
+        for (DocumentAccessRights accessRight : accessRights) {
+            if (accessRight.getOrganisation().isPresent()) {
+                for (Organisations organisation : shareableOrganisations) {
+                    if (accessRight.getOrganisation().get().equals(organisation)) {
+                        shareableOrganisations.remove(organisation);
+                        break;
+                    }
+                }
+            }
+        }
+        return shareableOrganisations;
+    }
+
+    public List<Users> getShareableUsers(Documents document) {
+        List<DocumentAccessRights> accessRights = accessRightsRepository.findByDocument(document);
+        List<Users> shareableUsers = userRepository.findAll();
+
+        // Remove the creator of the document
+        shareableUsers.remove(document.getUser());
+        // Loop through and remove any users that already has access
+        for (DocumentAccessRights accessRight : accessRights) {
+            if (accessRight.getUser().isPresent()) {
+                for (Users user : shareableUsers) {
+                    if (accessRight.getUser().get().equals(user)) {
+                        shareableUsers.remove(user);
+                        break;
+                    }
+                }
+            }
+        }
+        return shareableUsers;
     }
 
     public ReturnError addNewSharedOrganisation(Documents document, Organisations organisation) {

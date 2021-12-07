@@ -71,6 +71,24 @@ public class DocumentsAccessRightsServiceTests {
         assertEquals(false, accessRightService.canUserShareDocument(1l, "testUser2"));
     }
 
+    @Test
+    public void canGetShareableOrganisations() throws Exception {
+        Documents document = docRepository.getById(1L);
+        List<Organisations> shareableOrganisations = accessRightService.getShareableOrganisations(document);
+        System.out.println(shareableOrganisations);
+        assertEquals(1, shareableOrganisations.size());
+        assertEquals("Swansea University", shareableOrganisations.get(0).getName());
+    }
+
+//    @Test
+//    public void canGetShareableUsers() throws Exception {
+//        Documents document = docRepository.getById(2L);
+//        List<Users> shareableUsers = accessRightService.getShareableUsers(document);
+//        assertEquals(2, shareableUsers.size());
+//        assertEquals("testOrgAdmin", shareableUsers.get(0).getUsername());
+//        assertEquals("testSystemAdmin", shareableUsers.get(1).getUsername());
+//    }
+
     // Issues with JPA delete function
 //    @Test
 //    public void canRemoveSharedUser() throws Exception {
