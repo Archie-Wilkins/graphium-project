@@ -13,7 +13,7 @@
 
 <div th:replace="fragments/header :: header"/>
 
-<form th:align="center" class ="form-horizontal" action="#" method="post">
+<form th:align="center" class ="form-horizontal" th:action="@{/adminreg}" method="post">
     <fieldset>
         <div id="legend">
             <legend class="">Register Admin account</legend>
@@ -29,7 +29,7 @@
         <div class="control-group">
             <label class="control-label" for="password">Password</label>
             <div class="controls">
-                <input type="password" id="password" name="password" pattern=".{6,}" title="Six or more characters" placeholder="" class="input-xlarge" required>
+                <input type="password" id="password" name="password" pattern=".{6,20}" title="Should be between 6 and 20 characters" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
@@ -38,18 +38,18 @@
             <div class="controls">
                 <input type="text" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Email must include @" placeholder="" class="input-xlarge" required>
             </div>
-        </div>
+        </div><br>
 
-<!--        <div class="control-group">-->
-<!--            <label class="control-label" for="organisation">Organisation:</label>-->
-<!--            <div th:each="org: ${Orgs}">-->
-<!--            <select name="organisation" id="organisation">-->
-<!--                <option value="">&#45;&#45;Please choose an option&#45;&#45;</option>-->
-<!--                <option th:value="${org.name.getName()}"></option>-->
-<!--                <option th:value="${org.name.getName()}"></option>-->
-<!--            </select>-->
-<!--            </div>-->
-<!--        </div><br>-->
+        <div th:each="document: ${allDocuments}">
+        <div class="control-group">
+            <label class="control-label" for="organisation">Organisation:</label><br>
+            <select name="organisation" id="organisation" required>
+                <option th:value="">--Please choose an option--</option>
+                <option th:value="${document.user.organisation.getName()}"></option>
+                <option th:value="${document.user.organisation.getName()}"></option>
+            </select>
+        </div><br>
+        </div>
 
         <div class="control-group">
             <div class="controls">

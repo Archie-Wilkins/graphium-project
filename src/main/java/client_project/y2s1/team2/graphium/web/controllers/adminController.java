@@ -20,6 +20,7 @@ public class adminController {
 
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
+    @Autowired
     private OrganisationsRepositoryJPA orgRepo;
 
     @GetMapping({"/admin", "admin"})
@@ -42,6 +43,8 @@ public class adminController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String name = auth.getName();
+            List<Organisations> AllOrganisations = orgRepo.findAll();
+            model.addAttribute("allOrganisations", AllOrganisations);
             return "adminRegister.html";
     }
 }
