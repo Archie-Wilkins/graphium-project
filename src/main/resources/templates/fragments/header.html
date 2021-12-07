@@ -16,9 +16,9 @@
                  </div>
                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                         <li class="nav-item" sec:authorize="hasAnyAuthority('admin')" >
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
                              <!-- Only users with admin authority can view this link -->
-                             <a class="nav-link" href="#">admin</a>
+                             <a class="nav-link" href="/admin">admin</a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link" href="/documents">Documents</a>
