@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.Document;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public class StoreFileDatabaseService {
     private UsersRepositoryJPA userRepository;
     private String[] allowedFileExstensions = {"pdf", "docx"};
 
-    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file, String docVisibility) throws IOException {
+    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
             return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
@@ -36,11 +38,16 @@ public class StoreFileDatabaseService {
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
             return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
+
+        DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = String.valueOf(dateTime.format(now));
+
         Documents newDoc = new Documents(
                 docTitle,
+                date,
                 currentUser.get(),
                 fileType,
-                docVisibility,
                 file.getBytes()
         );
         docRepository.save(newDoc);

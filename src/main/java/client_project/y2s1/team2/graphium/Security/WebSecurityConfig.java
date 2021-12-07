@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorizeRequests ->
                         authorizeRequests
+                                .mvcMatchers("/admin/**").hasAnyAuthority("systemAdmin")
                                 .mvcMatchers("/css/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
                                 .anyRequest().authenticated()
@@ -49,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("select username, password, enabled from users where username = ?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username = ?");
+                .authoritiesByUsernameQuery("select fk_username, authority from authorities where fk_username = ?");
     }
 
 
