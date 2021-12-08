@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Something Went Wrong!</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container w-100">
+        <div class="row">
+            <div class="col-4 offset-4">
+                <img class="img-fluid mx-auto d-block" style="max-width:50%" src="/images/graphium_logo_error.png" alt="Error Logo">
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="text-center">Something Went Wrong</h1>
+            <h2 class="text-center text-secondary">Sorry for the inconvenience</h2>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
