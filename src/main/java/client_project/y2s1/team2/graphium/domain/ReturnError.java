@@ -3,7 +3,7 @@ package client_project.y2s1.team2.graphium.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class SubmissionError {
+public class ReturnError {
     @Getter
     private boolean errored;        // Did it not pass or succeed
     @Getter
@@ -14,19 +14,19 @@ public class SubmissionError {
     private boolean hasErrorMessage;
 
 
-    public SubmissionError(boolean didError, String aError, String aNiceError) {
+    public ReturnError(boolean didError, String aError, String aNiceError) {
         this.errored = didError;
         this.error = aError;
         this.niceError = aNiceError;
         this.hasErrorMessage = true;
     }
-    public SubmissionError(boolean didError, String aError) {
+    public ReturnError(boolean didError, String aError) {
         this.errored = didError;
         this.error = aError;
         this.niceError = aError;
         this.hasErrorMessage = true;
     }
-    public SubmissionError(boolean didError) {
+    public ReturnError(boolean didError) {
         this.errored = didError;
         this.error = null;
         this.niceError = null;

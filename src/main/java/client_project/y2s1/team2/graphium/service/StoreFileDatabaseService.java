@@ -24,34 +24,37 @@ public class StoreFileDatabaseService {
     private UsersRepositoryJPA userRepository;
     private String[] allowedFileExstensions = {"pdf", "docx"};
 
-    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
+    public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
+            return new ReturnError(true, "invalid_username", "Error finding user from given username.");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
-            return new SubmissionError(true, "duplicate_title_and_user", "You already have a document with that title.");
+            return new ReturnError(true, "duplicate_title_and_user", "You already have a document with that title.");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
-            return new SubmissionError(true, "file_type_invalid", "Document file is the wrong format.");
+            return new ReturnError(true, "file_type_invalid", "Document file is the wrong format.");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
-            return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
+            return new ReturnError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
+        try {
+            DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String date = String.valueOf(dateTime.format(now));
 
-        DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String date = String.valueOf(dateTime.format(now));
-
-        Documents newDoc = new Documents(
-                docTitle,
-                date,
-                currentUser.get(),
-                fileType,
-                file.getBytes()
-        );
-        docRepository.save(newDoc);
-        return new SubmissionError(false);
+            Documents newDoc = new Documents(
+                    docTitle,
+                    date,
+                    currentUser.get(),
+                    fileType,
+                    file.getBytes()
+            );
+            docRepository.save(newDoc);
+            return new ReturnError(false);
+        } catch(Exception e) {
+            return new ReturnError(true, "issue-saving", "Issue during submission, please try again.");
+        }
     }
 }
 
