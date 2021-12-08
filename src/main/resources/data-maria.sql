@@ -48,12 +48,12 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin'
 -- Documents
 -- ---------------------------
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'An Excellent File', 'pdf', null);
-
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'A Fun PDF', 'pdf', null);
-
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'Word Test', 'docx', null);
-
+INSERT INTO `documents` (`id`, `fk_creator`, `date`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser', '2021-12-04', 'An Excellent File', 'pdf', null);
+--
+INSERT INTO `documents` (`id`, `fk_creator`, `date`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser', '2021-12-04', 'A Fun PDF', 'pdf', null);
+--
+INSERT INTO `documents` (`id`, `fk_creator`, `date`, `title`, `file_type`, `file_data`)
+VALUES (null, 'testUser', '2021-12-04', 'Word Test', 'docx', null);
+--
