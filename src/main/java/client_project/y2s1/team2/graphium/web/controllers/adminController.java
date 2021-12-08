@@ -2,15 +2,19 @@ package client_project.y2s1.team2.graphium.web.controllers;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -22,6 +26,8 @@ public class adminController {
     private DocumentsRepositoryJPA docsRepo;
     @Autowired
     private OrganisationsRepositoryJPA orgRepo;
+    @Autowired
+    private UsersRepositoryJPA userRepo;
 
     @GetMapping({"/admin", "admin"})
     public String index(Model model, Principal principal) {
@@ -38,13 +44,22 @@ public class adminController {
     }
 
     @GetMapping({"/adminreg", "adminreg"})
-    public String register(Model model, Principal principal){
+    public String register(Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         String name = auth.getName();
-            List<Organisations> AllOrganisations = orgRepo.findAll();
-            model.addAttribute("allOrganisations", AllOrganisations);
+            model.addAttribute("user", new Users());
             return "adminRegister.html";
+    }
+
+    @PostMapping("/process_register")
+    public String processRegister(Users user){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        userRepo.save(user);
+        return "register_success";
     }
 }

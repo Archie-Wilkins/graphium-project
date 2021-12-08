@@ -13,7 +13,7 @@
 
 <div th:replace="fragments/header :: header"/>
 
-<form th:align="center" class ="form-horizontal" th:action="@{/adminreg}" method="post">
+<form th:align="center" class ="form-horizontal" th:action="@{/process_register}" th:object="${user}" method="post">
     <fieldset>
         <div id="legend">
             <legend class="">Register Admin account</legend>
@@ -22,33 +22,57 @@
         <div class="control-group">
             <label class="control-label" for="username">Username</label>
             <div class="controls">
-                <input type="text" id="username" name="username" placeholder="" class="input-xlarge" required>
+                <input type="text" id="username" th:field="*{username}" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
         <div class="control-group">
             <label class="control-label" for="password">Password</label>
             <div class="controls">
-                <input type="password" id="password" name="password" pattern=".{6,20}" title="Should be between 6 and 20 characters" placeholder="" class="input-xlarge" required>
+                <input type="password" id="password" th:field="*{password}" pattern=".{6,20}" title="Should be between 6 and 20 characters" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
         <div class="control-group">
             <label class="control-label" for="email">E-mail</label>
             <div class="controls">
-                <input type="text" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Email must include @" placeholder="" class="input-xlarge" required>
+                <input type="text" id="email" th:field="*{email}" title="Email must include '@'" placeholder="" class="input-xlarge" required>
             </div>
-        </div><br>
+        </div>
 
-        <div th:each="document: ${allDocuments}">
+        <div class="control-group">
+            <label class="control-label" for="orgId">Organisation ID</label>
+            <div class="controls">
+                <input type="text" id="orgId" th:field="*{fk_organisation_id}" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="firstName">First Name</label>
+            <div class="controls">
+                <input type="text" id="firstName" th:field="*{first_name}" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastName">Last Name</label>
+            <div class="controls">
+                <input type="text" id="lastName" th:field="*{last_name}" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
         <div class="control-group">
             <label class="control-label" for="organisation">Organisation:</label><br>
             <select name="organisation" id="organisation" required>
-                <option th:value="">--Please choose an option--</option>
-                <option th:value="${document.user.organisation.getName()}"></option>
-                <option th:value="${document.user.organisation.getName()}"></option>
+                <option value="">--Please choose an option--</option>
+                <option value="">Cardiff University</option>
+                <option value="">Swansea University</option>
             </select>
         </div><br>
+
+        <div class="form-control">
+            <label class="control-label" for="enabled">Enabled: </label><br>
+            <input type="checkbox" id="enabled" th:field="*{enabled}" required>
         </div>
 
         <div class="control-group">
