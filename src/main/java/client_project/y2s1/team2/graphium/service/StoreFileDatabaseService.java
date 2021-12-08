@@ -27,16 +27,16 @@ public class StoreFileDatabaseService {
     public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
+            return new SubmissionError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
             return new SubmissionError(true, "duplicate_title_and_user", "You already have a document with that title.");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
-            return new SubmissionError(true, "file_type_invalid", "Document file is the wrong format.");
+            return new SubmissionError(true, "file_type_invalid", "Document is in an unsupported format");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
-            return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
+            return new SubmissionError(true, "file_extension_invalid", "Document is in an unsupported format");
         }
 
         DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
