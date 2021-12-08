@@ -3,6 +3,7 @@ package client_project.y2s1.team2.graphium.data.jpa.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,10 +33,13 @@ public class Users {
 
 //   Need to set foreign key to organisations
 
-    @OneToMany(mappedBy="user")
+    @ToString.Exclude
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     private List<Documents> ownedDocuments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "fk_organisation_id",insertable = false,updatable = false)
     private Organisations organisation;
+
+
 }
