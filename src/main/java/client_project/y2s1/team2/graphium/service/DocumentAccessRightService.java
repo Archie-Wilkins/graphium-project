@@ -47,6 +47,8 @@ public class DocumentAccessRightService {
         return docRepository.findById(documentID);
     }
 
+    public Optional<Organisations> getOrganisation(long organisationID) { return orgRepository.findById(organisationID); }
+
     public List<Organisations> getSharedOrganisations(Documents document) {
         List<DocumentAccessRights> accessRights = accessRightsRepository.findByDocument(document);
         List<Organisations> organisations = new ArrayList<>();

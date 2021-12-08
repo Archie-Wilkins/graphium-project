@@ -11,19 +11,20 @@
     <div class="container">
         <div class="row">
             <h1>Share Document</h1>
-            <h1 th:text="${documentTitle}"></h1>
+            <h1 th:text="${document.getTitle()}"></h1>
         </div>
         <div class="row">
             <div class="col">
                 <h3>Share to organisation</h3>
-                <form th:action="@{/newOrgAccessRight}" th:mentod="post">
+                <form th:action="@{/shareNewOrganisation}" th:method="post">
                     <div class="form-group">
-                        <label for="newOrganisation">Select Organisation</label>
-                        <select name="newOrganisation" id="newOrganisation">
+                        <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
+                        <label for="newOrganisationID">Select Organisation</label>
+                        <select class="form-select" name="newOrganisationID" id="newOrganisationID">
                             <option th:each="organisation: ${shareableOrganisations}" th:value="${organisation.getId}" th:text="${organisation.getName()}"></option>
                         </select>
                     </div>
-                    <button class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </form>
             </div>
             <div class="col">
