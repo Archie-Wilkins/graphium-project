@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
-
 public class SimplePasswordStoringTest {
 
     @Test
