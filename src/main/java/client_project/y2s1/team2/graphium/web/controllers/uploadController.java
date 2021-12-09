@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -24,12 +25,12 @@ public class uploadController {
     }
 
     @PostMapping("/uploadDocument")
-    public String uploadDocument(
+    public ModelAndView uploadDocument(
             @RequestParam("documentTitle") String receivedTitle,
             @RequestParam("documentData") MultipartFile receivedDocumentData,
-            Principal principal,
-            Model model
+            Principal principal
     ) {
+        ModelAndView model = new ModelAndView();
         try {
             // Attempting to store the file, returning boolean and message if it has/has not
             ReturnError storeResult = StoreFile.storeFile(
@@ -40,16 +41,15 @@ public class uploadController {
             );
             // Checking if the storing went through, appending returned error if not
             if (storeResult.errored() == true) {
-                model.addAttribute("uploaded", false);
-                model.addAttribute("errorMessage", storeResult.getNiceError());
+                model.addObject("secondaryText", storeResult.getNiceError());
+                model.setViewName("error.html");
             } else {
-                model.addAttribute("uploaded", true);
+                model.setViewName("redirect:/documents");
             }
-            return "uploaded.html";
         } catch(Exception e) {
-            model.addAttribute("uploaded", false);
-            model.addAttribute("errorMessage", "Please retry upload.");
-            return "uploaded.html";
+            model.addObject("secondaryText", "Please retry upload");
+            model.setViewName("error.html");
         }
+        return model;
     }
 }
