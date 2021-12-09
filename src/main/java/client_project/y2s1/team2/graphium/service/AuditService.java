@@ -6,13 +6,25 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.Access_Audit_ReportsRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.List;
 
+@Service
 public class AuditService {
 
     @Autowired
     Access_Audit_ReportsRepositoryJPA auditRepo;
+
+    public List<Access_Audit_Reports> getAllAuditLogs(){
+        return auditRepo.findAll();
+    }
+
+    public List<Access_Audit_Reports> getAllAuditLogsByActionID(int actionID) {
+        return auditRepo.findAllByFk_action_id(actionID);
+    }
+
 
     //User logged in true or false
     public void userLoggedIn(String username, boolean Success){
