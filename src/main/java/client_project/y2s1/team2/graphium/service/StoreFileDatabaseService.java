@@ -4,12 +4,14 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
-import client_project.y2s1.team2.graphium.domain.ReturnError;
+import client_project.y2s1.team2.graphium.domain.SubmissionError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -36,8 +38,14 @@ public class StoreFileDatabaseService {
             return new ReturnError(true, "file_extension_invalid", "Document file is the wrong format.");
         }
         try {
+
+            DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String date = String.valueOf(dateTime.format(now));
+
             Documents newDoc = new Documents(
                     docTitle,
+                    date,
                     currentUser.get(),
                     fileType,
                     file.getBytes()
