@@ -31,22 +31,31 @@ public class AccessRightsController {
     }
 
     @GetMapping({"/shareDocument/{documentID}"})
-    public String returnDocumentSharePage(@PathVariable("documentID") Long documentID, Model model, Principal principal) {
-        if (!canAddAccessRight(documentID, principal.getName())) { return "forbidden-error.html"; }
-        Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
-        if (sharingDocument.isEmpty()) { return "error.html"; }
+    public ModelAndView returnDocumentSharePage(@PathVariable("documentID") Long documentID, Principal principal) {
+        ModelAndView model = new ModelAndView();
+        if (!canAddAccessRight(documentID, principal.getName())) {
+            model.addObject("secondaryText", "You do not have the right permissions to share this document");
+            model.setViewName("error/403.html");
+        } else {
+            Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
+            if (sharingDocument.isEmpty()) {
+                model.addObject("secondaryText", "Couldn't find your document, please go back and try again");
+                model.setViewName("error.html");
+            } else {
+                List<Organisations> shareableOrganisations = accessRightService.getShareableOrganisations(sharingDocument.get());
+                List<Organisations> sharedOrganisations = accessRightService.getSharedOrganisations(sharingDocument.get());
+                List<Users> shareableUsers = accessRightService.getShareableUsers(sharingDocument.get());
+                List<Users> sharedUsers = accessRightService.getSharedUsers(sharingDocument.get());
 
-        List<Organisations> shareableOrganisations = accessRightService.getShareableOrganisations(sharingDocument.get());
-        List<Organisations> sharedOrganisations = accessRightService.getSharedOrganisations(sharingDocument.get());
-        List<Users> shareableUsers = accessRightService.getShareableUsers(sharingDocument.get());
-        List<Users> sharedUsers = accessRightService.getSharedUsers(sharingDocument.get());
-
-        model.addAttribute("document", sharingDocument.get());
-        model.addAttribute("shareableOrganisations", shareableOrganisations);
-        model.addAttribute("shareableUsers", shareableUsers);
-        model.addAttribute("currentSharedOrganisations", sharedOrganisations);
-        model.addAttribute("currentSharedUsers", sharedUsers);
-        return "accessRights.html";
+                model.addObject("document", sharingDocument.get());
+                model.addObject("shareableOrganisations", shareableOrganisations);
+                model.addObject("shareableUsers", shareableUsers);
+                model.addObject("currentSharedOrganisations", sharedOrganisations);
+                model.addObject("currentSharedUsers", sharedUsers);
+                model.setViewName("accessRights.html");
+            }
+        }
+        return model;
     }
 
     @PostMapping({"/shareNewOrganisation"})
@@ -55,15 +64,24 @@ public class AccessRightsController {
             @RequestParam("newOrganisationID") Long organisationID,
             Principal principal
     ) {
-        if (!canAddAccessRight(documentID, principal.getName())) { new ModelAndView("error.html"); }
-        Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
-        Optional<Organisations> newOrganisation = accessRightService.getOrganisation(organisationID);
-        if (sharingDocument.isEmpty() || newOrganisation.isEmpty()) { new ModelAndView("error.html"); }
-
-        ReturnError saveResult = accessRightService.addNewSharedOrganisation(sharingDocument.get(), newOrganisation.get());
-        if (saveResult.errored()) {
-            return new ModelAndView("error.html");
+        ModelAndView model = new ModelAndView();
+        if (!canAddAccessRight(documentID, principal.getName())) {
+            model.addObject("secondaryText", "You do not have the right permissions to share this document");
+            model.setViewName("error/403.html");
+        } else {
+            Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
+            Optional<Organisations> newOrganisation = accessRightService.getOrganisation(organisationID);
+            if (sharingDocument.isEmpty() || newOrganisation.isEmpty()) {
+                model.addObject("secondaryText", "We failed to get your file, please go back and try again");
+                model.setViewName("error.html");
+            } else {
+                ReturnError saveResult = accessRightService.addNewSharedOrganisation(sharingDocument.get(), newOrganisation.get());
+                if (saveResult.errored()) {
+                    model.setViewName("error/500.html");
+                }
+            }
+            model.setViewName("redirect:/shareDocument/"+documentID);
         }
-        return new ModelAndView("redirect:/shareDocument/"+documentID);
+        return model;
     }
 }
