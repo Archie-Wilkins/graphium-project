@@ -1,5 +1,6 @@
 package client_project.y2s1.team2.graphium.data.jpa.entities;
 
+import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

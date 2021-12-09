@@ -26,13 +26,17 @@ INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`fir
 VALUES ('testUser','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('testUser2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Swansea.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
 VALUES ('testOrgAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
+VALUES ('testOrgAdmin2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Swansea.ac.uk',NOW());
+
+INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
 VALUES ('testSystemAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+
 
 -- ------------------------
 -- Authorities
@@ -40,17 +44,18 @@ VALUES ('testSystemAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzR
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser', 'researcher');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser2', 'researcher');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin', 'orgAdmin');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin2', 'orgAdmin');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin', 'systemAdmin');
 
 
 -- --------------------------
 -- Documents
 -- --------------------------
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'An Excellent File', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser', 'An Excellent File', '2021-10-13' ,'pdf', null);
 
-INSERT INTO `documents` (`id`, `fk_creator`, `title`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'A Fun PDF', 'pdf', null);
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'testUser', 'A Fun PDF', '2021-12-14' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
 VALUES (null, 'testUser', 'Word Test', '2021-11-08' ,'docx', null);
@@ -66,6 +71,7 @@ VALUES (null, 'testUser2', 'Different Org 3', '2020-12-31' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
 VALUES (null, 'testUser2', 'Swansea Uni PDF', '2021-12-03' ,'pdf', null);
+
 
 -- --------------------------
 -- Document Access Rights
