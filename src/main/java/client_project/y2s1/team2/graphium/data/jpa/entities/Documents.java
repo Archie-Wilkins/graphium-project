@@ -1,5 +1,6 @@
 package client_project.y2s1.team2.graphium.data.jpa.entities;
 
+import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Documents {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+
     private String date;
 
     @Column(name = "file_type")
@@ -28,6 +30,13 @@ public class Documents {
 
     public Documents(String aTitle, String aDate, Users aUser, String aFileType, byte[] someFileData) {
         this(null, aTitle, aDate, aFileType, someFileData, aUser);
+    }
+
+    public DocumentDTO toDTO(){
+        DocumentDTO documentDTO = new DocumentDTO(
+                this.id, this.title, this.date,  this.fileType, this.fileData,
+                this.user);
+        return documentDTO;
     }
 
 

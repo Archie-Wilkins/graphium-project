@@ -23,6 +23,8 @@ public class AuditServiceTests {
     @Autowired
     AuditService auditService;
 
+    //Audit service intergration tests
+
     //Document downloaded service intergration test
 
 
@@ -36,10 +38,7 @@ public class AuditServiceTests {
 
     //Audit service tests
     @Test
-    public void canSaveSuccessfulLogIn() throws Exception {
-        System.out.println("Hi");
-        List<Access_Audit_Reports> allSuccesfulLogInsPre = auditService.getAllAuditLogsByActionID(1);
-
+    public void canSaveSuccessfulLogInAudit() throws Exception {
         auditService.userLoggedIn("testUser", true);
 
         List<Access_Audit_Reports> allSuccesfulLogIns = auditService.getAllAuditLogsByActionID(1);
@@ -47,4 +46,36 @@ public class AuditServiceTests {
 
         assertEquals(allSuccesfulLogInsSize, 2);
     }
+
+    @Test
+    public void canSaveSuccessfulDocumentSavedAudit() throws Exception {
+        auditService.organisationDocumentsAccessed("testUser", true);
+
+        List<Access_Audit_Reports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
+        int allSuccesfulDocumentsSavedSize = allSuccesfulDocumentsSaved.size();
+
+        assertEquals(allSuccesfulDocumentsSavedSize, 1);
+    }
+
+    @Test
+    public void canSaveFailedDocumentSavedAudit() throws Exception {
+        auditService.organisationDocumentsAccessed("testUser", false);
+
+        List<Access_Audit_Reports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
+        int allFailedDocumentsSavedSize = allFailedDocumentsSaved.size();
+
+        assertEquals(allFailedDocumentsSavedSize, 2);
+    }
+
+    @Test
+    public void canSaveUploadedFileAudit() throws Exception {
+        auditService.documentUploaded("testUser", 1);
+
+        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
+        int documentUploadedSavedSize = documentUploadedSaved.size();
+
+        assertEquals(documentUploadedSavedSize, 1);
+    }
+
+
 }

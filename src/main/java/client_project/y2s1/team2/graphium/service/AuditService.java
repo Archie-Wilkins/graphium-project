@@ -8,32 +8,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Service
 public class AuditService {
 
-    @Autowired
-    Access_Audit_ReportsRepositoryJPA auditRepo;
+    private Access_Audit_ReportsRepositoryJPA auditRepo;
+
+    public AuditService(Access_Audit_ReportsRepositoryJPA anAuditRepo){
+        auditRepo = anAuditRepo;
+    }
 
     public List<Access_Audit_Reports> getAllAuditLogs(){
         return auditRepo.findAll();
     }
 
     public List<Access_Audit_Reports> getAllAuditLogsByActionID(int actionID) {
-        return auditRepo.findAllByFk_action_id(actionID);
+        return auditRepo.findAllByFkActionId(actionID);
     }
 
 
     //User logged in true or false
     public void userLoggedIn(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 1, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 1, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 2, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 2, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
      }
@@ -41,11 +45,11 @@ public class AuditService {
     //All systems documents accessed true or false
     public void allSystemDocumentsAccessed(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 3, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 3, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 4, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 4, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
     }
@@ -53,11 +57,11 @@ public class AuditService {
     //Organisation documents accessed true or false
     public void organisationDocumentsAccessed(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 5, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 5, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 6, LocalTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 6, LocalDateTime.now().toString());
             auditRepo.save(auditLog);
         }
 
@@ -65,19 +69,19 @@ public class AuditService {
 
     //Document downloaded
     public void documentDownloaded(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 7, LocalTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 7, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
     //Document deleted
     public void documentDeleted(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 8, LocalTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 8, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
     //Document viewed
     public void documentViewed(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 9, LocalTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 9, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
@@ -93,7 +97,7 @@ public class AuditService {
 
 //    Document Uploaded
     public void documentUploaded(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 12, LocalTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 12, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 }

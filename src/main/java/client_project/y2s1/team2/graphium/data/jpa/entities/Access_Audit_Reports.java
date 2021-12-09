@@ -16,19 +16,19 @@ public class Access_Audit_Reports {
 
     @Getter
     @Column(name = "fk_username")
-    private String fk_username;
+    private String fkUsername;
 
     @Getter
     @Column(name = "fk_document_id")
-    private Integer fk_document_id;
+    private Integer fkDocumentId;
 
     @Getter
     @Column(name = "fk_action_id")
-    private Integer fk_action_id;
+    private Integer fkActionId;
 
     @Getter
     @Column(name = "action_date")
-    private String action_date;
+    private String actionDate;
 
 //    @ToString.Exclude
 //    @ManyToOne

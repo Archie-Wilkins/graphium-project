@@ -19,6 +19,7 @@ INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Swansea Univers
 -- ------------------------------------
 -- Users
 -- ------------------------------------
+
 -- both the passwords decrypt to just be password (using bcrypt)
 -- If usernames are changed, make sure to refactor all tests using them or they will error
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
@@ -45,6 +46,7 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser2', 'res
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin', 'orgAdmin');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin2', 'orgAdmin');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin', 'systemAdmin');
+
 
 -- --------------------------
 -- Documents
