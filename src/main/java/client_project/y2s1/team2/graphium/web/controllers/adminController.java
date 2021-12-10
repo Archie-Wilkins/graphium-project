@@ -4,6 +4,7 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.*;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
+import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -52,14 +54,23 @@ public class adminController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(Users user, Authorities authority){
+    public String processRegister(Users user, Authorities authority) throws IOException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        authority.setFk_username(user.getUsername());
-        authority.setAuthority("orgAdmin");
-        userRepo.save(user);
-        authorityRepo.save(authority);
-        return "register_success";
+        String attemptedPassword = user.getPassword();
+        PasswordReaderService passwordCheck = new PasswordReaderService();
+
+        if (passwordCheck.fileReader(attemptedPassword) == false) {
+            String encodedPassword = passwordEncoder.encode(attemptedPassword);
+            user.setPassword(encodedPassword);
+            authority.setFk_username(user.getUsername());
+            authority.setAuthority("orgAdmin");
+            userRepo.save(user);
+            authorityRepo.save(authority);
+            return "register_success";
+        } else {
+            return "redirect:/adminreg?error";
+        }
+
     }
 }
+
