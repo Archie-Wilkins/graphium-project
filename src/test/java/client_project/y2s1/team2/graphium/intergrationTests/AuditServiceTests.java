@@ -1,8 +1,6 @@
 package client_project.y2s1.team2.graphium.intergrationTests;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
-import client_project.y2s1.team2.graphium.data.jpa.repositories.Access_Audit_ReportsRepositoryJPA;
-import client_project.y2s1.team2.graphium.domain.SubmissionError;
 import client_project.y2s1.team2.graphium.service.AuditService;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.junit.jupiter.api.Test;

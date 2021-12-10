@@ -39,5 +39,7 @@ public class Documents {
         return documentDTO;
     }
 
-
+    public boolean isOwner(Users possibleUser) {
+        return this.user.getUsername().equals(possibleUser.getUsername());
+    }
 }
