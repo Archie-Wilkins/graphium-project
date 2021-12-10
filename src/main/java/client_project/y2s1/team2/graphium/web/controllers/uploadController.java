@@ -1,6 +1,6 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
-import client_project.y2s1.team2.graphium.domain.SubmissionError;
+import client_project.y2s1.team2.graphium.domain.ReturnError;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class uploadController {
     ) {
         try {
             // Attempting to store the file, returning boolean and message if it has/has not
-            SubmissionError storeResult = StoreFile.storeFile(
+            ReturnError storeResult = StoreFile.storeFile(
                     receivedTitle,
                     principal.getName(),
                     receivedDocumentData.getOriginalFilename().split("[.]")[1],
