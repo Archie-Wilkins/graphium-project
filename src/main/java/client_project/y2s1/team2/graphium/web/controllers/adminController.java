@@ -1,12 +1,9 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
-import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
-import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
-import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
+import client_project.y2s1.team2.graphium.data.jpa.entities.*;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
-import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
-import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,9 +22,9 @@ public class adminController {
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
     @Autowired
-    private OrganisationsRepositoryJPA orgRepo;
-    @Autowired
     private UsersRepositoryJPA userRepo;
+    @Autowired
+    private AuthoritiesRepositoryJPA authorityRepo;
 
     @GetMapping({"/admin", "admin"})
     public String index(Model model, Principal principal) {
@@ -50,16 +47,19 @@ public class adminController {
 
         String name = auth.getName();
             model.addAttribute("user", new Users());
+//            model.addAttribute("role", new Authorities());
             return "adminRegister.html";
     }
 
     @PostMapping("/process_register")
-    public String processRegister(Users user){
+    public String processRegister(Users user, Authorities authority){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-
+        authority.setFk_username(user.getUsername());
+        authority.setAuthority("orgAdmin");
         userRepo.save(user);
+        authorityRepo.save(authority);
         return "register_success";
     }
 }

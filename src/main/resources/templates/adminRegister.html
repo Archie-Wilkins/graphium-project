@@ -41,13 +41,6 @@
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="orgId">Organisation ID</label>
-            <div class="controls">
-                <input type="text" id="orgId" th:field="*{fk_organisation_id}" placeholder="" class="input-xlarge" required>
-            </div>
-        </div>
-
-        <div class="control-group">
             <label class="control-label" for="firstName">First Name</label>
             <div class="controls">
                 <input type="text" id="firstName" th:field="*{first_name}" placeholder="" class="input-xlarge" required>
@@ -61,17 +54,25 @@
             </div>
         </div>
 
+<!--        <div class="control-group">-->
+<!--            <label class="control-label" for="organisation">Organisation:</label><br>-->
+<!--            <select name="organisation" id="organisation" required>-->
+<!--                <option value="">&#45;&#45;Please choose an option&#45;&#45;</option>-->
+<!--                <option value="">Cardiff University</option>-->
+<!--                <option value="">Swansea University</option>-->
+<!--            </select>-->
+<!--        </div>-->
         <div class="control-group">
-            <label class="control-label" for="organisation">Organisation:</label><br>
-            <select name="organisation" id="organisation" required>
-                <option value="">--Please choose an option--</option>
-                <option value="">Cardiff University</option>
-                <option value="">Swansea University</option>
-            </select>
+            <label class="control-label" for="orgId">Organisation:</label>
+            <div class="controls">
+                <input type="text" id="orgId" th:field="*{fk_organisation_id}" placeholder="" class="input-xlarge" required>
+            </div>
         </div><br>
+        <p>Input 1 for Cardiff University</p>
+        <p>Input 2 for Swansea University</p>
 
-        <div class="form-control">
-            <label class="control-label" for="enabled">Enabled: </label><br>
+        <div class="control-group">
+            <label class="control-label" for="enabled">Enable Account: </label><br>
             <input type="checkbox" id="enabled" th:field="*{enabled}" required>
         </div>
 
