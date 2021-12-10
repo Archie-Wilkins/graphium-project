@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.Document;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,19 +27,18 @@ public class StoreFileDatabaseService {
     public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            return new ReturnError(true, "invalid_username", "Error finding user from given username.");
+            return new ReturnError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
-            return new ReturnError(true, "duplicate_title_and_user", "You already have a document with that title.");
+            return new ReturnError(true, "duplicate_title_and_user", "You already have a document with that title");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
-            return new ReturnError(true, "file_type_invalid", "Document file is the wrong format.");
+            return new ReturnError(true, "file_type_invalid", "Document is in an unsupported format");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
-            return new ReturnError(true, "file_extension_invalid", "Document file is the wrong format.");
+            return new ReturnError(true, "file_extension_invalid", "Document is in an unsupported format");
         }
         try {
-
             DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             String date = String.valueOf(dateTime.format(now));
