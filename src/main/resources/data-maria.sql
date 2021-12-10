@@ -125,13 +125,13 @@ VALUES (null, 'File uploaded');
 -- --------------------------
 -- Access_Audit_Reports
 -- --------------------------
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`)
 VALUES (null, 'testUser', null, 1, NOW());
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`)
 VALUES (null, 'testUser', null, 6, NOW());
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`)
 VALUES (null, 'testUser', 1, 7, NOW());
 
 

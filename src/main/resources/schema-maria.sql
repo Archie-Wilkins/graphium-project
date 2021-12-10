@@ -18,6 +18,7 @@ drop table if exists `access_audit_actions`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
+
 drop schema if exists `graphium`;
 create schema `graphium`;
 use `graphium`;
@@ -66,6 +67,8 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `file_data` LONGBLOB,
 
     CONSTRAINT `fk_documents_users` FOREIGN KEY (`fk_creator`) REFERENCES users(`username`)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
 );
 
 
@@ -96,10 +99,15 @@ CREATE TABLE IF NOT EXISTS `document_access_rights` (
     `fk_organisation_id` INT NULL,
     `fk_user_id` VARCHAR(50) NULL,
     
-     PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
-    FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`),
+	PRIMARY KEY (`id`),
+    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`) 
+    ON UPDATE CASCADE 
+    ON DELETE CASCADE,
+    FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
+    ON UPDATE CASCADE
+	ON DELETE CASCADE,
     FOREIGN KEY (`fk_user_id`) REFERENCES users(`username`)
+
 
     );
 
@@ -109,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `document_access_rights` (
 CREATE TABLE IF NOT EXISTS `access_audit_reports` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fk_username` VARCHAR(50) NOT NULL,
-    `fk_document_id` INT,
+    `document_id` INT,
     `fk_action_id` INT NOT NULL,
     `action_date` VARCHAR(50) NOT NULL,
 
