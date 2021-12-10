@@ -62,7 +62,7 @@ public class adminController {
         if (passwordCheck.fileReader(attemptedPassword) == false) {
             String encodedPassword = passwordEncoder.encode(attemptedPassword);
             user.setPassword(encodedPassword);
-            authority.setFk_username(user.getUsername());
+            authority.setUsername(user.getUsername());
             authority.setAuthority("orgAdmin");
             userRepo.save(user);
             authorityRepo.save(authority);

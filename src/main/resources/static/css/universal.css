@@ -19,3 +19,8 @@ body{
     background: #F5F8FA;
     padding: 10%;
 }
+
+.card-button-css{
+    width: 50px;
+    margin-left: 5px;
+}

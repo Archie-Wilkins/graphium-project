@@ -14,19 +14,19 @@ import javax.persistence.Id;
 public class Authorities {
 
     @Id
-    private String fk_username;
+    private String username;
     private String authority;
 
-    public String getFk_username() {
-        return fk_username;
+    public String getUsername() {
+        return username;
     }
 
     public String getAuthority() {
         return authority;
     }
 
-    public void setFk_username(String fk_username) {
-        this.fk_username = fk_username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setAuthority(String authority) {
