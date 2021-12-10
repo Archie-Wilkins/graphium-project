@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -20,9 +21,11 @@ public class FileDataController {
     }
 
     @GetMapping("/viewPDF/{documentID}")
-    public ResponseEntity<byte[]> returnInlinePDFData(@PathVariable("documentID") Long receivedID) {
-        // Finding document using service
-        Optional<Documents> doc = docData.getDocumentByID(receivedID);
+    public ResponseEntity<byte[]> returnInlinePDFData(@PathVariable("documentID") Long documentID, Principal principal) {
+        Optional<Documents> document = docData.getDocumentByID(documentID);
+        if (docData.userCanViewDocument(document.get(), principal.getName())) {
+
+        }
         // Creating ResponseEntity with correct headers for displaying in-browser
         if (doc.isPresent()) {
             HttpHeaders headers = new HttpHeaders();

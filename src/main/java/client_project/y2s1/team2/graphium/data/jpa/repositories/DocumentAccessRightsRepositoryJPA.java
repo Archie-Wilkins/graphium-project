@@ -14,6 +14,7 @@ public interface DocumentAccessRightsRepositoryJPA extends JpaRepository<Documen
     List<DocumentAccessRights> findAll();
     Optional<DocumentAccessRights> findById(long Id);
     Optional<DocumentAccessRights> findByDocumentAndUser(Documents document, Users user);
+    Optional<DocumentAccessRights> findByDocumentAndOrganisation(Documents document, Organisations organisation);
     List<DocumentAccessRights> findByDocument(Documents document);
     List<DocumentAccessRights> findByOrganisation(Organisations organisation);
     List<DocumentAccessRights> findByUser(Users user);
