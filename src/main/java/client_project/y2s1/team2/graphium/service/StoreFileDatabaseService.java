@@ -22,6 +22,9 @@ public class StoreFileDatabaseService {
     private DocumentsRepositoryJPA docRepository;
     @Autowired
     private UsersRepositoryJPA userRepository;
+    @Autowired
+    AuditService auditService;
+
     private String[] allowedFileExstensions = {"pdf", "docx"};
 
     public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
@@ -51,6 +54,7 @@ public class StoreFileDatabaseService {
                 file.getBytes()
         );
         docRepository.save(newDoc);
+        auditService.documentUploaded(username, newDoc.getId().intValue());
         return new SubmissionError(false);
     }
 }

@@ -24,11 +24,9 @@ public class ActionAuditReportsJPATests {
 
     @Test
     public void canRetrieveAll3AuditReports() throws Exception{
-        System.out.println("Step 1");
         List<Access_Audit_Reports> auditLogsList = reportRepo.findAll();
-        System.out.println("Test");
         int listLength = auditLogsList.size();
-        assertEquals(3, listLength);
 
+        assertEquals(3, listLength);
     }
 }
