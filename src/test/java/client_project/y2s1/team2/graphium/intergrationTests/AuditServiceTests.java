@@ -31,7 +31,6 @@ public class AuditServiceTests {
 
     //Document downloaded service intergration test - need to test controller
 
-
     //Document deleted service intergration test
     @Test
     public void storeFileCanSubmitsAuditOnSuccesfulUpload() throws Exception {
@@ -45,16 +44,16 @@ public class AuditServiceTests {
     }
 
     //Document viewed service intergration test - need to test controller
-//    @Test
-//    public void storeFileCanSubmitsAuditOnSuccessfulView() throws Exception {
-//        MockMultipartFile testFile = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
-//        storeFile.storeFile("Document Title","testUser", "pdf", testFile);
-//
-//        List<Access_Audit_Reports> allSuccesfulUploads = auditService.getAllAuditLogsByActionID(12);
-//        int allSuccesfulUploadsSize = allSuccesfulUploads.size();
-//
-//        assertEquals(allSuccesfulUploadsSize, 1);
-//    }
+    @Test
+    public void storeFileCanSubmitsAuditOnSuccessfulView() throws Exception {
+        MockMultipartFile testFile = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
+        storeFile.storeFile("Document Title","testUser", "pdf", testFile);
+
+        List<Access_Audit_Reports> allSuccesfulUploads = auditService.getAllAuditLogsByActionID(12);
+        int allSuccesfulUploadsSize = allSuccesfulUploads.size();
+
+        assertEquals(allSuccesfulUploadsSize, 1);
+    }
 
 
     //Document Uploaded service intergration test
