@@ -18,11 +18,10 @@ public class RetrieveDocumentData {
     private UsersRepositoryJPA userRepository;
     private DocumentAccessRightsRepositoryJPA accessRightsRepository;
 
-    public RetrieveDocumentData(DocumentsRepositoryJPA aDocRepo, UsersRepositoryJPA aUserRepo, DocumentAccessRightsRepositoryJPA aAccessRightsRepository, AuthoritiesRepositoryJPA aAuthorityRepository) {
+    public RetrieveDocumentData(DocumentsRepositoryJPA aDocRepo, UsersRepositoryJPA aUserRepo, DocumentAccessRightsRepositoryJPA aAccessRightsRepository) {
         docRepository = aDocRepo;
         userRepository = aUserRepo;
         accessRightsRepository = aAccessRightsRepository;
-        authorityRepository = aAuthorityRepository;
     }
 
     public Optional<Documents> getDocumentByID(Long docID) {

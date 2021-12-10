@@ -23,30 +23,35 @@ public class FileDataController {
     @GetMapping("/viewPDF/{documentID}")
     public ResponseEntity<byte[]> returnInlinePDFData(@PathVariable("documentID") Long documentID, Principal principal) {
         Optional<Documents> document = docData.getDocumentByID(documentID);
-        if (docData.userCanViewDocument(document.get(), principal.getName())) {
-
-        }
         // Creating ResponseEntity with correct headers for displaying in-browser
-        if (doc.isPresent()) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            headers.add("content-disposition", "inline; filename=" + doc.get().getTitle());
-            return new ResponseEntity<>(doc.get().getFileData(), headers, HttpStatus.OK);
+        if (document.isPresent()) {
+            if (docData.userCanViewDocument(document.get(), principal.getName())) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.parseMediaType("application/pdf"));
+                headers.add("content-disposition", "inline; filename=" + document.get().getTitle());
+                return new ResponseEntity<>(document.get().getFileData(), headers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/downloadPDF/{documentID}")
-    public ResponseEntity<byte[]> returnDownloadPDFData(@PathVariable("documentID") Long receivedID) {
-        // Finding document using service
-        Optional<Documents> doc = docData.getDocumentByID(receivedID);
-        // Creating ResponseEntity with correct headers for downloading
-        if (doc.isPresent()) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType("application/pdf"));
-            headers.add("content-disposition", "attachment; filename=" + doc.get().getTitle()+".pdf");
-            return new ResponseEntity<>(doc.get().getFileData(), headers, HttpStatus.OK);
+    public ResponseEntity<byte[]> returnDownloadPDFData(@PathVariable("documentID") Long documentID, Principal principal) {
+        Optional<Documents> document = docData.getDocumentByID(documentID);
+        // Creating ResponseEntity with correct headers for displaying in-browser
+        if (document.isPresent()) {
+            if (docData.userCanViewDocument(document.get(), principal.getName())) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.parseMediaType("application/pdf"));
+                headers.add("content-disposition", "attachment; filename=" + document.get().getTitle()+".pdf");
+                return new ResponseEntity<>(document.get().getFileData(), headers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+
