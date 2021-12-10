@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `document_access_rights` (
     `fk_user_id` VARCHAR(50) NULL,
 
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+    -- FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
     FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`),
     FOREIGN KEY (`fk_user_id`) REFERENCES users(`username`)
 );
