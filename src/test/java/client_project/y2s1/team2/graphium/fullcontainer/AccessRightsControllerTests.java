@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
@@ -15,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
-public class ControllerAuthorisedAccessTests {
+public class AccessRightsControllerTests {
     @Autowired
     private WebApplicationContext context;
     @Autowired
@@ -61,19 +61,20 @@ public class ControllerAuthorisedAccessTests {
         mockMvc.perform(post("/shareNewOrganisation")
                         .param("documentID", "1")
                         .param("newOrganisationID", "2")
+                        .with(csrf())
                 )
-                .andExpect(status().isOk())
-                .andExpect(view().name("accessRights.html"));
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
     @WithMockUser("testUser")
-    public void NonCreatorCannotShareNewOrganisation() throws Exception {
+    public void creatorCannotShareNewOrganisation() throws Exception {
         mockMvc.perform(post("/shareNewOrganisation")
                         .param("documentID", "4")
-                        .param("newOrganisationID", "1")
+                        .param("newOrganisationID", "2")
+                        .with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andExpect(view().name("accessRights.html"));
+                .andExpect(view().name("error/403.html"));
     }
 }

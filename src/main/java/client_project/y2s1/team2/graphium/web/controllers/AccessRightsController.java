@@ -1,13 +1,11 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
-import client_project.y2s1.team2.graphium.data.jpa.entities.DocumentAccessRights;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.domain.ReturnError;
 import client_project.y2s1.team2.graphium.service.DocumentAccessRightService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
