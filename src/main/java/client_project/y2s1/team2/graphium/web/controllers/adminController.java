@@ -49,7 +49,6 @@ public class adminController {
 
         String name = auth.getName();
             model.addAttribute("user", new Users());
-//            model.addAttribute("role", new Authorities());
             return "adminRegister.html";
     }
 
@@ -62,7 +61,7 @@ public class adminController {
         if (passwordCheck.fileReader(attemptedPassword) == false) {
             String encodedPassword = passwordEncoder.encode(attemptedPassword);
             user.setPassword(encodedPassword);
-            authority.setUsername(user.getUsername());
+            authority.setFk_username(user.getUsername());
             authority.setAuthority("orgAdmin");
             userRepo.save(user);
             authorityRepo.save(authority);
