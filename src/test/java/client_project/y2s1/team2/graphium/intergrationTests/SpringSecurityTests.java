@@ -47,13 +47,13 @@ public class SpringSecurityTests {
     }
 
 
-//    BUGGED TEST - NEEDS FIXING 
-//    @WithMockUser("testSystemAdmin")
-//    @Test
-//    public void systemAdminAccessSystemAdminPage_shouldSucceedWith200() throws Exception {
-//        mvc.perform(get("/admin").contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk());
-//    }
+
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    @Test
+    public void systemAdminAccessSystemAdminPage_shouldSucceedWith200() throws Exception {
+        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @WithMockUser("testUser")
     @Test
@@ -65,7 +65,7 @@ public class SpringSecurityTests {
     @WithMockUser("testUser")
     @Test
     public void researcherCantAccessSystemAdminPage_shouldBeForbidden() throws Exception {
-        mvc.perform(get("/admin").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
@@ -76,10 +76,11 @@ public class SpringSecurityTests {
                 .andExpect(status().isOk());
     }
 
+//    need to ref baeldung
     @WithMockUser("testOrgAdmin")
     @Test
     public void orgAdminCantAccessSysAdminPage_shouldFailWithForbidden() throws Exception {
-        mvc.perform(get("/admin").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 

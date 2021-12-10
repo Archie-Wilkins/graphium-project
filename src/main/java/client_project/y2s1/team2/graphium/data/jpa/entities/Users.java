@@ -39,4 +39,5 @@ public class Users {
     @ManyToOne
     @JoinColumn(name = "fk_organisation_id",insertable = false,updatable = false)
     private Organisations organisation;
+
 }

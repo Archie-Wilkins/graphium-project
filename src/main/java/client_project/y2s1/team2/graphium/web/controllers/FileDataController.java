@@ -43,4 +43,18 @@ public class FileDataController {
         docsRepo.deleteById(receivedID);
         return "redirect:/myuploads";
     }
+
+    @GetMapping("/downloadPDF/{documentID}")
+    public ResponseEntity<byte[]> returnDownloadPDFData(@PathVariable("documentID") Long receivedID) {
+        // Finding document using service
+        Optional<Documents> doc = docData.getDocumentByID(receivedID);
+        // Creating ResponseEntity with correct headers for downloading
+        if (doc.isPresent()) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+            headers.add("content-disposition", "attachment; filename=" + doc.get().getTitle()+".pdf");
+            return new ResponseEntity<>(doc.get().getFileData(), headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
