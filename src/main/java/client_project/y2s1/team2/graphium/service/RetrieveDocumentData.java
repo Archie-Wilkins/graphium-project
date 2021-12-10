@@ -21,7 +21,7 @@ public class RetrieveDocumentData {
 
     public RetrieveDocumentData(DocumentsRepositoryJPA aDocRepo, UsersRepositoryJPA aUserRepo) {
         docRepository = aDocRepo;
-        UsersRepositoryJPA userRepo = aUserRepo;
+        userRepo = aUserRepo;
     }
 
     public Optional<Documents> getDocumentByID(Long docID) {

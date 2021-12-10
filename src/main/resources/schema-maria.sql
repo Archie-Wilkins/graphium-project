@@ -7,6 +7,7 @@ drop table if exists `documents`;
 drop table if exists `authorities`;
 drop table if exists `users`;
 drop table if exists `organisations`;
+
 drop schema if exists `graphium`;
 create schema `graphium`;
 use `graphium`;
