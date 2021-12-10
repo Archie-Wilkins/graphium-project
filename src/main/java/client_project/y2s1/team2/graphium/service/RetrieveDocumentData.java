@@ -8,6 +8,8 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJ
 import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

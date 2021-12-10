@@ -5,9 +5,9 @@ use `graphium`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 truncate table `document_access_rights`;
-truncate table `documents`;
-truncate table `authorities`;
 truncate table `users`;
+truncate table `authorities`;
+truncate table `documents`;
 truncate table `organisations`;
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -58,7 +58,7 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin'
 
 -- --------------------------
 -- Documents
--- --------------------------
+-- ---------------------------
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
 VALUES (null, 'testUser', 'An Excellent File', '2021-10-13' ,'pdf', null);
 

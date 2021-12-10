@@ -32,9 +32,8 @@ public class Users {
     private String authority_set_date;
 
 //   Need to set foreign key to organisations
-
     @ToString.Exclude
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
 
     @ManyToOne

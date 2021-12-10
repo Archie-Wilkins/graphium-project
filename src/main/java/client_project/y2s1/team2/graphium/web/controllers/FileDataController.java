@@ -1,7 +1,9 @@
 package client_project.y2s1.team2.graphium.web.controllers;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.service.RetrieveDocumentData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,9 @@ public class FileDataController {
         docData = aDocData;
     }
 
+    @Autowired
+    private DocumentsRepositoryJPA docsRepo;
+
     @GetMapping("/viewPDF/{documentID}")
     public ResponseEntity<byte[]> returnInlinePDFData(@PathVariable("documentID") Long documentID, Principal principal) {
         Optional<Documents> document = docData.getDocumentByID(documentID);
@@ -35,6 +40,12 @@ public class FileDataController {
             }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/delete/{documentID}")
+    public String deleteDocument(@PathVariable("documentID") Long receivedID) {
+        docsRepo.deleteById(receivedID);
+        return "redirect:/myuploads";
     }
 
     @GetMapping("/downloadPDF/{documentID}")
