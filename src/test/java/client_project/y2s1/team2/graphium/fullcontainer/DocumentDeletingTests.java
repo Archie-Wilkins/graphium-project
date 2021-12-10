@@ -18,17 +18,17 @@ public class DocumentDeletingTests {
     @Autowired
     DocumentsRepositoryJPA docRepository;
 
-//    @Test
-//    public void whenDeleteAllDocumentsFromRepository_thenThereShouldBeNoDocumentsInRepository() {
-//        docRepository.deleteAll();
-//        assertThat(docRepository.count()).isEqualTo(0);
-//    }
-//
-//    @Test
-//    public void whenOneDocumentDeleted_thenThereShouldBeOneLess() {
-//        long numberOfDocuments = docRepository.count();
-//        docRepository.deleteById(numberOfDocuments);
-//        assertThat(docRepository.count()).isEqualTo(numberOfDocuments-1);
-//    }
+    @Test
+    public void whenDeleteAllDocumentsFromRepository_thenThereShouldBeNoDocumentsInRepository() {
+        docRepository.deleteAll();
+        assertThat(docRepository.count()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenOneDocumentDeleted_thenThereShouldBeOneLess() {
+        long numberOfDocuments = docRepository.count();
+        docRepository.deleteById(numberOfDocuments);
+        assertThat(docRepository.count()).isEqualTo(numberOfDocuments-1);
+    }
 
 }
