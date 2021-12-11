@@ -116,7 +116,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testUser", authorities = "researcher")
     public void researcherCantCreateNewOrg() throws Exception {
-        mockMvc.perform(post("/systemAdmin/organisation")
+        mockMvc.perform(post("/systemAdmin/newOrganisation")
                         .with(csrf())
                 )
                 .andExpect(status().isForbidden());
@@ -126,7 +126,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanCreateNewOrg() throws Exception {
-        mockMvc.perform(post("/systemAdmin/organisation")
+        mockMvc.perform(post("/systemAdmin/newOrganisation")
                         .with(csrf())
                 )
                 .andExpect(status().isOk());
@@ -145,7 +145,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanAccessAdminReg() throws Exception {
-        mockMvc.perform(get("/systemAdmin/newUser")
+        mockMvc.perform(get("/systemAdmin/newOrgAdmin")
                         .with(csrf())
                 )
                 .andExpect(status().isOk());
@@ -154,7 +154,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testUser", authorities = "researcher")
     public void researcherAccessAdminReg() throws Exception {
-        mockMvc.perform(get("/systemAdmin/newUser")
+        mockMvc.perform(get("/systemAdmin/newOrgAdmin")
                         .with(csrf())
                 )
                 .andExpect(status().isForbidden());
@@ -177,7 +177,7 @@ public class SpringSecurityTests {
         user.setAuthority(authority);
 
 
-        mockMvc.perform(post("/systemAdmin/newUser")
+        mockMvc.perform(post("/systemAdmin/newOrgAdmin")
                         .param("user", String.valueOf(testUser))
                         .param("authority", String.valueOf(testAuth))
                         .with(csrf())
@@ -200,7 +200,7 @@ public class SpringSecurityTests {
         user.setAuthority(authority);
 
 
-        mockMvc.perform(post("/systemAdmin/newUser")
+        mockMvc.perform(post("/systemAdmin/newOrgAdmin")
                         .param("user", String.valueOf(testUser))
                         .param("authority", String.valueOf(testAuth))
                         .with(csrf())
