@@ -7,12 +7,12 @@ use `graphium`;
 
 -- Drop tables that have foreign key constraint with another table first
 SET FOREIGN_KEY_CHECKS = 0;
+drop table if exists `users`;
 drop table if exists `organisations`;
 drop table if exists `authorities`;
 drop table if exists `document_access_rights`;
 drop table if exists `documents`;
 drop table if exists `authorities`;
-drop table if exists `users`;
 drop table if exists `access_audit_reports`;
 drop table if exists `access_audit_actions`;
 SET FOREIGN_KEY_CHECKS = 1;
