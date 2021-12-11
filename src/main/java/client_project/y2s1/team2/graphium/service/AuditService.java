@@ -16,9 +16,11 @@ import java.util.List;
 public class AuditService {
 
     private Access_Audit_ReportsRepositoryJPA auditRepo;
+    private TimeService timeService;
 
-    public AuditService(Access_Audit_ReportsRepositoryJPA anAuditRepo){
+    public AuditService(Access_Audit_ReportsRepositoryJPA anAuditRepo, TimeService aTimeService){
         auditRepo = anAuditRepo;
+        timeService = aTimeService;
     }
 
     public List<Access_Audit_Reports> getAllAuditLogs(){
@@ -33,11 +35,11 @@ public class AuditService {
     //User logged in true or false
     public void userLoggedIn(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 1, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 1, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 2, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 2, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
      }
@@ -45,11 +47,11 @@ public class AuditService {
     //All systems documents accessed true or false
     public void allSystemDocumentsAccessed(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 3, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 3, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 4, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 4, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
     }
@@ -57,11 +59,11 @@ public class AuditService {
     //Organisation documents accessed true or false
     public void organisationDocumentsAccessed(String username, boolean Success){
         if (Success == true){
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 5, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 5, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
         else{
-            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 6, LocalDateTime.now().toString());
+            Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 6, timeService.getTimeStamp());
             auditRepo.save(auditLog);
         }
 
@@ -69,19 +71,19 @@ public class AuditService {
 
     //Document downloaded
     public void documentDownloaded(String username, int documentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 7, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 7, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
     //Document deleted
     public void documentDeleted(String username, int documentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 8, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 8, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
     //Document viewed
     public void documentViewed(String username, int documentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 9, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 9, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
@@ -97,22 +99,22 @@ public class AuditService {
 
 //    Document Uploaded
     public void documentUploaded(String username, int documentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 12, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 12, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
     public void documentUploadFailed(String username){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 13, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 13, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
     public void documentDownloadedFailed(String username, int documentID) {
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 14, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 14, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 
     public void documentViewedFailed(String username, int documentID) {
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 15, LocalDateTime.now().toString());
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 15, timeService.getTimeStamp());
         auditRepo.save(auditLog);
     }
 }
