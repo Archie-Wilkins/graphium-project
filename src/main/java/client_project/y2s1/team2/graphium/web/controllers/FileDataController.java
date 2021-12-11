@@ -38,14 +38,14 @@ public class FileDataController {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.parseMediaType("application/pdf"));
                 headers.add("content-disposition", "inline; filename=" + document.get().getTitle());
-                auditService.documentViewed(principal.getName(), document.get().getId().intValue());
+                auditService.documentViewed(principal.getName(), document.get().getId().intValue(), "user successfully viewed a file - returnInlinePDFData method within FileDataController");
                 return new ResponseEntity<>(document.get().getFileData(), headers, HttpStatus.OK);
             } else {
-                auditService.documentViewedFailed(principal.getName(), document.get().getId().intValue());
+                auditService.documentViewedFailed(principal.getName(), document.get().getId().intValue(), "a user attempted to view a file they don't have permission to - returnInlinePDFDatamethod within FileDataController");
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
         }
-        auditService.documentViewedFailed(principal.getName(), document.get().getId().intValue());
+        auditService.documentViewedFailed(principal.getName(), document.get().getId().intValue(), "a user attempted to view a file that didn't exist - returnInlinePDFData method within FileDataController");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -64,14 +64,14 @@ public class FileDataController {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.parseMediaType("application/pdf"));
                 headers.add("content-disposition", "attachment; filename=" + document.get().getTitle()+".pdf");
-                auditService.documentDownloaded(principal.getName(), document.get().getId().intValue());
+                auditService.documentDownloaded(principal.getName(), document.get().getId().intValue(), "a user downloaded a file - returnDownloadPDFData method within FileDataController");
                 return new ResponseEntity<>(document.get().getFileData(), headers, HttpStatus.OK);
             } else {
-                auditService.documentDownloadedFailed(principal.getName(), document.get().getId().intValue());
+                auditService.documentDownloadedFailed(principal.getName(), document.get().getId().intValue(), "a user attempted to download a file they don't have permission to download - returnDownloadPDFData method within FileDataController");
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
         }
-        auditService.documentDownloadedFailed(principal.getName(), document.get().getId().intValue());
+        auditService.documentDownloadedFailed(principal.getName(), document.get().getId().intValue(), "a user attempted to download a file they didn't exist - returnDownloadPDFData method within FileDataController");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

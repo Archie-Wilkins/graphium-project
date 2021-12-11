@@ -120,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
     `document_id` INT,
     `fk_action_id` INT NOT NULL,
     `action_date` VARCHAR(50) NOT NULL,
+    `action_description` VARCHAR(400) NOT NULL,
 
      CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
      ON UPDATE CASCADE

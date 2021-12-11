@@ -30,6 +30,10 @@ public class Access_Audit_Reports {
     @Column(name = "action_date")
     private String actionDate;
 
+    @Getter
+    @Column(name = "action_description")
+    private String actionDescription;
+
 //    @ToString.Exclude
 //    @ManyToOne
 //    @JoinColumn(name = "fk_username")

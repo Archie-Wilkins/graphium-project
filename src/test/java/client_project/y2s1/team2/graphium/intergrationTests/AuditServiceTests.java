@@ -100,7 +100,7 @@ public class AuditServiceTests {
 
     @Test
     public void canSaveUploadedFileAuditIntergration_Successful() throws Exception {
-        auditService.documentUploaded("testUser", 1);
+        auditService.documentUploaded("testUser", 1, "automated test data");
 
         List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
         int documentUploadedSavedSize = documentUploadedSaved.size();
@@ -138,7 +138,7 @@ public class AuditServiceTests {
     //Audit service tests
     @Test
     public void canSaveSuccessfulLogInAuditService() throws Exception {
-        auditService.userLoggedIn("testUser", true);
+        auditService.userLoggedIn("testUser", true, "automated test data");
 
         List<Access_Audit_Reports> allSuccesfulLogIns = auditService.getAllAuditLogsByActionID(1);
         int allSuccesfulLogInsSize = allSuccesfulLogIns.size();
@@ -148,7 +148,7 @@ public class AuditServiceTests {
 
     @Test
     public void canSaveSuccessfulDocumentUploadedAuditService() throws Exception {
-        auditService.organisationDocumentsAccessed("testUser", true);
+        auditService.organisationDocumentsAccessed("testUser", true, "automated test data");
 
         List<Access_Audit_Reports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
         int allSuccesfulDocumentsSavedSize = allSuccesfulDocumentsSaved.size();
@@ -158,7 +158,7 @@ public class AuditServiceTests {
 
     @Test
     public void canSaveFailedDocumentSavedAuditService() throws Exception {
-        auditService.organisationDocumentsAccessed("testUser", false);
+        auditService.organisationDocumentsAccessed("testUser", false, "automated test data");
 
         List<Access_Audit_Reports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
         int allFailedDocumentsSavedSize = allFailedDocumentsSaved.size();
