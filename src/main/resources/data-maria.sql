@@ -90,6 +90,10 @@ INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_i
 VALUES (null, 1, 1, null);
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 2, null, 'testUser2');
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 4, 1, null);
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 5, 1, null);
 
 
 -- --------------------------

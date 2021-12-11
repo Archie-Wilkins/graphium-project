@@ -35,9 +35,9 @@ public class DocumentAccessRightsDataRetrieval {
     UsersRepositoryJPA userRepository;
 
     @Test
-    public void canGet2Entries() throws Exception {
+    public void canGet4Entries() throws Exception {
         List<DocumentAccessRights> accessRights = accessRightsRepository.findAll();
-        assertEquals(2, accessRights.size());
+        assertEquals(4, accessRights.size());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class DocumentAccessRightsDataRetrieval {
         assertEquals(true, organisation.isPresent());
         if (organisation.isPresent()) {
             List<DocumentAccessRights> entry = accessRightsRepository.findByOrganisation(organisation.get());
-            assertEquals(1, entry.size());
+            assertEquals(3, entry.size());
         }
     }
 
