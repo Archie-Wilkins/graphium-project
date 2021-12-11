@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Upload Document</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+    <link th:href="@{/css/bootstrap_form_sign_in.css}" rel="stylesheet" />
+</head>
+<body>
+
+    <div th:fragment="documentListFull" class="container">
+
+        <div th:fragment="documentListNav" class="d-flex justify-content-center boarder">
+            <div class="col-3 mx-2">
+                <a class="btn btn-info w-100" href="/myUploads">My Documents</a>
+            </div>
+            <div class="col-3 mx-2">
+                <a class="btn btn-info w-100" href="/myOrganisationDocuments">My Organisation</a>
+            </div>
+            <div class="col-3 mx-2">
+                <a class="btn btn-info w-100" href="/otherOrganisationDocuments">Other Organisation</a>
+            </div>
+            <div class="col-3 mx-2">
+                <a class="btn btn-info w-100" href="/otherUsersDocuments">Other Researchers</a>
+            </div>
+        </div>
+
+        <div th:fragment="documentListList">
+            <div th:each="document: ${documentList}" class="row border my-4">
+                <div class="col-8">
+                    <div class="col-12">
+                        <h3 th:text="${document.getTitle()}">Document Title</h3>
+                    </div>
+                    <div class="col-12">
+                        <h5 th:text="${document.getOwnerUsername()}" class="text-secondary">Owned by</h5>
+                        <h5 th:text="${document.getDateCreated()}" class="text-secondary">Date Created</h5>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <a th:href="'/viewPDF/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-info">View</a>
+                    <a th:href="'/downloadPDF/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-primary">Download</a>
+                    <a th:href="'/shareDocument/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-success">Share</a>
+                    <a th:href="'/delete/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

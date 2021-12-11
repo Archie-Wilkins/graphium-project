@@ -39,10 +39,11 @@
         <div class="row">
             <div class="col">
                 <h3>Share to users</h3>
-                <form th:action="@{/newUserAccessRight}" th:mentod="post">
+                <form th:action="@{/shareNewUser}" th:method="post">
                     <div class="form-group">
-                        <label for="newUser">Select a user</label>
-                        <select name="newUser" id="newUser">
+                        <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
+                        <label for="newUsername">Select a user</label>
+                        <select class="form-select" name="newUsername" id="newUsername">
                             <option th:each="user: ${shareableUsers}" th:value="${user.getUsername}" th:text="${user.getUsername()}"></option>
                         </select>
                     </div>

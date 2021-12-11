@@ -2,23 +2,29 @@ package client_project.y2s1.team2.graphium.data.jpa.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Authorities {
 
     @Id
-    private String fk_username;
+    @Column(name = "fk_username")
+    private String username;
+
+    @Getter
     private String authority;
 
+    @OneToOne
+    @JoinColumn(name="fk_username")
+    private Users user;
+
     public String getFk_Username() {
-        return fk_username;
+        return username;
     }
 
     public String getAuthority() {
@@ -26,7 +32,7 @@ public class Authorities {
     }
 
     public void setFk_username(String fk_username) {
-        this.fk_username = fk_username;
+        this.username = fk_username;
     }
 
     public void setAuthority(String authority) {
