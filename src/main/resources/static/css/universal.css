@@ -19,3 +19,26 @@ body{
     background: #F5F8FA;
     padding: 10%;
 }
+
+#search {
+    margin-left: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.documents {
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}
+
+.page_content{
+    background: #F5F8FA;
+    padding: 10%;
+}
+
+.card-button-css{
+    width: 50px;
+    margin-left: 5px;
+}
+

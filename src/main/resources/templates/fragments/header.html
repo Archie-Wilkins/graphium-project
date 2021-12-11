@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
      <head>
          <meta charset="UTF-8">
          <title>header</title>
@@ -8,18 +9,29 @@
      <nav th:fragment="header">
          <nav class="navbar navbar-expand-lg">
              <div class="container-fluid">
-                 <div class="container">
+                 <div class="container nav-container">
                      <a class="navbar-brand" href="/">
                          <img alt="Logo" src="/images/logo.jpg">
                      </a>
                  </div>
                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/systemAdmin">System Admin</a>
+                         </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin','systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/orgAdmin">Organisation Admin</a>
+                         </li>
                          <li class="nav-item">
                              <a class="nav-link" href="/documents">Documents</a>
                          </li>
                          <li class="nav-item">
                              <a class="nav-link" href="/upload">Upload</a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="/myuploads">My Uploads</a>
                          </li>
 <!--                         <li class="nav-item">-->
 <!--                             <a class="nav-link" href="#">Search</a>-->

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +17,8 @@ public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
 
     @Query(value="select * from Documents d where d.title like %:keyword%", nativeQuery = true)
     List<Documents> findByTitle(@Param("keyword") String keyword);
+
+    List<Documents> findAllByUser_Organisation_Name(String orgName);
+
+
 }
