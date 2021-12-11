@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -63,16 +64,17 @@ public class adminController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(Users user, Authorities authority, BindingResult bindingResult) throws IOException {
+    public String processRegister(@Validated Users user, Authorities authority, BindingResult bindingResult) throws IOException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String attemptedPassword = user.getPassword();
         PasswordReaderService passwordCheck = new PasswordReaderService();
         if (orgService.usernameExists(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "Username already exists!"));
-        } else if (orgService.emailExists(user.getEmail())){
-            System.out.println(orgService.emailExists(user.getEmail()));
-            bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
         }
+//        else if (orgService.emailExists(user.getEmail())){
+//            System.out.println(orgService.emailExists(user.getEmail()));
+//            bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
+//        }
 
         if(bindingResult.hasErrors()){
             return "redirect:/adminreg?user";

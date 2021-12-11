@@ -44,7 +44,7 @@
         <div class="control-group">
             <label class="control-label" for="email">E-mail</label>
             <div class="controls">
-                <input type="text" id="email" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{1,}$" title="Email must include '@'" placeholder="" class="input-xlarge" required>
+                <input type="text" id="email" th:field="*{email}" title="Email must include '@'" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
@@ -65,16 +65,11 @@
         <div class="control-group">
             <label class="control-label" for="orgId">Organisation:</label>
             <div class="controls">
-                <input type="text" id="orgId" th:field="*{fk_organisation_id}" maxlength="1" placeholder="" class="input-xlarge" required>
+                <input type="text" id="orgId" th:field="*{fk_organisation_id}" placeholder="" class="input-xlarge" required>
             </div>
         </div><br>
         <p>Input 1 for Cardiff University</p>
         <p>Input 2 for Swansea University</p><br>
-
-<!--        <div class="control-group">-->
-<!--            <label class="control-label" for="enabled">Enable Account: </label><br>-->
-<!--            <input type="checkbox" id="enabled" th:field="*{enabled}" required>-->
-<!--        </div>-->
 
         <div class="control-group">
             <div class="controls">
