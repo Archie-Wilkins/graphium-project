@@ -139,6 +139,8 @@ VALUES (null, 'Document download failed');
 
 INSERT INTO `access_audit_actions` (`id`, `action_description`)
 VALUES (null, 'View document failed');
+
+
 -- --------------------------
 -- Access_Audit_Reports
 -- --------------------------

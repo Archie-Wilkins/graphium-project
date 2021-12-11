@@ -57,6 +57,15 @@ public class DocumentsAccessRightsServiceTests {
     }
 
     @Test
+    public void cannotAddDuplicateSharedOrganisation() throws Exception {
+        Documents document = docRepository.findById(1L).get();
+        Organisations shareOrganisation = orgRepository.findById(1L).get();
+        ReturnError returnError = accessRightService.addNewSharedOrganisation(document, shareOrganisation);
+        assertEquals(true, returnError.errored());
+        assertEquals("already-exists", returnError.getError());
+    }
+
+    @Test
     public void canAddNewSharedUser() throws Exception {
         Documents document = docRepository.findById(1L).get();
         Users sharedUser = userRepository.findByUsername("testOrgAdmin").get();
@@ -66,9 +75,18 @@ public class DocumentsAccessRightsServiceTests {
     }
 
     @Test
+    public void cannotAddDuplicateSharedUser() throws Exception {
+        Documents document = docRepository.findById(2L).get();
+        Users sharedUser = userRepository.findByUsername("testUser2").get();
+        ReturnError returnError = accessRightService.addNewSharedUser(document, sharedUser);
+        assertEquals(true, returnError.errored());
+        assertEquals("already-exists", returnError.getError());
+    }
+
+    @Test
     public void canCheckUserCanShareDocument() throws Exception {
-        assertEquals(true, accessRightService.canUserShareDocument(1l, "testUser"));
-        assertEquals(false, accessRightService.canUserShareDocument(1l, "testUser2"));
+        assertEquals(true, accessRightService.canUserShareDocument(1L, "testUser"));
+        assertEquals(false, accessRightService.canUserShareDocument(1L, "testUser2"));
     }
 
     @Test
