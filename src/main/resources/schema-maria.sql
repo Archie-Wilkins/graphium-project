@@ -5,8 +5,12 @@
 create schema if not exists `graphium`;
 use `graphium`;
 
+-- Drop tables that have foreign key constraint with another table first
 SET FOREIGN_KEY_CHECKS = 0;
 drop table if exists `organisations`;
+drop table if exists `authorities`;
+drop table if exists `document_access_rights`;
+drop table if exists `documents`;
 drop table if exists `authorities`;
 drop table if exists `users`;
 drop table if exists `access_audit_reports`;
@@ -83,20 +87,34 @@ CREATE TABLE IF NOT EXISTS `access_audit_actions` (
     `action_description` VARCHAR(200) NOT NULL
 );
 
-
 -- ------------------------------------
 -- Table 'access_audit_reports'
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `access_audit_reports` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fk_username` VARCHAR(50) NOT NULL,
     `fk_document_id` INT,
-    `fk_action_id` INT NOT NULL, 
+    `fk_action_id` INT NOT NULL,
     `action_date` DATETIME NOT NULL,
 
-     CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
-     CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
-     CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`id`)
+    CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
+    CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+    CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`id`)
+);
+
+-- ------------------------------------
+-- Table `document_access_rights`
+-- ------------------------------------
+CREATE TABLE IF NOT EXISTS `document_access_rights` (
+    `id` INT(5) NOT NULL AUTO_INCREMENT,
+    `fk_document_id` INT(4) NOT NULL,
+    `fk_organisation_id` INT NULL,
+    `fk_user_id` VARCHAR(50) NULL,
+
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+    FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`),
+    FOREIGN KEY (`fk_user_id`) REFERENCES users(`username`)
 );
 
 
