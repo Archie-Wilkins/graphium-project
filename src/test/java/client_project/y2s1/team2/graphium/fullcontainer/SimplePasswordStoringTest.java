@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
+
 public class SimplePasswordStoringTest {
 
     @Test
@@ -12,7 +14,7 @@ public class SimplePasswordStoringTest {
         String password = "password";
         PasswordReaderService passwordCheck = new PasswordReaderService();
         Boolean test = passwordCheck.fileReader(password);
-        assertEquals(test);
+        assertEquals(test, true);
     }
 
     @Test
@@ -20,10 +22,8 @@ public class SimplePasswordStoringTest {
         String password = "pAsSwOrD";
         PasswordReaderService passwordCheck = new PasswordReaderService();
         Boolean test = passwordCheck.fileReader(password);
-        assertEquals(test);
+        assertEquals(test, false);
     }
 
-    private void assertEquals(Boolean test) {
-    }
 
 }
