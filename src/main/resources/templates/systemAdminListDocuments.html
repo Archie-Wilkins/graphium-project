@@ -18,7 +18,7 @@
     </div><br>
 
     <div class="container" id="search">
-        <form th:action="@{/myuploads}" th:method="get">
+        <form th:action="@{/systemAdmin/home}" th:method="get">
             <div clas="form-group">
                 <label class="form-label" for="txtSearch">Search documents:</label>
                 <input aria-describedby="Search for documents" class="form-control" id="txtSearch"
@@ -38,8 +38,8 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-around">
                         <button th:attr="onclick=|deleteFunction('${document.id}', '${document.title}')|"  type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
-                        <a href="#" class="btn btn-primary mx-3">View</a>
-                        <a href="#" class="btn btn-secondary">Download</a>
+                        <a href="/document/view/" class="btn btn-primary mx-3">View</a>
+                        <a href="/document/download/" class="btn btn-secondary">Download</a>
                     </div>
                 </div>
             </div>

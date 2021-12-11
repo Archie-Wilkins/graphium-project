@@ -12,16 +12,16 @@
 
         <div th:fragment="documentListNav" class="d-flex justify-content-center boarder">
             <div class="col-3 mx-2">
-                <a class="btn btn-info w-100" href="/myUploads">My Documents</a>
+                <a class="btn btn-info w-100" href="/document/myUploads">My Documents</a>
             </div>
             <div class="col-3 mx-2">
-                <a class="btn btn-info w-100" href="/myOrganisationDocuments">My Organisation</a>
+                <a class="btn btn-info w-100" href="/document/myOrganisationDocuments">My Organisation</a>
             </div>
             <div class="col-3 mx-2">
-                <a class="btn btn-info w-100" href="/otherOrganisationDocuments">Other Organisation</a>
+                <a class="btn btn-info w-100" href="/document/otherOrganisationDocuments">Other Organisation</a>
             </div>
             <div class="col-3 mx-2">
-                <a class="btn btn-info w-100" href="/otherUsersDocuments">Other Researchers</a>
+                <a class="btn btn-info w-100" href="/document/otherUsersDocuments">Other Researchers</a>
             </div>
         </div>
 
@@ -37,10 +37,10 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <a th:href="'/viewPDF/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-info">View</a>
-                    <a th:href="'/downloadPDF/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-primary">Download</a>
-                    <a th:href="'/shareDocument/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-success">Share</a>
-                    <a th:href="'/delete/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-danger">Delete</a>
+                    <a th:href="'/document/view/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-info">View</a>
+                    <a th:href="'/document/download/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-primary">Download</a>
+                    <a th:href="'/document/share/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-success">Share</a>
+                    <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-danger">Delete</a>
                 </div>
             </div>
         </div>

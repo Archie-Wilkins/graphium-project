@@ -12,24 +12,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class orgAdmins {
-
-    @Autowired
+@RequestMapping("/organisation")
+public class OrganisationAdminController {
     private DocumentsRepositoryJPA docsRepo;
-
-    @Autowired
     private UsersRepositoryJPA userRepo;
-
-    @Autowired
     private RetrieveDocumentData retrieveDocumentData;
 
-    @GetMapping({"/orgAdmin", "orgAdmin"})
+    public OrganisationAdminController(DocumentsRepositoryJPA aDocsRepo, UsersRepositoryJPA aUserRepo, RetrieveDocumentData aRetrieveDocumentData) {
+        this.docsRepo = aDocsRepo;
+        this.userRepo = aUserRepo;
+        this.retrieveDocumentData = aRetrieveDocumentData;
+    }
+
+    /*
+        Lists all documents owned by the organisations researchers
+     */
+    @GetMapping("/admin")
     public String index(Model model, Principal principal) {
 
         String userName = principal.getName();

@@ -11,45 +11,16 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private RetrieveDocumentData documentData;
+    private DocumentsListDocumentsController docListDocController;
 
-    public HomeController(RetrieveDocumentData aDocumentData) {
-        documentData = aDocumentData;
+    public HomeController(DocumentsListDocumentsController aDocListDocController) {
+        docListDocController = aDocListDocController;
     }
-
-    @GetMapping({"/", "/myUploads"})
+    /*
+        Lists all the documents the user owns from the documents controller
+     */
+    @GetMapping("/")
     public ModelAndView getMyUploads(Principal principal) {
-        ModelAndView model = new ModelAndView();
-        List<ListOfDocumentsDTO> documentList = documentData.getAllUsersUploadedDocuments(principal.getName());
-        model.addObject("documentList", documentList);
-        model.setViewName("index.html");
-        return model;
-    }
-
-    @GetMapping("/myOrganisationDocuments")
-    public ModelAndView getMyOrgUploads(Principal principal) {
-        ModelAndView model = new ModelAndView();
-        List<ListOfDocumentsDTO> documentList = documentData.getAllDocumentsSharedToUserByUsersOrganisation(principal.getName());
-        model.addObject("documentList", documentList);
-        model.setViewName("index.html");
-        return model;
-    }
-
-    @GetMapping("/otherOrganisationDocuments")
-    public ModelAndView getOtherOrgUploads(Principal principal) {
-        ModelAndView model = new ModelAndView();
-        List<ListOfDocumentsDTO> documentList = documentData.getAllDocumentsSharedToUserByOtherOrganisation(principal.getName());
-        model.addObject("documentList", documentList);
-        model.setViewName("index.html");
-        return model;
-    }
-
-    @GetMapping("/otherUsersDocuments")
-    public ModelAndView getOtherUserUploads(Principal principal) {
-        ModelAndView model = new ModelAndView();
-        List<ListOfDocumentsDTO> documentList = documentData.getAllSharedToUserDocuments(principal.getName());
-        model.addObject("documentList", documentList);
-        model.setViewName("index.html");
-        return model;
+        return docListDocController.getMyUploads(principal);
     }
 }
