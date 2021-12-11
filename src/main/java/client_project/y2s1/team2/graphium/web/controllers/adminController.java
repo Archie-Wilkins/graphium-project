@@ -70,6 +70,7 @@ public class adminController {
         if (orgService.usernameExists(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "Username already exists!"));
         } else if (orgService.emailExists(user.getEmail())){
+            System.out.println(orgService.emailExists(user.getEmail()));
             bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
         }
 
