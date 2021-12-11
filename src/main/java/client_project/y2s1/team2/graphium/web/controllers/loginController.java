@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class loginController {
-        @Autowired
         DocumentsRepositoryJPA docsRep;
+
+        public loginController(DocumentsRepositoryJPA aDocsRepo) {
+                this.docsRep = aDocsRepo;
+        }
 
         @GetMapping({"/login", "login"})
         public String index(Model model) {

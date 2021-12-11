@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
-public class AccessRightsControllerTests {
+public class DocumentAccessRightsControllerTests {
     @Autowired
     private WebApplicationContext context;
     @Autowired

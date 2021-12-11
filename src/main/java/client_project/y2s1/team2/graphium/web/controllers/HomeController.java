@@ -17,6 +17,9 @@ public class HomeController {
         documentData = aDocumentData;
     }
 
+    /*
+        Lists all the documents the user owns
+     */
     @GetMapping({"/", "/document/myUploads"})
     public ModelAndView getMyUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
@@ -26,6 +29,9 @@ public class HomeController {
         return model;
     }
 
+    /*
+        Lists all the documents that have been shared to the users organisation
+     */
     @GetMapping("/document/myOrganisationDocuments")
     public ModelAndView getMyOrgUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
@@ -35,6 +41,9 @@ public class HomeController {
         return model;
     }
 
+    /*
+        Lists all the documents that have been shared to the user by another organisation
+     */
     @GetMapping("/document/otherOrganisationDocuments")
     public ModelAndView getOtherOrgUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
@@ -44,6 +53,9 @@ public class HomeController {
         return model;
     }
 
+    /*
+        Lists all the documents that have been shared to the user by another user
+     */
     @GetMapping("/document/otherUsersDocuments")
     public ModelAndView getOtherUserUploads(Principal principal) {
         ModelAndView model = new ModelAndView();

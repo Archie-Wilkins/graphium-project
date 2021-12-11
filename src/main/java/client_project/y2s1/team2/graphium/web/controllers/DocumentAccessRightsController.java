@@ -15,10 +15,10 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/document")
-public class AccessRightsController {
+public class DocumentAccessRightsController {
     DocumentAccessRightService accessRightService;
 
-    public AccessRightsController(DocumentAccessRightService anAccessRightService) {
+    public DocumentAccessRightsController(DocumentAccessRightService anAccessRightService) {
         accessRightService = anAccessRightService;
     }
 
@@ -26,6 +26,9 @@ public class AccessRightsController {
         return accessRightService.canUserShareDocument(documentID, username);
     }
 
+    /*
+        Showing page to share the users document
+     */
     @GetMapping({"/share/{documentID}"})
     public ModelAndView returnDocumentSharePage(@PathVariable("documentID") Long documentID, Principal principal) {
         ModelAndView model = new ModelAndView();
@@ -54,6 +57,9 @@ public class AccessRightsController {
         return model;
     }
 
+    /*
+        Share the document to a new organisation
+     */
     @PostMapping({"/share/newOrganisation"})
     public ModelAndView shareDocumentToOrg(
             @RequestParam("documentID") Long documentID,
@@ -87,6 +93,9 @@ public class AccessRightsController {
         return model;
     }
 
+    /*
+        Share the document to a new user
+     */
     @PostMapping({"/share/newUser"})
     public ModelAndView shareDocumentToUser(
             @RequestParam("documentID") Long documentID,

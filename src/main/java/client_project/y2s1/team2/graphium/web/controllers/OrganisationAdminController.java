@@ -20,17 +20,20 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/organisation")
-public class orgAdmins {
-
-    @Autowired
+public class OrganisationAdminController {
     private DocumentsRepositoryJPA docsRepo;
-
-    @Autowired
     private UsersRepositoryJPA userRepo;
-
-    @Autowired
     private RetrieveDocumentData retrieveDocumentData;
 
+    public OrganisationAdminController(DocumentsRepositoryJPA aDocsRepo, UsersRepositoryJPA aUserRepo, RetrieveDocumentData aRetrieveDocumentData) {
+        this.docsRepo = aDocsRepo;
+        this.userRepo = aUserRepo;
+        this.retrieveDocumentData = aRetrieveDocumentData;
+    }
+
+    /*
+        Lists all documents owned by the organisations researchers
+     */
     @GetMapping("/admin")
     public String index(Model model, Principal principal) {
 
