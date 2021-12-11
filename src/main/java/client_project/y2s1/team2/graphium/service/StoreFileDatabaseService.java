@@ -4,13 +4,15 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
-import client_project.y2s1.team2.graphium.domain.SubmissionError;
+import client_project.y2s1.team2.graphium.domain.ReturnError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.Document;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -20,30 +22,47 @@ public class StoreFileDatabaseService {
     private DocumentsRepositoryJPA docRepository;
     @Autowired
     private UsersRepositoryJPA userRepository;
+    @Autowired
+    AuditService auditService;
+
     private String[] allowedFileExstensions = {"pdf", "docx"};
 
-    public SubmissionError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
+    public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            return new SubmissionError(true, "invalid_username", "Error finding user from given username.");
+            auditService.documentUploadFailed("the_invalid_username_king", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
+            return new ReturnError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
-            return new SubmissionError(true, "duplicate_title_and_user", "You already have a document with that title.");
+            auditService.documentUploadFailed(username, "a duplicate title was submitted by a user within the storeFile method under the storeFileDatabaseService");
+            return new ReturnError(true, "duplicate_title_and_user", "You already have a document with that title");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
-            return new SubmissionError(true, "file_type_invalid", "Document file is the wrong format.");
+            auditService.documentUploadFailed(username, "an invalid file type was submitted by a user within the storeFile method under the storeFileDatabaseService");
+            return new ReturnError(true, "file_type_invalid", "Document is in an unsupported format");
         }
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
-            return new SubmissionError(true, "file_extension_invalid", "Document file is the wrong format.");
+            auditService.documentUploadFailed(username, "a file with an invalid file extension was submitted by a user within the storeFile method under the storeFileDatabaseService");
+            return new ReturnError(true, "file_extension_invalid", "Document is in an unsupported format");
         }
+        try {
+            DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String date = String.valueOf(dateTime.format(now));
+
         Documents newDoc = new Documents(
                 docTitle,
+                date,
                 currentUser.get(),
                 fileType,
                 file.getBytes()
         );
         docRepository.save(newDoc);
-        return new SubmissionError(false);
+        auditService.documentUploaded(username, newDoc.getId().intValue(), "user uploaded file to the database successfully");
+        return new ReturnError(false);
+        } catch(Exception e) {
+            return new ReturnError(true, "issue-saving", "Issue during submission, please try again.");
+        }
     }
 }
 

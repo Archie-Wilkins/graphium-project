@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Something Went Wrong!</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div th:replace="error :: error-body(mainText='Access denied', secondaryText='You are not allowed to access this page')"/>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
