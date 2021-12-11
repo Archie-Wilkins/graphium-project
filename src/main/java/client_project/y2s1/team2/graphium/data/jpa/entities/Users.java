@@ -27,7 +27,6 @@ public class Users {
 
     private String last_name;
 
-    @Column(unique = true)
     private String email;
 
     private String authority_set_date;
