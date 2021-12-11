@@ -32,11 +32,11 @@ public class SpringSecurityTests {
     private WebApplicationContext context;
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        mvc = MockMvcBuilders
+        mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
@@ -45,7 +45,7 @@ public class SpringSecurityTests {
     @WithMockUser("testSystemAdmin")
     @Test
     public void systemAdminAccessPublicPage_shouldSucceedWith200() throws Exception {
-        mvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -54,28 +54,28 @@ public class SpringSecurityTests {
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     @Test
     public void systemAdminAccessSystemAdminPage_shouldSucceedWith200() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @WithMockUser("testUser")
     @Test
     public void researcherCanAccessPublicPage_shouldSucceedWith200() throws Exception {
-        mvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @WithMockUser("testUser")
     @Test
     public void researcherCantAccessSystemAdminPage_shouldBeForbidden() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
     @WithMockUser("testOrgAdmin")
     @Test
     public void orgAdminAccessPublicPage_shouldSucceedWith200() throws Exception {
-        mvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/login").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -83,21 +83,33 @@ public class SpringSecurityTests {
     @WithMockUser("testOrgAdmin")
     @Test
     public void orgAdminCantAccessSysAdminPage_shouldFailWithForbidden() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
+    //researcher cant create new org
     @Test
-    @WithMockUser("testUser")
-    public void creatorCannotShareNewUser() throws Exception {
-        mockMvc.perform(post("/shareNewUser")
-                        .param("documentID", "4")
-                        .param("newUsername", "testUser2")
+    @WithMockUser(username = "testUser", authorities = "researcher")
+    public void researcherCantCreateNewOrg() throws Exception {
+        mockMvc.perform(post("/systemAdmin/organisation")
                         .with(csrf())
                 )
-                .andExpect(status().isOk())
-                .andExpect(view().name("error/403.html"));
+                .andExpect(status().isForbidden());
     }
+
+    //system admin can access new org controller
+    @Test
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    public void systemAdminCanCreateNewOrg() throws Exception {
+        mockMvc.perform(post("/systemAdmin/organisation")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk());
+    }
+
+    //researcher cant create new org admin
+
+    //system admin can create new org admin
 
 
 
