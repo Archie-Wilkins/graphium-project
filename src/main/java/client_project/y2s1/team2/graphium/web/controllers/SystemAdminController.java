@@ -8,6 +8,8 @@ import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
 import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,14 +33,19 @@ public class SystemAdminController {
     private UserFeedbackNewOrganisationService feedbackService;
 
     @GetMapping({"/", "/home"})
-    public String systemAdminHome(Model model, Principal principal) {
+    public String systemAdminHome(Model model, String keyword, Principal principal){
+        String user = principal.getName();
+        List<Documents> AllDocuments = docsRepo.findAll();
+//            Optional<Documents> userDocs = docsRepo.findByUser();
+        model.addAttribute("allDocuments", AllDocuments);
+        model.addAttribute("userName", user);
 
-            String userName = principal.getName();
-            List<Documents> AllDocuments = docsRepo.findAll();
-            model.addAttribute("userName",userName);
-            model.addAttribute("allDocuments",AllDocuments);
-            return "systemAdminHome.html";
-
+        if(keyword !=null){
+            model.addAttribute("allDocuments", docsRepo.findByTitle(keyword));
+        }else{
+            model.addAttribute("allDocuments", docsRepo.findAll());
+        }
+        return "systemAdminListDocuments.html";
     }
 
     @GetMapping({"/newOrganisation"})
