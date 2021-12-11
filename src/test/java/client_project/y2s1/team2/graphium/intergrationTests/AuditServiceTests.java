@@ -54,7 +54,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentDownloadedLog_Failed() throws Exception {
-        mockMvc.perform(get("/downloadPDF/4"));
+        mockMvc.perform(get("/downloadPDF/7"));
 
         List<Access_Audit_Reports> allFailedDownloads = auditService.getAllAuditLogsByActionID(14);
         int allFailedDownloadsSize = allFailedDownloads.size();
@@ -90,7 +90,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentViewedAuditIntergration_Failed() throws Exception {
-        mockMvc.perform(get("/viewPDF/4"));
+        mockMvc.perform(get("/viewPDF/7"));
 
         List<Access_Audit_Reports> allFailedViews = auditService.getAllAuditLogsByActionID(15);
         int allFailedViewsSize = allFailedViews.size();

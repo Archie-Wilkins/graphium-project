@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `first_name` VARCHAR(50) NOT NULL, 
     `last_name` VARCHAR(50) NOT NULL, 
     `email` VARCHAR(100) NOT NULL, 
-    `authority_set_date` DATETIME NOT NULL,
+    -- set to NOT NULL until issue is resolved
+    `authority_set_date` DATETIME,
     
     CONSTRAINT `fk_users_organisations` FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
     ON UPDATE CASCADE
