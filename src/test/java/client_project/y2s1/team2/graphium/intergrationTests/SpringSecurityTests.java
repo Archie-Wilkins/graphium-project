@@ -50,8 +50,15 @@ public class SpringSecurityTests {
 
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     @Test
-    public void systemAdminAccessSystemAdminPage_shouldSucceedWith200() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+    public void systemAdminAccessSystemAdminHomePage_shouldSucceedWith200() throws Exception {
+        mvc.perform(get("/systemAdmin/home").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    @Test
+    public void systemAdminAccessSystemAdminHomePage2_shouldSucceedWith200() throws Exception {
+        mvc.perform(get("/systemAdmin/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -65,7 +72,7 @@ public class SpringSecurityTests {
     @WithMockUser("testUser")
     @Test
     public void researcherCantAccessSystemAdminPage_shouldBeForbidden() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/systemAdmin/home").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
@@ -80,7 +87,7 @@ public class SpringSecurityTests {
     @WithMockUser("testOrgAdmin")
     @Test
     public void orgAdminCantAccessSysAdminPage_shouldFailWithForbidden() throws Exception {
-        mvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/systemAdmin/home").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
