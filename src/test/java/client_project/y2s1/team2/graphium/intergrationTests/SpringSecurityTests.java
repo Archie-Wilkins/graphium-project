@@ -1,6 +1,13 @@
 package client_project.y2s1.team2.graphium.intergrationTests;
 
 
+import client_project.y2s1.team2.graphium.data.jpa.entities.Authorities;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
+import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,6 +38,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 public class SpringSecurityTests {
+
+    @Autowired
+    OrganisationsRepositoryJPA orgRepo;
+
+    @Autowired
+    AuthoritiesRepositoryJPA authRepo;
+
+    @Autowired
+    UsersRepositoryJPA userRepo;
 
     @Autowired
     private WebApplicationContext context;
@@ -108,9 +128,57 @@ public class SpringSecurityTests {
     }
 
     //researcher cant create new org admin
+//    @Test
+//    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+//    public void researcherCantCreateNewOrgAdmin() throws Exception {
+//        mockMvc.perform(post("/systemAdmin/process_register")
+//                        .with(csrf())
+//                )
+//                .andExpect(status().isOk());
+//    }
+
+    @Test
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    public void systemAdminCanAccessAdminReg() throws Exception {
+        mockMvc.perform(get("/systemAdmin/adminreg")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "testUser", authorities = "researcher")
+    public void researcherAccessAdminReg() throws Exception {
+        mockMvc.perform(get("/systemAdmin/adminreg")
+                        .with(csrf())
+                )
+                .andExpect(status().isForbidden());
+    }
+
+
 
     //system admin can create new org admin
-
+//    In-progress test
+//    @Test
+//    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+//    public void systemAdminCanCreateNewOrgAdmin() throws Exception {
+//        List<Documents> ownedDocuments = new ArrayList<>();
+//        Optional<Organisations> cardiffUniOrg = orgRepo.findById(1L);
+//        Optional<Users> testUser = userRepo.findByUsername("testUser");
+//        Optional<Authorities> testAuth = authRepo.findByUsername("testUser");
+//
+//        Users user = new Users("Automated User","aComplexPassword",true,1,"Ron","Simmons","Ron@Simmons.com",null, ownedDocuments, cardiffUniOrg.get(), null);
+//        Authorities authority = new Authorities("Automated User", "orgAdmin",user);
+//        user.setAuthority(authority);
+//
+//
+//        mockMvc.perform(post("/systemAdmin/process_register")
+//                        .param("user", String.valueOf(testUser))
+//                        .param("authority", String.valueOf(testAuth))
+//                        .with(csrf())
+//                )
+//                .andExpect(status().isOk());
+//    }
 
 
 }
