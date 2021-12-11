@@ -27,10 +27,6 @@ public class Authorities {
         return username;
     }
 
-    public String getAuthority() {
-        return authority;
-    }
-
     public void setFk_username(String fk_username) {
         this.username = fk_username;
     }

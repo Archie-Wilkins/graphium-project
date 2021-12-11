@@ -17,13 +17,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 @Controller
-public class adminController {
+@RequestMapping(path = "/systemAdmin")
+public class systemAdminRegisterController {
 
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
@@ -35,23 +37,11 @@ public class adminController {
     private final OrganisationAdminRegisterService orgService;
 
     @Autowired
-    public adminController(OrganisationAdminRegisterService orgService) {
+    public systemAdminRegisterController(OrganisationAdminRegisterService orgService) {
         this.orgService = orgService;
     }
 
-    @GetMapping({"/admin", "admin"})
-    public String index(Model model, Principal principal) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        String name = auth.getName();
-        String userName = principal.getName();
-        List<Documents> AllDocuments = docsRepo.findAll();
-        model.addAttribute("userName", userName);
-        model.addAttribute("allDocuments", AllDocuments);
-        return "admin.html";
-
-    }
 
     @GetMapping({"/adminreg", "adminreg"})
     public String register(Model model) {

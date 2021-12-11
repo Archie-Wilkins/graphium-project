@@ -21,7 +21,7 @@ public class OrganisationAdminRegisterService {
 
     @Transactional
     public Optional<Users> findByEmail(String email){
-        return usersRepo.findByEmail(email);
+        return usersRepo.findFirstByEmail(email);
     }
 
     public boolean usernameExists(String username){
