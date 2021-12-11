@@ -77,4 +77,51 @@ public class AccessRightsControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("error/403.html"));
     }
+
+    @Test
+    @WithMockUser("testUser")
+    public void creatorCanShareNewUser() throws Exception {
+        mockMvc.perform(post("/shareNewUser")
+                        .param("documentID", "2")
+                        .param("newUsername", "testUser3")
+                        .with(csrf())
+                )
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    @WithMockUser("testUser")
+    public void creatorCannotShareNewUser() throws Exception {
+        mockMvc.perform(post("/shareNewUser")
+                        .param("documentID", "4")
+                        .param("newUsername", "testUser2")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/403.html"));
+    }
+
+    @Test
+    @WithMockUser("testUser")
+    public void creatorCannotShareDuplicateOrganisation() throws Exception {
+        mockMvc.perform(post("/shareNewOrganisation")
+                        .param("documentID", "1")
+                        .param("newOrganisationID", "1")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("error.html"));
+    }
+
+    @Test
+    @WithMockUser("testUser")
+    public void creatorCannotShareDuplicateUser() throws Exception {
+        mockMvc.perform(post("/shareNewUser")
+                        .param("documentID", "2")
+                        .param("newUsername", "testUser2")
+                        .with(csrf())
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("error.html"));
+    }
 }
