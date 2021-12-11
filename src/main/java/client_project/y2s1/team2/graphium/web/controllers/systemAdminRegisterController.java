@@ -43,7 +43,7 @@ public class systemAdminRegisterController {
 
 
 
-    @GetMapping({"/adminreg", "adminreg"})
+    @GetMapping("/newOrgAdmin")
     public String register(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,7 +53,7 @@ public class systemAdminRegisterController {
         return "adminRegister.html";
     }
 
-    @PostMapping("/process_register")
+    @PostMapping("/newOrgAdmin")
     public String processRegister(@Validated Users user, Authorities authority, BindingResult bindingResult) throws IOException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String attemptedPassword = user.getPassword();

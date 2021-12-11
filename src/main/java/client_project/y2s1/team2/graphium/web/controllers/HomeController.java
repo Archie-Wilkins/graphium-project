@@ -17,7 +17,7 @@ public class HomeController {
         documentData = aDocumentData;
     }
 
-    @GetMapping({"/", "/myUploads"})
+    @GetMapping({"/", "/document/myUploads"})
     public ModelAndView getMyUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
         List<ListOfDocumentsDTO> documentList = documentData.getAllUsersUploadedDocuments(principal.getName());
@@ -26,7 +26,7 @@ public class HomeController {
         return model;
     }
 
-    @GetMapping("/myOrganisationDocuments")
+    @GetMapping("/document/myOrganisationDocuments")
     public ModelAndView getMyOrgUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
         List<ListOfDocumentsDTO> documentList = documentData.getAllDocumentsSharedToUserByUsersOrganisation(principal.getName());
@@ -35,7 +35,7 @@ public class HomeController {
         return model;
     }
 
-    @GetMapping("/otherOrganisationDocuments")
+    @GetMapping("/document/otherOrganisationDocuments")
     public ModelAndView getOtherOrgUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
         List<ListOfDocumentsDTO> documentList = documentData.getAllDocumentsSharedToUserByOtherOrganisation(principal.getName());
@@ -44,7 +44,7 @@ public class HomeController {
         return model;
     }
 
-    @GetMapping("/otherUsersDocuments")
+    @GetMapping("/document/otherUsersDocuments")
     public ModelAndView getOtherUserUploads(Principal principal) {
         ModelAndView model = new ModelAndView();
         List<ListOfDocumentsDTO> documentList = documentData.getAllSharedToUserDocuments(principal.getName());

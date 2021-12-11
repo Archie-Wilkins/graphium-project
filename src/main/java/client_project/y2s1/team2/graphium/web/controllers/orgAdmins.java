@@ -12,12 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/organisation")
 public class orgAdmins {
 
     @Autowired
@@ -29,7 +31,7 @@ public class orgAdmins {
     @Autowired
     private RetrieveDocumentData retrieveDocumentData;
 
-    @GetMapping({"/orgAdmin", "orgAdmin"})
+    @GetMapping("/admin")
     public String index(Model model, Principal principal) {
 
         String userName = principal.getName();

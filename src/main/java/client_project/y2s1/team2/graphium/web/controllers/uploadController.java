@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,17 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/document")
 public class uploadController {
 
     @Autowired
     private StoreFileDatabaseService StoreFile;
 
-    @GetMapping({"/upload", "upload"})
+    @GetMapping("/upload")
     public String upload(){
         return "upload.html";
     }
 
-    @PostMapping("/uploadDocument")
+    @PostMapping("/upload")
     public ModelAndView uploadDocument(
             @RequestParam("documentTitle") String receivedTitle,
             @RequestParam("documentData") MultipartFile receivedDocumentData,

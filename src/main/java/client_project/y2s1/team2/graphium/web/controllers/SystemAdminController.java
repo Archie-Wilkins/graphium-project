@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequestMapping("/systemAdmin")
 public class SystemAdminController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class SystemAdminController {
     @Autowired
     private UserFeedbackNewOrganisationService feedbackService;
 
-    @GetMapping({"/systemAdmin", "systemAdmin"})
+    @GetMapping({"/", "/home"})
     public String systemAdminHome(Model model, Principal principal) {
 
             String userName = principal.getName();
@@ -39,7 +41,7 @@ public class SystemAdminController {
 
     }
 
-    @GetMapping({"/systemAdmin/organisation"})
+    @GetMapping({"/newOrganisation"})
     public String systemAdminOrganisation(
             Model model){
         OrganisationForm organisationDTO = new OrganisationForm();
@@ -48,7 +50,7 @@ public class SystemAdminController {
         return "systemAdminNewOrganisation.html";
     }
 
-    @PostMapping({"/systemAdmin/organisation"})
+    @PostMapping({"/newOrganisation"})
     public String systemAdminOrganisation(OrganisationForm organisationForm, Model model){
 
         OrganisationDTO organisationDTO = organisationForm.toOrganisationDTO();

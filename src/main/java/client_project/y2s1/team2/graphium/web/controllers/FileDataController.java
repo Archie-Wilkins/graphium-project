@@ -12,11 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/document")
 public class FileDataController {
     private RetrieveDocumentData docData;
     public FileDataController(RetrieveDocumentData aDocData) {
@@ -29,7 +31,7 @@ public class FileDataController {
     @Autowired
     private AuditService auditService;
 
-    @GetMapping("/viewPDF/{documentID}")
+    @GetMapping("/view/{documentID}")
     public ResponseEntity<byte[]> returnInlinePDFData(@PathVariable("documentID") Long documentID, Principal principal) {
         Optional<Documents> document = docData.getDocumentByID(documentID);
         // Creating ResponseEntity with correct headers for displaying in-browser
@@ -55,7 +57,7 @@ public class FileDataController {
         return "redirect:/myuploads";
     }
 
-    @GetMapping("/downloadPDF/{documentID}")
+    @GetMapping("/download/{documentID}")
     public ResponseEntity<byte[]> returnDownloadPDFData(@PathVariable("documentID") Long documentID, Principal principal) {
         Optional<Documents> document = docData.getDocumentByID(documentID);
         // Creating ResponseEntity with correct headers for displaying in-browser

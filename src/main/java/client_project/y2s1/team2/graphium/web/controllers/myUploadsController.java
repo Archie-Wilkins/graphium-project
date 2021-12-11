@@ -19,8 +19,8 @@ import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/document")
 public class myUploadsController {
-
     @Autowired
     private DocumentsRepositoryJPA docsRepo;
 
