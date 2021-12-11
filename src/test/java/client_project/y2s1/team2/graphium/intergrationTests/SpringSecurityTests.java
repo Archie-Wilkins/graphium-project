@@ -157,28 +157,51 @@ public class SpringSecurityTests {
 
 
 
-    //system admin can create new org admin
+//    system admin can create new org admin
 //    In-progress test
-//    @Test
-//    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
-//    public void systemAdminCanCreateNewOrgAdmin() throws Exception {
-//        List<Documents> ownedDocuments = new ArrayList<>();
-//        Optional<Organisations> cardiffUniOrg = orgRepo.findById(1L);
-//        Optional<Users> testUser = userRepo.findByUsername("testUser");
-//        Optional<Authorities> testAuth = authRepo.findByUsername("testUser");
-//
-//        Users user = new Users("Automated User","aComplexPassword",true,1,"Ron","Simmons","Ron@Simmons.com",null, ownedDocuments, cardiffUniOrg.get(), null);
-//        Authorities authority = new Authorities("Automated User", "orgAdmin",user);
-//        user.setAuthority(authority);
-//
-//
-//        mockMvc.perform(post("/systemAdmin/process_register")
-//                        .param("user", String.valueOf(testUser))
-//                        .param("authority", String.valueOf(testAuth))
-//                        .with(csrf())
-//                )
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    public void systemAdminCanCreateNewOrgAdmin() throws Exception {
+        List<Documents> ownedDocuments = new ArrayList<>();
+        Optional<Organisations> cardiffUniOrg = orgRepo.findById(1L);
+        Optional<Users> testUser = userRepo.findByUsername("testUser");
+        Optional<Authorities> testAuth = authRepo.findByUsername("testUser");
+
+        Users user = new Users("Automated User","aComplexPassword",true,1,"Ron","Simmons","Ron@Simmons.com",null, ownedDocuments, cardiffUniOrg.get(), null);
+        Authorities authority = new Authorities("Automated User", "orgAdmin",user);
+        user.setAuthority(authority);
+
+
+        mockMvc.perform(post("/systemAdmin/process_register")
+                        .param("user", String.valueOf(testUser))
+                        .param("authority", String.valueOf(testAuth))
+                        .with(csrf())
+                )
+                .andExpect(status().is4xxClientError());
+//               Expecting a 400 error is a little hackey I know but it shows the SysAdmin can get to the controller
+//              where as the researcher cant
+    }
+
+    @Test
+    @WithMockUser(username = "testUser", authorities = "researcher")
+    public void ResearcherCantCreateNewOrgAdmin() throws Exception {
+        List<Documents> ownedDocuments = new ArrayList<>();
+        Optional<Organisations> cardiffUniOrg = orgRepo.findById(1L);
+        Optional<Users> testUser = userRepo.findByUsername("testUser");
+        Optional<Authorities> testAuth = authRepo.findByUsername("testUser");
+
+        Users user = new Users("Automated User","aComplexPassword",true,1,"Ron","Simmons","Ron@Simmons.com",null, ownedDocuments, cardiffUniOrg.get(), null);
+        Authorities authority = new Authorities("Automated User", "orgAdmin",user);
+        user.setAuthority(authority);
+
+
+        mockMvc.perform(post("/systemAdmin/process_register")
+                        .param("user", String.valueOf(testUser))
+                        .param("authority", String.valueOf(testAuth))
+                        .with(csrf())
+                )
+                .andExpect(status().isForbidden());
+    }
 
 
 }
