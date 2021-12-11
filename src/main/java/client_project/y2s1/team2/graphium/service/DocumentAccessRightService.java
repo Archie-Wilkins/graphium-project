@@ -29,6 +29,14 @@ public class DocumentAccessRightService {
         orgRepository = aOrgRepo;
     }
 
+    public Optional<Documents> getDocument(long documentID) {
+        return docRepository.findById(documentID);
+    }
+
+    public Optional<Organisations> getOrganisation(long organisationID) { return orgRepository.findById(organisationID); }
+
+    public Optional<Users> getUser(String username) { return userRepository.findByUsername(username); }
+
     public Boolean canUserShareDocument(long documentID, String username) {
         Optional<Users> owner = userRepository.findByUsername(username);
         if (owner.isPresent()) {
@@ -41,12 +49,6 @@ public class DocumentAccessRightService {
         }
         return false;
     }
-
-    public Optional<Documents> getDocument(long documentID) {
-        return docRepository.findById(documentID);
-    }
-
-    public Optional<Organisations> getOrganisation(long organisationID) { return orgRepository.findById(organisationID); }
 
     public List<Organisations> getSharedOrganisations(Documents document) {
         List<DocumentAccessRights> accessRights = accessRightsRepository.findByDocument(document);
@@ -111,6 +113,10 @@ public class DocumentAccessRightService {
     }
 
     public ReturnError addNewSharedOrganisation(Documents document, Organisations organisation) {
+        Optional<DocumentAccessRights> existingAccessRight = accessRightsRepository.findByDocumentAndOrganisation(document, organisation);
+        if (existingAccessRight.isPresent()) {
+            return new ReturnError(true, "already-exists", "The document has already been shared with this user.");
+        }
         try {
             DocumentAccessRights newAccessRight = new DocumentAccessRights(document, organisation);
             accessRightsRepository.save(newAccessRight);

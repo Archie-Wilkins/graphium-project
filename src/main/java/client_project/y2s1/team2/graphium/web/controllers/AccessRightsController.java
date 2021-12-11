@@ -70,15 +70,54 @@ public class AccessRightsController {
             Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
             Optional<Organisations> newOrganisation = accessRightService.getOrganisation(organisationID);
             if (sharingDocument.isEmpty() || newOrganisation.isEmpty()) {
-                model.addObject("secondaryText", "We failed to get your file, please go back and try again");
+                model.addObject("secondaryText", "We failed to get the organisation and file, please go back and try again");
                 model.setViewName("error.html");
             } else {
                 ReturnError saveResult = accessRightService.addNewSharedOrganisation(sharingDocument.get(), newOrganisation.get());
                 if (saveResult.errored()) {
-                    model.setViewName("error/500.html");
+                    if (saveResult.getError().equals("already-exists")) {
+                        model.addObject("secondaryText", saveResult);
+                        model.setViewName("error.html");
+                    } else {
+                        model.setViewName("error/500.html");
+                    }
+                } else {
+                    model.setViewName("redirect:/shareDocument/"+documentID);
                 }
             }
-            model.setViewName("redirect:/shareDocument/"+documentID);
+        }
+        return model;
+    }
+
+    @PostMapping({"/shareNewUser"})
+    public ModelAndView shareDocumentToUser(
+            @RequestParam("documentID") Long documentID,
+            @RequestParam("newUsername") String newUserName,
+            Principal principal
+    ) {
+        ModelAndView model = new ModelAndView();
+        if (!canAddAccessRight(documentID, principal.getName())) {
+            model.addObject("secondaryText", "You do not have the right permissions to share this document");
+            model.setViewName("error/403.html");
+        } else {
+            Optional<Documents> sharingDocument = accessRightService.getDocument(documentID);
+            Optional<Users> newUser = accessRightService.getUser(newUserName);
+            if (sharingDocument.isEmpty() || newUser.isEmpty()) {
+                model.addObject("secondaryText", "We failed to get the username file, please go back and try again");
+                model.setViewName("error.html");
+            } else {
+                ReturnError saveResult = accessRightService.addNewSharedUser(sharingDocument.get(), newUser.get());
+                if (saveResult.errored()) {
+                    if (saveResult.getError().equals("already-exists")) {
+                        model.addObject("secondaryText", saveResult);
+                        model.setViewName("error.html");
+                    } else {
+                        model.setViewName("error/500.html");
+                    }
+                } else {
+                    model.setViewName("redirect:/shareDocument/"+documentID);
+                }
+            }
         }
         return model;
     }
