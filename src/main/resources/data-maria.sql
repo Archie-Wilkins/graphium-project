@@ -43,6 +43,8 @@ VALUES ('testOrgAdmin2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
 VALUES ('testSystemAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
+INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
+VALUES ('the_invalid_username_king','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
 
 -- ------------------------
 -- Authorities
@@ -54,6 +56,7 @@ INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser4', 'res
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin', 'orgAdmin');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin2', 'orgAdmin');
 INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin', 'systemAdmin');
+
 
 -- --------------------------
 -- Documents
@@ -78,6 +81,16 @@ VALUES (null, 'testUser2', 'Different Org 3', '2020-12-31' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
 VALUES (null, 'testUser2', 'Swansea Uni PDF', '2021-12-03' ,'pdf', null);
+
+
+-- --------------------------
+-- Document Access Rights
+-- --------------------------
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 1, 1, null);
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 2, null, 'testUser2');
+
 
 -- --------------------------
 -- Access_Audit_Actions
@@ -118,23 +131,26 @@ VALUES (null, 'New user created');
 INSERT INTO `access_audit_actions` (`id`, `action_description`)
 VALUES (null, 'File uploaded');
 
+INSERT INTO `access_audit_actions` (`id`, `action_description`)
+VALUES (null, 'File upload failed');
+
+INSERT INTO `access_audit_actions` (`id`, `action_description`)
+VALUES (null, 'Document download failed');
+
+INSERT INTO `access_audit_actions` (`id`, `action_description`)
+VALUES (null, 'View document failed');
+
+
 -- --------------------------
 -- Access_Audit_Reports
 -- --------------------------
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
-VALUES (null, 'testUser', null, 1, NOW());
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'testUser', null, 1, NOW(), 'This is a test piece of data under testUser');
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
-VALUES (null, 'testUser', null, 6, NOW());
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'testUser', null, 6, NOW(), 'This is a test piece of data under testUser');
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`, `fk_action_id`, `action_date`)
-VALUES (null, 'testUser', 1, 7, NOW());
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'testUser', 1, 7, NOW(), 'This is a test piece of data under testUser');
 
 
--- --------------------------
--- Document Access Rights
--- --------------------------
-INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
-VALUES (null, 1, 1, null);
-INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
-VALUES (null, 2, null, 'testUser2');
