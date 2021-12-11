@@ -18,6 +18,7 @@ public interface DocumentAccessRightsRepositoryJPA extends JpaRepository<Documen
     List<DocumentAccessRights> findByDocument(Documents document);
     List<DocumentAccessRights> findByOrganisation(Organisations organisation);
     List<DocumentAccessRights> findByUser(Users user);
+    List<DocumentAccessRights> findAllByOrganisation_Name(String organisationName);
     DocumentAccessRights save(DocumentAccessRights accessRights);
     // Causes issues when running tests
 //    DocumentAccessRights deleteDocumentAccessRightsByDocumentAndUser(Documents document, Users user);

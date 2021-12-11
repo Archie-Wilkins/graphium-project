@@ -7,9 +7,10 @@
     <div th:replace="fragments/standardHead :: standardCSS"></div>
 </head>
 <body>
-<!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
-<div th:replace="fragments/header :: header"/>
-<h1>THIS IS A TEST</h1>
-<div th:replace="fragments/footer :: footer"/>
+    <div th:replace="fragments/header :: header"/>
+
+    <div th:replace="fragments/listDocuments :: documentListFull" />
+
+    <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

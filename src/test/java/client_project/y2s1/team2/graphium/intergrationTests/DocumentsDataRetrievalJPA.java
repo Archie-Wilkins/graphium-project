@@ -53,12 +53,10 @@ public class DocumentsDataRetrievalJPA {
     }
 
     @Test
-    public void canRetrieveAll6TestDocuments() throws Exception{
+    public void canRetrieveAll7TestDocuments() throws Exception{
         List<Documents> retrievedDocuments = docRepository.findAll();
         int DocumentsListLength = retrievedDocuments.size();
         assertEquals(7, DocumentsListLength);
     }
-
-
 
 }
