@@ -31,13 +31,16 @@ public class Users {
 
     private String authority_set_date;
 
+//   Need to set foreign key to organisations
     @ToString.Exclude
     @OneToMany(mappedBy="user")
     private List<Documents> ownedDocuments = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "fk_organisation_id",insertable = false,updatable = false)
+    @JoinColumn(name = "fk_organisation_id", insertable = false, updatable = false)
     private Organisations organisation;
 
+    @OneToOne(mappedBy="user")
+    private Authorities authority;
 
 }

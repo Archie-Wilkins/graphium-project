@@ -42,4 +42,5 @@ public class Documents {
     public boolean isOwner(Users possibleUser) {
         return this.user.getUsername().equals(possibleUser.getUsername());
     }
+
 }

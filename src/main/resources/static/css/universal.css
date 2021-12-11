@@ -32,9 +32,13 @@ body{
     padding: 10px;
 }
 
-
+.page_content{
+    background: #F5F8FA;
+    padding: 10%;
+}
 
 .card-button-css{
     width: 50px;
     margin-left: 5px;
 }
+

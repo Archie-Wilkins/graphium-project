@@ -18,4 +18,6 @@ public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
     List<Documents> findByTitle(@Param("keyword") String keyword);
 
     List<Documents> findAllByUser_Organisation_Name(String orgName);
+
+
 }

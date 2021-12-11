@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,52 +31,113 @@ public class AuditServiceTests {
     @Autowired
     StoreFileDatabaseService storeFile;
 
+    @Autowired
+    private WebApplicationContext context;
+    @Autowired
+    private MockMvc mockMvc;
+
     //Audit service intergration tests
 
     //Document downloaded service intergration test - need to test controller
+    @Test
+    @WithMockUser("testUser")
+    public void canSaveDocumentDownloadedLog_Success() throws Exception {
+        mockMvc.perform(get("/downloadPDF/1"));
+
+        List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
+        int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
+
+        assertEquals(allSuccesfulDownloadsSize, 2);
+    }
+
+    //Download failed
+    @Test
+    @WithMockUser("testUser")
+    public void canSaveDocumentDownloadedLog_Failed() throws Exception {
+        mockMvc.perform(get("/downloadPDF/4"));
+
+        List<Access_Audit_Reports> allFailedDownloads = auditService.getAllAuditLogsByActionID(14);
+        int allFailedDownloadsSize = allFailedDownloads.size();
+
+        assertEquals(allFailedDownloadsSize, 1);
+    }
 
     //Document deleted service intergration test
     @Test
-    public void storeFileCanSubmitsAuditOnSuccesfulUpload() throws Exception {
-        MockMultipartFile testFile = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
-        storeFile.storeFile("Document Title","testUser", "pdf", testFile);
+    @WithMockUser("testUser")
+    public void canSaveDocumentDeletedAuditIntergration_Success() throws Exception {
+        mockMvc.perform(get("/downloadPDF/1"));
 
-        List<Access_Audit_Reports> allSuccesfulUploads = auditService.getAllAuditLogsByActionID(12);
-        int allSuccesfulUploadsSize = allSuccesfulUploads.size();
+        List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
+        int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
 
-        assertEquals(allSuccesfulUploadsSize, 1);
+        assertEquals(allSuccesfulDownloadsSize, 2);
     }
 
     //Document viewed service intergration test - need to test controller
     @Test
-    public void storeFileCanSubmitsAuditOnSuccessfulView() throws Exception {
-        MockMultipartFile testFile = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
-        storeFile.storeFile("Document Title","testUser", "pdf", testFile);
+    @WithMockUser("testUser")
+    public void canSaveDocumentViewedAuditIntergration_Success() throws Exception {
+        mockMvc.perform(get("/viewPDF/1"));
 
-        List<Access_Audit_Reports> allSuccesfulUploads = auditService.getAllAuditLogsByActionID(12);
-        int allSuccesfulUploadsSize = allSuccesfulUploads.size();
+        List<Access_Audit_Reports> allSuccesfulViews = auditService.getAllAuditLogsByActionID(9);
+        int allSuccesfulViewsSize = allSuccesfulViews.size();
 
-        assertEquals(allSuccesfulUploadsSize, 1);
+        assertEquals(allSuccesfulViewsSize, 1);
+    }
+
+    //View Failed
+    @Test
+    @WithMockUser("testUser")
+    public void canSaveDocumentViewedAuditIntergration_Failed() throws Exception {
+        mockMvc.perform(get("/viewPDF/4"));
+
+        List<Access_Audit_Reports> allFailedViews = auditService.getAllAuditLogsByActionID(15);
+        int allFailedViewsSize = allFailedViews.size();
+
+        assertEquals(allFailedViewsSize, 1);
+    }
+
+    @Test
+    public void canSaveUploadedFileAuditIntergration_Successful() throws Exception {
+        auditService.documentUploaded("testUser", 1);
+
+        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
+        int documentUploadedSavedSize = documentUploadedSaved.size();
+
+        assertEquals(documentUploadedSavedSize, 1);
     }
 
 
     //Document Uploaded service intergration test
-//    @Test
-//    public void storeFileCanSubmitsAuditOnSuccesfulUpload() throws Exception {
-//        MockMultipartFile testFile = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
-//        storeFile.storeFile("Document Title","testUser", "pdf", testFile);
-//
-//        List<Access_Audit_Reports> allSuccesfulUploads = auditService.getAllAuditLogsByActionID(12);
-//        int allSuccesfulUploadsSize = allSuccesfulUploads.size();
-//
-//        assertEquals(allSuccesfulUploadsSize, 1);
-//    }
+    @Test
+    public void canSaveUploadedFileAuditIntergration_Success() throws Exception {
+        MockMultipartFile fileToUpload = new MockMultipartFile("data", "test.pdf", "pdf", "The Text".getBytes());
 
-    //Save on failed upload attempt
+        storeFile.storeFile("data", "testUser", "pdf",fileToUpload);
+
+        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
+        int documentUploadedSavedSize = documentUploadedSaved.size();
+
+        assertEquals(documentUploadedSavedSize, 1);
+    }
+
+    //Save log on failed upload attempt (invalid file type)
+    @Test
+    public void canSaveUploadedFileAuditIntergration_Failed() throws Exception {
+        MockMultipartFile fileToUpload = new MockMultipartFile("data", "test.pdf", "invalidFileType", "The Text".getBytes());
+
+        storeFile.storeFile("data", "testUser", "invalidFileType",fileToUpload);
+
+        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(13);
+        int documentUploadedSavedSize = documentUploadedSaved.size();
+
+        assertEquals(documentUploadedSavedSize, 1);
+    }
 
     //Audit service tests
     @Test
-    public void canSaveSuccessfulLogInAudit() throws Exception {
+    public void canSaveSuccessfulLogInAuditService() throws Exception {
         auditService.userLoggedIn("testUser", true);
 
         List<Access_Audit_Reports> allSuccesfulLogIns = auditService.getAllAuditLogsByActionID(1);
@@ -82,7 +147,7 @@ public class AuditServiceTests {
     }
 
     @Test
-    public void canSaveSuccessfulDocumentSavedAudit() throws Exception {
+    public void canSaveSuccessfulDocumentUploadedAuditService() throws Exception {
         auditService.organisationDocumentsAccessed("testUser", true);
 
         List<Access_Audit_Reports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
@@ -92,7 +157,7 @@ public class AuditServiceTests {
     }
 
     @Test
-    public void canSaveFailedDocumentSavedAudit() throws Exception {
+    public void canSaveFailedDocumentSavedAuditService() throws Exception {
         auditService.organisationDocumentsAccessed("testUser", false);
 
         List<Access_Audit_Reports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
@@ -100,16 +165,5 @@ public class AuditServiceTests {
 
         assertEquals(allFailedDocumentsSavedSize, 2);
     }
-
-    @Test
-    public void canSaveUploadedFileAudit() throws Exception {
-        auditService.documentUploaded("testUser", 1);
-
-        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
-        int documentUploadedSavedSize = documentUploadedSaved.size();
-
-        assertEquals(documentUploadedSavedSize, 1);
-    }
-
 
 }

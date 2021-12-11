@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `authority_set_date` DATETIME NOT NULL,
     
     CONSTRAINT `fk_users_organisations` FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
+    ON UPDATE CASCADE
+	ON DELETE CASCADE
 	);
 
 
@@ -98,16 +100,14 @@ CREATE TABLE IF NOT EXISTS `document_access_rights` (
     `fk_document_id` INT(4) NOT NULL,
     `fk_organisation_id` INT NULL,
     `fk_user_id` VARCHAR(50) NULL,
-    
+
 	PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`) 
-    ON UPDATE CASCADE 
+    FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`)
+    ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
     ON UPDATE CASCADE
-	ON DELETE CASCADE,
-    FOREIGN KEY (`fk_user_id`) REFERENCES users(`username`)
-
+	ON DELETE CASCADE
 
     );
 
@@ -121,9 +121,13 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
     `fk_action_id` INT NOT NULL,
     `action_date` VARCHAR(50) NOT NULL,
 
-     CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`),
+     CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
+     ON UPDATE CASCADE
+	 ON DELETE CASCADE,
      -- CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
      CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`id`)
+     ON UPDATE CASCADE
+	 ON DELETE CASCADE
 );
 
 

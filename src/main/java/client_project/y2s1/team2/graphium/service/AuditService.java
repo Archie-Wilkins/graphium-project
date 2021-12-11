@@ -68,20 +68,20 @@ public class AuditService {
     }
 
     //Document downloaded
-    public void documentDownloaded(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 7, LocalDateTime.now().toString());
+    public void documentDownloaded(String username, int documentID){
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 7, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
     //Document deleted
-    public void documentDeleted(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 8, LocalDateTime.now().toString());
+    public void documentDeleted(String username, int documentID){
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 8, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
     //Document viewed
-    public void documentViewed(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 9, LocalDateTime.now().toString());
+    public void documentViewed(String username, int documentID){
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 9, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 
@@ -96,8 +96,23 @@ public class AuditService {
 //    }
 
 //    Document Uploaded
-    public void documentUploaded(String username, int DocumentID){
-        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, DocumentID, 12, LocalDateTime.now().toString());
+    public void documentUploaded(String username, int documentID){
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 12, LocalDateTime.now().toString());
+        auditRepo.save(auditLog);
+    }
+
+    public void documentUploadFailed(String username){
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, null, 13, LocalDateTime.now().toString());
+        auditRepo.save(auditLog);
+    }
+
+    public void documentDownloadedFailed(String username, int documentID) {
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 14, LocalDateTime.now().toString());
+        auditRepo.save(auditLog);
+    }
+
+    public void documentViewedFailed(String username, int documentID) {
+        Access_Audit_Reports auditLog = new Access_Audit_Reports(null, username, documentID, 15, LocalDateTime.now().toString());
         auditRepo.save(auditLog);
     }
 }
