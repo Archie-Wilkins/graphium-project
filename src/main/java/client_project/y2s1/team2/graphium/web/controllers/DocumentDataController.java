@@ -111,7 +111,7 @@ public class DocumentDataController {
                 model.addObject("secondaryText", storeResult.getNiceError());
                 model.setViewName("error.html");
             } else {
-                model.setViewName("redirect:/documents");
+                model.setViewName("redirect:/");
             }
         } catch(Exception e) {
             model.addObject("secondaryText", "Please retry upload");
@@ -126,7 +126,7 @@ public class DocumentDataController {
     @GetMapping("/delete/{documentID}")
     public String deleteDocument(@PathVariable("documentID") Long receivedID) {
         docsRepo.deleteById(receivedID);
-        return "redirect:/myuploads";
+        return "redirect:/";
     }
 }
 

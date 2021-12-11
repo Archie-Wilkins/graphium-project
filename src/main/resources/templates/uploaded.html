@@ -15,12 +15,13 @@
 
         <div class="row py-2">
             <div class="col-6">
-                <button class="btn btn-primary" style="width:100%" onclick="location.href='/'">Home</button>
+                <a th:href="/" class="btn btn-block w-100 h-25 btn-primary">Home</a>
             </div>
         </div>
         <div class="row py-2">
             <div class="col-6">
-                <button class="btn btn-primary" style="width:100%" onclick="location.href='/upload'"> Submit Another</button>
+                <a th:href="/document/upload" class="btn btn-block w-100 h-25 btn-primary">Submit Another</a>
+
             </div>
         </div>
     </div>

@@ -89,7 +89,7 @@ public class SystemAdminOrganisationController {
         }
 
         if(bindingResult.hasErrors()){
-            return "redirect:/adminreg?user";
+            return "redirect:/newOrgAdmin?user";
         }
 
         if (passwordCheck.fileReader(attemptedPassword) == false) {
