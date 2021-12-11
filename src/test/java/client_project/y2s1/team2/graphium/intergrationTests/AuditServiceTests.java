@@ -165,5 +165,4 @@ public class AuditServiceTests {
 
         assertEquals(allFailedDocumentsSavedSize, 2);
     }
-
 }
