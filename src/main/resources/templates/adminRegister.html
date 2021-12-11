@@ -15,14 +15,18 @@
 
 <form th:align="center" class ="form-horizontal" th:action="@{/process_register}" th:object="${user}" method="post">
     <fieldset>
-        <div id="legend">
+        <div class="d-flex align-items-center flex-column mb-2">
             <legend class="">Register Admin account</legend>
+            <div class="w-25 rounded color-bg-accent" style="height:8px;">  </div>
         </div>
 
+        <div th:if="${param.user}" class="alert alert-danger mt-1" role="alert">
+            Username or Email already exist.
+        </div>
         <div class="control-group">
             <label class="control-label" for="username">Username</label>
             <div class="controls">
-                <input type="text" id="username" th:field="*{username}" placeholder="" class="input-xlarge" required>
+                <input type="text" id="username" th:field="*{username}" maxlength="20" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
@@ -47,14 +51,14 @@
         <div class="control-group">
             <label class="control-label" for="firstName">First Name</label>
             <div class="controls">
-                <input type="text" id="firstName" th:field="*{first_name}" placeholder="" class="input-xlarge" required>
+                <input type="text" id="firstName" th:field="*{first_name}" maxlength="20" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
         <div class="control-group">
             <label class="control-label" for="lastName">Last Name</label>
             <div class="controls">
-                <input type="text" id="lastName" th:field="*{last_name}" placeholder="" class="input-xlarge" required>
+                <input type="text" id="lastName" th:field="*{last_name}" maxlength="20" placeholder="" class="input-xlarge" required>
             </div>
         </div>
 
@@ -65,16 +69,16 @@
             </div>
         </div><br>
         <p>Input 1 for Cardiff University</p>
-        <p>Input 2 for Swansea University</p>
+        <p>Input 2 for Swansea University</p><br>
 
-        <div class="control-group">
-            <label class="control-label" for="enabled">Enable Account: </label><br>
-            <input type="checkbox" id="enabled" th:field="*{enabled}" required>
-        </div>
+<!--        <div class="control-group">-->
+<!--            <label class="control-label" for="enabled">Enable Account: </label><br>-->
+<!--            <input type="checkbox" id="enabled" th:field="*{enabled}" required>-->
+<!--        </div>-->
 
         <div class="control-group">
             <div class="controls">
-                <button class="btn btn-success">Register</button>
+                <button class="btn color-bg-accent color-primary w-25">Register</button>
             </div>
         </div>
     </fieldset>
