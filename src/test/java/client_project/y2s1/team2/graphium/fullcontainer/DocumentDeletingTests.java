@@ -15,12 +15,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
 public class DocumentDeletingTests {
+
     @Autowired
     DocumentsRepositoryJPA docRepository;
 
     @Test
     public void whenDeleteAllDocumentsFromRepository_thenThereShouldBeNoDocumentsInRepository() {
         docRepository.deleteAll();
+        System.out.println("Divider");
         assertThat(docRepository.count()).isEqualTo(0);
     }
 

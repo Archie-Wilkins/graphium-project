@@ -85,8 +85,8 @@ public class DocumentsAccessRightsServiceTests {
 
     @Test
     public void canCheckUserCanShareDocument() throws Exception {
-        assertEquals(true, accessRightService.canUserShareDocument(1l, "testUser"));
-        assertEquals(false, accessRightService.canUserShareDocument(1l, "testUser2"));
+        assertEquals(true, accessRightService.canUserShareDocument(1L, "testUser"));
+        assertEquals(false, accessRightService.canUserShareDocument(1L, "testUser2"));
     }
 
     @Test
