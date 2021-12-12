@@ -38,8 +38,8 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-around">
                         <button th:attr="onclick=|deleteFunction('${document.id}', '${document.title}')|"  type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
-                        <a href="/document/view/" class="btn btn-primary mx-3">View</a>
-                        <a href="/document/download/" class="btn btn-secondary">Download</a>
+                        <a th:href="'/document/view/'+${document.id}" class="btn btn-primary mx-3">View</a>
+                        <a th:href="'/document/download/'+${document.id}" class="btn btn-secondary">Download</a>
                     </div>
                 </div>
             </div>
