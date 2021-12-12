@@ -27,7 +27,7 @@ nav {
 }
 
 /* This aligns the logo to the left of the nav bar */
-.container {
+.nav-container {
     width: 50rem;
     text-align: left;
     margin-left: 7rem;

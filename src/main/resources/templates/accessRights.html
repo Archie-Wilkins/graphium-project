@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Document Uploaded</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <div class="row">
+            <h1>Share Document</h1>
+            <h1 th:text="${document.getTitle()}"></h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Share to organisation</h3>
+                <form th:action="@{/document/newOrganisation}" th:method="post">
+                    <div class="form-group">
+                        <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
+                        <label for="newOrganisationID">Select Organisation</label>
+                        <select class="form-select" name="newOrganisationID" id="newOrganisationID">
+                            <option th:each="organisation: ${shareableOrganisations}" th:value="${organisation.getId}" th:text="${organisation.getName()}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h3>Shared organisations</h3>
+                <ul>
+                    <li th:each="organisation: ${currentSharedOrganisations}">
+                        <span th:text="${organisation.getName()}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Share to users</h3>
+                <form th:action="@{/document/newUser}" th:method="post">
+                    <div class="form-group">
+                        <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
+                        <label for="newUsername">Select a user</label>
+                        <select class="form-select" name="newUsername" id="newUsername">
+                            <option th:each="user: ${shareableUsers}" th:value="${user.getUsername}" th:text="${user.getUsername()}"></option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h3>Shared users</h3>
+                <ul>
+                    <li th:each="user: ${currentSharedUsers}">
+                        <span th:text="${user.getUsername()}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

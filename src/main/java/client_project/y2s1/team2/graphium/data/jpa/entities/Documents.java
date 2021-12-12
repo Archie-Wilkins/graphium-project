@@ -32,6 +32,10 @@ public class Documents {
         this(null, aTitle, aDate, aFileType, someFileData, aUser);
     }
 
+    public boolean isOwner(Users possibleUser) {
+        return this.user.getUsername().equals(possibleUser.getUsername());
+    }
+
     public DocumentDTO toDTO(){
         DocumentDTO documentDTO = new DocumentDTO(
                 this.id, this.title, this.date,  this.fileType, this.fileData,

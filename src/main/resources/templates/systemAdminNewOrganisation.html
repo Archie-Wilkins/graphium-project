@@ -20,7 +20,7 @@
     <div class="alert alert-primary"  th:if="${userFeedback != ''}" th:text="${userFeedback}">Static summary</div>
     <h1>Create New Organisation</h1>
 
-    <form th:action="@{/systemAdmin/organisation}" th:method="post" th:object="${organisationDTO}" class="form">
+    <form th:action="@{/systemAdmin/newOrganisation}" th:method="post" th:object="${organisationDTO}" class="form">
         <div class="form-group">
             <label for="organisationNameInput">Organisation Name</label>
             <input type="text" th:field="*{name}" class="form-control" id="organisationNameInput"  placeholder="organisationName">

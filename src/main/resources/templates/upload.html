@@ -12,7 +12,7 @@
     <div class="center">
         <h1>Select a file to upload:</h1>
     </div>
-    <form class="form-signin" th:action="@{/uploadDocument}" th:method="post" enctype="multipart/form-data">
+    <form class="form-signin" th:action="@{/document/upload}" th:method="post" enctype="multipart/form-data">
         <div class="form-group pb-4">
             <label>Document Title: </label>
             <input class="form-control" type="text" name="documentTitle" id="documentTitle" placeholder="Title" required minlength="2">
