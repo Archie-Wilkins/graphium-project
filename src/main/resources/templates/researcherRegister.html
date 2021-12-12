@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register new Researcher</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet"
+          th:fragment="bootstrap-css">
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+    <link th:href="@{/css/bootstrap_form_sign_in.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+<div class="page_content">
+<form th:align="center" class ="form-horizontal" th:action="@{/organisation/newResearcher}" th:object="${user}" method="post">
+    <fieldset>
+        <div class="d-flex align-items-center flex-column mb-2">
+            <h1>Register Researcher account</h1>
+            <div class="w-25 rounded color-bg-accent" style="height:8px;">  </div>
+        </div>
+
+        <div th:if="${param.user}" class="alert alert-danger mt-1" role="alert">
+            Username or Email already exist.
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="username">Username</label>
+            <div class="controls">
+                <input type="text" id="username" th:field="*{username}" maxlength="20" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+
+        <div th:if="${param.error}" class="alert alert-danger mt-1" role="alert">
+            Invalid password, too simple.
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" th:field="*{password}" pattern=".{6,20}" title="Should be between 6 and 20 characters" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="email" th:field="*{email}" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,}$" title="Email must include '@'" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="firstName">First Name</label>
+            <div class="controls">
+                <input type="text" id="firstName" th:field="*{first_name}" maxlength="20" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastName">Last Name</label>
+            <div class="controls">
+                <input type="text" id="lastName" th:field="*{last_name}" maxlength="20" placeholder="" class="input-xlarge" required>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="orgId">Organisation:</label>
+            <div class="controls">
+                <input type="text" id="orgId" th:field="*{fk_organisation_id}" pattern="[0-9]{1}" title="Should only be one digit" placeholder="" class="input-xlarge" required>
+            </div>
+        </div><br>
+
+        <div class="control-group mt-3">
+            <div class="controls">
+                <button class="btn color-bg-accent color-primary w-25">Register</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
