@@ -30,6 +30,9 @@
                          <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
                              <a class="nav-link"  href="/systemAdmin/newOrgAdmin">Register New Admin</a>
                          </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin', 'systemAdmin')" >
+                             <a class="nav-link"  href="/organisation/newResearcher">Register New Researcher</a>
+                         </li>
                          <li class="nav-item">
                              <button class="btn color-primary" type="button" href="/Log-out">Log Out</button>
                          </li>
