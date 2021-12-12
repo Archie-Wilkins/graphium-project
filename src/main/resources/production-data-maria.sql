@@ -94,18 +94,35 @@ VALUES (null, 'ClaireShore', 'Developing a USP', '2020-12-31' ,'pdf', null);
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
 VALUES (null, 'ClaireShore', 'Starting a start-up', '2021-12-03' ,'pdf', null);
 
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'A Star Wars Deep Dive', '2021-12-03' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'Critical Review of Narnia', '2021-06-04' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'How to be an engineer', '2021-12-05' ,'pdf', null);
+
 -- --------------------------
 -- Document Access Rights
 -- --------------------------
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 1, 1, null);
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 2, null, 'PeteEvans');
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 4, 1, null);
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 5, 1, null);
 
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 13, null, 'RyanBeck');
+
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 12, null, 'RyanBeck');
 
 -- --------------------------
 -- Access_Audit_Actions
@@ -159,12 +176,12 @@ VALUES (null, 'View document failed');
 -- --------------------------
 -- Access_Audit_Reports
 -- --------------------------
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'RyanBeck', null, 1, NOW(), 'This is a test piece of data under RyanBeck');
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fK_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'RyanBeck', null, null, 1, NOW(), 'User Logged In (Test Data)');
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'RyanBeck', null, 6, NOW(), 'This is a test piece of data under RyanBeck');
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'RyanBeck', null, 1,6, NOW(), 'Organisation Documents Access Failed (Test Data)');
 
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `document_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'RyanBeck', 1, 7, NOW(), 'This is a test piece of data under RyanBeck');
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'RyanBeck', 1, null, 7, NOW(), 'Document Downloaded (Test Data)');
 
