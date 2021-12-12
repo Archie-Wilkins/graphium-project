@@ -16,19 +16,33 @@
                  </div>
                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
-                             <!-- Only users with admin authority can view this link -->
-                             <a class="nav-link" href="/systemAdmin/home">System Admin</a>
+
+                         <li class="nav-item">
+                             <a class="nav-link" href="/document/upload">Upload</a>
                          </li>
+
+
                          <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin','systemAdmin')" >
                              <!-- Only users with admin authority can view this link -->
                              <a class="nav-link" href="/organisation/admin">Organisation Admin</a>
                          </li>
-                         <li class="nav-item">
-                             <a class="nav-link" href="/document/upload">Upload</a>
+
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin','systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/organisation/newResearcher">Register New Researcher</a>
+                         </li>
+
+<!--                         System admin -->
+
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/systemAdmin/home">System Admin</a>
                          </li>
                          <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
                              <a class="nav-link"  href="/systemAdmin/newOrgAdmin">Register New Admin</a>
+                         </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin', 'systemAdmin')" >
+                             <a class="nav-link"  href="/organisation/newResearcher">Register New Researcher</a>
                          </li>
                          <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
                              <a class="nav-link"  href="/systemAdmin/newOrganisation">Register New Organisation</a>
@@ -37,6 +51,8 @@
                              <form method="post" name="logOut" th:action="@{/logout}" th:hidden="true"></form>
                              <a class="nav-link" href="javascript: document.logOut.submit()">Log Out</a>
                          </li>
+
+
                      </ul>
                  </div>
              </div>

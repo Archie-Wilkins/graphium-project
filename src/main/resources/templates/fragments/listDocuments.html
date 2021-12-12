@@ -46,6 +46,14 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function deleteFunction(id, title) {
+                    if (confirm("Do you wish to delete "+title+"? Once you delete it you cannot reverse this action.")) {
+                        window.location.href = "/document/delete/" + id;
+                    }
+                }
+
+            </script>
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@ package client_project.y2s1.team2.graphium.intergrationTests;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.DocumentDTO;
+import client_project.y2s1.team2.graphium.domain.ListOfDocumentsDTO;
 import client_project.y2s1.team2.graphium.service.RetrieveDocumentData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,14 @@ public class RetrieveDocumentDataServiceTests {
 
     @Test
     public void getsJust3OrgDocumentsFromCardiffUni() throws Exception {
-        List<DocumentDTO> CardiffUniDocs = retrieveService.getAllDocsByAdminOrg("testOrgAdmin");
+        List<ListOfDocumentsDTO> CardiffUniDocs = retrieveService.getAllDocsByAdminOrg("testOrgAdmin");
         int listSize = CardiffUniDocs.size();
         assertEquals(3, listSize);
     }
 
     @Test
     public void getsJust4OrgDocumentsFromSwanseaUni() throws Exception {
-        List<DocumentDTO> SwanseaUniDocs = retrieveService.getAllDocsByAdminOrg("testOrgAdmin2");
+        List<ListOfDocumentsDTO> SwanseaUniDocs = retrieveService.getAllDocsByAdminOrg("testOrgAdmin2");
         int listSize = SwanseaUniDocs.size();
         assertEquals(4, listSize);
     }
