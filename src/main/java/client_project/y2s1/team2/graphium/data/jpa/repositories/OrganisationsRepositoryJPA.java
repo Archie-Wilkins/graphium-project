@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrganisationsRepositoryJPA extends JpaRepository<Organisations, Long> {
-
     List<Organisations> findAll();
     Organisations save(Organisations organisation);
     boolean existsByName(String name);
