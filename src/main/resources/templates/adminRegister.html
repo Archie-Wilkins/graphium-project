@@ -13,13 +13,15 @@
 
 <div th:replace="fragments/header :: header"/>
 
+<div class="page_content">
+
+    <div class="d-flex align-items-center flex-column mb-2">
+        <h1 class="page_title">Register Organisation Admin Account</h1>
+        <div class="w-50 rounded color-bg-accent" style="height:8px;"></div>
+    </div><br>
+
 <form th:align="center" class ="form-horizontal" th:action="@{/systemAdmin/newOrgAdmin}" th:object="${user}" method="post">
     <fieldset>
-        <div class="d-flex align-items-center flex-column mb-2">
-            <legend class="">Register Admin account</legend>
-            <div class="w-25 rounded color-bg-accent" style="height:8px;">  </div>
-        </div>
-
         <div th:if="${param.user}" class="alert alert-danger mt-1" role="alert">
             Username or Email already exist.
         </div>
@@ -78,7 +80,7 @@
         </div>
     </fieldset>
 </form>
-
+</div>
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

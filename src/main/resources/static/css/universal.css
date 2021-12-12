@@ -16,9 +16,9 @@ body{
 }
 
 #search {
-    margin-left: 0;
-    padding: 0;
+    margin: auto;
     text-align: center;
+    width: 50%;
 }
 
 .documents {
