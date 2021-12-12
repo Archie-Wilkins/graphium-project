@@ -149,12 +149,12 @@ VALUES (null, 'View document failed');
 -- Access_Audit_Reports
 -- --------------------------
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', null, null,1, NOW(), 'This is a test piece of data under testUser');
+VALUES (null, 'testUser', null, null,1, NOW(), 'User Logged in (Test Data)');
 
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', null, 1,6, NOW(), 'This is a test piece of data under testUser');
+VALUES (null, 'testUser', null, 1,6, NOW(), 'Organisation Documents Accessed Failed Attempt (Test Data)');
 
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', 1, null,7, NOW(), 'This is a test piece of data under testUser');
+VALUES (null, 'testUser', 1, null,7, NOW(), 'Document Downloaded (Test Data)');
 
 
