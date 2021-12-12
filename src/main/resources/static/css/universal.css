@@ -16,7 +16,8 @@ body{
 }
 
 .page_content{
-    background: #F5F8FA;
+    /*disabled for now as its not implemented into all pages*/
+    /*background: #F5F8FA;*/
     padding: 10%;
 }
 
@@ -33,7 +34,8 @@ body{
 }
 
 .page_content{
-    background: #F5F8FA;
+    /*disabled for now as its not implemented into all pages*/
+    /*background: #F5F8FA;*/
     padding: 10%;
 }
 
@@ -42,3 +44,15 @@ body{
     margin-left: 5px;
 }
 
+.mini_nav{
+    background: #1E4C63;
+    color: white;
+    border-color: #1E4C63;
+}
+
+.mini_nav:hover{
+    background: white;
+    color: #1E4C63;
+    border-color: #1E4C63;
+    transition-duration: 0.4s;
+}

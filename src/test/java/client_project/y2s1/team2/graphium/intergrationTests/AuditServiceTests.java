@@ -148,7 +148,7 @@ public class AuditServiceTests {
 
     @Test
     public void canSaveSuccessfulDocumentUploadedAuditService() throws Exception {
-        auditService.organisationDocumentsAccessed("testUser", true, "automated test data");
+        auditService.organisationDocumentsAccessed("testUser", true, "automated test data", 1);
 
         List<Access_Audit_Reports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
         int allSuccesfulDocumentsSavedSize = allSuccesfulDocumentsSaved.size();
@@ -158,7 +158,7 @@ public class AuditServiceTests {
 
     @Test
     public void canSaveFailedDocumentSavedAuditService() throws Exception {
-        auditService.organisationDocumentsAccessed("testUser", false, "automated test data");
+        auditService.organisationDocumentsAccessed("testUser", false, "automated test data", 1);
 
         List<Access_Audit_Reports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
         int allFailedDocumentsSavedSize = allFailedDocumentsSaved.size();
