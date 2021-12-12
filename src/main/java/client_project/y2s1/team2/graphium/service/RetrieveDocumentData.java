@@ -127,15 +127,20 @@ public class RetrieveDocumentData {
         return documentDTOList;
     }
 
-    public List<DocumentDTO> getAllDocsByAdminOrg(String userName){
+    public List<ListOfDocumentsDTO> getAllDocsByAdminOrg(String userName){
         Optional<Users> userDetailsOptional =  userRepository.findByUsername(userName);
         Users userDetails = userDetailsOptional.get();
         String orgName = userDetails.getOrganisation().getName();
         List<Documents> allDocsByOrg = docRepository.findAllByUser_Organisation_Name(orgName);
 
-        ArrayList<DocumentDTO> allDocsByOrgDTOs = new ArrayList<>();
-        for (Documents docs : allDocsByOrg){
-            allDocsByOrgDTOs.add(docs.toDTO());
+        ArrayList<ListOfDocumentsDTO> allDocsByOrgDTOs = new ArrayList<>();
+        for (Documents document : allDocsByOrg){
+            allDocsByOrgDTOs.add(new ListOfDocumentsDTO(
+                document.getId(),
+                document.getTitle(),
+                document.getUser().getUsername(),
+                document.getDate()
+            ));
         }
 
         return allDocsByOrgDTOs;

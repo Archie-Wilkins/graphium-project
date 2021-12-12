@@ -6,6 +6,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepos
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.DocumentDTO;
+import client_project.y2s1.team2.graphium.domain.ListOfDocumentsDTO;
 import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import client_project.y2s1.team2.graphium.service.RetrieveDocumentData;
 import client_project.y2s1.team2.graphium.service.UserRegisterService;
@@ -47,13 +48,10 @@ public class OrganisationAdminController {
      */
     @GetMapping("/admin")
     public String index(Model model, Principal principal) {
+        List<ListOfDocumentsDTO> allDocsByOrg = retrieveDocumentData.getAllDocsByAdminOrg(principal.getName());
 
-        String userName = principal.getName();
-        List<DocumentDTO> allDocsByOrg = retrieveDocumentData.getAllDocsByAdminOrg(userName);
-
-        model.addAttribute("userName",userName);
-        model.addAttribute("orgDocuments",allDocsByOrg);
-
+        model.addAttribute("userName", principal.getName());
+        model.addAttribute("documentList", allDocsByOrg);
         return "orgAdminHome.html";
     }
 
