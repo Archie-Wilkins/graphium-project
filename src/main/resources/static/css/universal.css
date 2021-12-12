@@ -42,3 +42,15 @@ body{
     margin-left: 5px;
 }
 
+.mini_nav{
+    background: #1E4C63;
+    color: white;
+    border-color: #1E4C63;
+}
+
+.mini_nav:hover{
+    background: white;
+    color: #1E4C63;
+    border-color: #1E4C63;
+    transition-duration: 0.4s;
+}

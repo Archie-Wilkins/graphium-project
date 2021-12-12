@@ -5,12 +5,24 @@
     <title>Graphium - Welcome</title>
     <meta charset="UTF-8">
     <div th:replace="fragments/standardHead :: standardCSS"></div>
+    <link th:href="@{/css/universal.css}" rel="stylesheet" />
 </head>
 <body>
     <div th:replace="fragments/header :: header"/>
+    <div class="page_content">
+
+        <div class="d-flex align-items-center flex-column mb-2">
+            <h1 class="page_title">Welcome <span th:text="${userName}"></span></h1>
+            <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
+        </div><br>
+
+        <div>
+            <h4>Todays date is <span th:text="${date}"></span></h4>
+        </div>
 
     <div th:replace="fragments/listDocuments :: documentListFull" />
 
+    </div>
     <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
