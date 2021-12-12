@@ -14,39 +14,40 @@
 <body>
 <!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
 <div th:replace="fragments/header :: header"/>
-
-<div class="page_content">
-    <!--Specific page title, home page displays the username of the user-->
-    <div class="d-flex align-items-center flex-column mb-2">
-        <h1 class="page_title">All Documents in Organisation</h1>
-        <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
+    <!--All the content of the page is here-->
+    <div class="page_content">
+        <!--Specific page title, home page displays the username of the user-->
+        <div class="d-flex align-items-center flex-column mb-2">
+            <h1 class="page_title">All Documents in Organisation</h1>
+            <div class="w-50 rounded color-bg-accent" style="height:8px;"></div>
     </div><br>
-<div class="container">
-    <div th:each="document: ${orgDocuments}">
-        <div class="card mt-2">
-            <div class ="card-body">
-                <!--Card Meta data-->
-                <h3 th:text="${document.title}">Document Title</h3>
-                <div class="d-flex justify-content-around">
-                    <div>
-                        <h5 th:text="${document.user.getUsername()}" class="text-secondary">Owned by</h5>
-                        <h5 th:text="${document.user.organisation.getName()}" class="text-secondary">Organisation</h5>
-                        <h5 th:text="${document.date}" class="text-secondary">Date Created</h5>
-                    </div>
-                    <!--Buttons that allow user to interact with documents-->
-                    <div class="d-flex align-items-center justify-content-around">
-                        <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
-                        <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary mx-3">View</a>
-                        <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary">Download</a>
-                        <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success mx-3" >Share</a>
+    <!--Container displaying all the documents the organisation has-->
+    <div class="container">
+        <div th:each="document: ${orgDocuments}">
+            <div class="card mt-2">
+                <div class ="card-body">
+                    <!--Card Meta data-->
+                    <h3 th:text="${document.title}">Document Title</h3>
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <h5 th:text="${document.user.getUsername()}" class="text-secondary">Owned by</h5>
+                            <h5 th:text="${document.user.organisation.getName()}" class="text-secondary">Organisation</h5>
+                            <h5 th:text="${document.date}" class="text-secondary">Date Created</h5>
+                        </div>
+                        <!--Buttons that allow user to interact with documents-->
+                        <div class="d-flex align-items-center justify-content-around">
+                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
+                            <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary mx-3">View</a>
+                            <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary">Download</a>
+                            <a href="#" class="btn btn-success mx-3" >Edit</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
+<!--Page Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
