@@ -86,7 +86,7 @@ public class DocumentAccessRightsController {
                         model.setViewName("error/500.html");
                     }
                 } else {
-                    model.setViewName("redirect:/shareDocument/"+documentID);
+                    model.setViewName("redirect:/document/share/"+documentID);
                 }
             }
         }
@@ -122,7 +122,7 @@ public class DocumentAccessRightsController {
                         model.setViewName("error/500.html");
                     }
                 } else {
-                    model.setViewName("redirect:/shareDocument/"+documentID);
+                    model.setViewName("redirect:/document/share/"+documentID);
                 }
             }
         }

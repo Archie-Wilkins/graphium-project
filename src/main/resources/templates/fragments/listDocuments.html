@@ -41,9 +41,17 @@
                     <a th:href="'/document/view/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-info">View</a>
                     <a th:href="'/document/download/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-primary">Download</a>
                     <a th:href="'/document/share/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-success">Share</a>
-                    <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-danger">Delete</a>
+                    <button th:attr="onclick=|deleteFunction('${document.getId()}', '${document.getTitle()}')|"  type="button" class="btn btn-block w-100 h-25 btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
                 </div>
             </div>
+            <script>
+                function deleteFunction(id, title) {
+                    if (confirm("Do you wish to delete "+title+"? Once you delete it you cannot reverse this action.")) {
+                        window.location.href = "/document/delete/" + id;
+                    }
+                }
+
+            </script>
         </div>
     </div>
 
