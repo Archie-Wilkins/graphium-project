@@ -10,4 +10,11 @@ public class ListOfDocumentsDTO {
     private String title;
     private String ownerUsername;
     private String dateCreated;
+
+    public ListOfDocumentsDTO(DocumentDTO docDTO) {
+        this.id = docDTO.getId();
+        this.title = docDTO.getTitle();
+        this.ownerUsername = docDTO.getUser().getUsername();
+        this.dateCreated = docDTO.getDate();
+    }
 }
