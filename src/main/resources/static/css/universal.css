@@ -16,7 +16,8 @@ body{
 }
 
 .page_content{
-    background: #F5F8FA;
+    /*disabled for now as its not implemented into all pages*/
+    /*background: #F5F8FA;*/
     padding: 10%;
 }
 
@@ -33,7 +34,8 @@ body{
 }
 
 .page_content{
-    background: #F5F8FA;
+    /*disabled for now as its not implemented into all pages*/
+    /*background: #F5F8FA;*/
     padding: 10%;
 }
 
