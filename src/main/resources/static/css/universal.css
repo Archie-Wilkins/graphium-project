@@ -3,6 +3,10 @@ body{
     height: 100vh;
 }
 
+.svg-background-color {
+    background-color: #F5F8FA;
+}
+
 .color-bg-primary{
     background: white;
 }
