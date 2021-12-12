@@ -13,11 +13,11 @@
 
         <div class="d-flex align-items-center flex-column mb-2">
             <h1 class="page_title">Welcome <span th:text="${userName}"></span></h1>
-            <div class="w-50 rounded" style="height:8px;">  </div>
+            <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
         </div><br>
 
-        <div>
-            <h4>Todays date is <span th:text="${date}"></span></h4>
+        <div class="todayDate">
+            <h4>Today's date is <span th:text="${date}"></span></h4>
         </div>
 
     <div th:replace="fragments/listDocuments :: documentListFull" />
