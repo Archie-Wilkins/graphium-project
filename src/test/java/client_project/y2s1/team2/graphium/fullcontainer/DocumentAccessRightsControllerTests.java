@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts={"/schema-maria.sql", "/data-maria.sql"})
 @DirtiesContext
-public class AccessRightsControllerTests {
+public class DocumentAccessRightsControllerTests {
     @Autowired
     private WebApplicationContext context;
     @Autowired
@@ -42,7 +42,7 @@ public class AccessRightsControllerTests {
     @WithMockUser("testUser")
     public void creatorCanAccessShareDocumentPage() throws Exception {
         // Checking if page status is ok and that it's the page view name
-        mockMvc.perform(get("/shareDocument/1"))
+        mockMvc.perform(get("/document/share/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accessRights.html"));
     }
@@ -50,7 +50,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void NonCreatorCannotAccessShareDocumentPage() throws Exception {
-        mockMvc.perform(get("/shareDocument/4"))
+        mockMvc.perform(get("/document/share//4"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("error/403.html"));
     }
@@ -58,7 +58,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCanShareNewOrganisation() throws Exception {
-        mockMvc.perform(post("/shareNewOrganisation")
+        mockMvc.perform(post("/document/share/newOrganisation")
                         .param("documentID", "1")
                         .param("newOrganisationID", "2")
                         .with(csrf())
@@ -69,7 +69,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCannotShareNewOrganisation() throws Exception {
-        mockMvc.perform(post("/shareNewOrganisation")
+        mockMvc.perform(post("/document/share/newOrganisation")
                         .param("documentID", "4")
                         .param("newOrganisationID", "2")
                         .with(csrf())
@@ -81,7 +81,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCanShareNewUser() throws Exception {
-        mockMvc.perform(post("/shareNewUser")
+        mockMvc.perform(post("/document/share/newUser")
                         .param("documentID", "2")
                         .param("newUsername", "testUser3")
                         .with(csrf())
@@ -92,7 +92,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCannotShareNewUser() throws Exception {
-        mockMvc.perform(post("/shareNewUser")
+        mockMvc.perform(post("/document/share/newUser")
                         .param("documentID", "4")
                         .param("newUsername", "testUser2")
                         .with(csrf())
@@ -104,7 +104,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCannotShareDuplicateOrganisation() throws Exception {
-        mockMvc.perform(post("/shareNewOrganisation")
+        mockMvc.perform(post("/document/share/newOrganisation")
                         .param("documentID", "1")
                         .param("newOrganisationID", "1")
                         .with(csrf())
@@ -116,7 +116,7 @@ public class AccessRightsControllerTests {
     @Test
     @WithMockUser("testUser")
     public void creatorCannotShareDuplicateUser() throws Exception {
-        mockMvc.perform(post("/shareNewUser")
+        mockMvc.perform(post("/document/share/newUser")
                         .param("documentID", "2")
                         .param("newUsername", "testUser2")
                         .with(csrf())

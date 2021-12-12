@@ -69,12 +69,17 @@ public class SpringSecurityTests {
                 .andExpect(status().isOk());
     }
 
-
+    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
+    @Test
+    public void systemAdminAccessSystemAdminHomePage_shouldSucceedWith200() throws Exception {
+        mockMvc.perform(get("/systemAdmin/home").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     @Test
-    public void systemAdminAccessSystemAdminPage_shouldSucceedWith200() throws Exception {
-        mockMvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+    public void systemAdminAccessSystemAdminHomePage2_shouldSucceedWith200() throws Exception {
+        mockMvc.perform(get("/systemAdmin/").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -88,7 +93,7 @@ public class SpringSecurityTests {
     @WithMockUser("testUser")
     @Test
     public void researcherCantAccessSystemAdminPage_shouldBeForbidden() throws Exception {
-        mockMvc.perform(get("/systemAdmin").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/systemAdmin/home").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }
 
@@ -111,7 +116,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testUser", authorities = "researcher")
     public void researcherCantCreateNewOrg() throws Exception {
-        mockMvc.perform(post("/systemAdmin/organisation")
+        mockMvc.perform(post("/systemAdmin/newOrganisation")
                         .with(csrf())
                 )
                 .andExpect(status().isForbidden());
@@ -121,7 +126,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanCreateNewOrg() throws Exception {
-        mockMvc.perform(post("/systemAdmin/organisation")
+        mockMvc.perform(post("/systemAdmin/newOrganisation")
                         .with(csrf())
                 )
                 .andExpect(status().isOk());
@@ -140,7 +145,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanAccessAdminReg() throws Exception {
-        mockMvc.perform(get("/systemAdmin/adminreg")
+        mockMvc.perform(get("/systemAdmin/newOrgAdmin")
                         .with(csrf())
                 )
                 .andExpect(status().isOk());
@@ -149,7 +154,7 @@ public class SpringSecurityTests {
     @Test
     @WithMockUser(username = "testUser", authorities = "researcher")
     public void researcherAccessAdminReg() throws Exception {
-        mockMvc.perform(get("/systemAdmin/adminreg")
+        mockMvc.perform(get("/systemAdmin/newOrgAdmin")
                         .with(csrf())
                 )
                 .andExpect(status().isForbidden());
@@ -172,7 +177,7 @@ public class SpringSecurityTests {
         user.setAuthority(authority);
 
 
-        mockMvc.perform(post("/systemAdmin/process_register")
+        mockMvc.perform(post("/systemAdmin/newOrgAdmin")
                         .param("user", String.valueOf(testUser))
                         .param("authority", String.valueOf(testAuth))
                         .with(csrf())
@@ -195,15 +200,13 @@ public class SpringSecurityTests {
         user.setAuthority(authority);
 
 
-        mockMvc.perform(post("/systemAdmin/process_register")
+        mockMvc.perform(post("/systemAdmin/newOrgAdmin")
                         .param("user", String.valueOf(testUser))
                         .param("authority", String.valueOf(testAuth))
                         .with(csrf())
                 )
                 .andExpect(status().isForbidden());
     }
-
-
 }
 
 

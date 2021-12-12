@@ -42,7 +42,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentDownloadedLog_Success() throws Exception {
-        mockMvc.perform(get("/downloadPDF/1"));
+        mockMvc.perform(get("/document/download/1"));
 
         List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
         int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
@@ -54,7 +54,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentDownloadedLog_Failed() throws Exception {
-        mockMvc.perform(get("/downloadPDF/7"));
+        mockMvc.perform(get("/document/download/7"));
 
         List<Access_Audit_Reports> allFailedDownloads = auditService.getAllAuditLogsByActionID(14);
         int allFailedDownloadsSize = allFailedDownloads.size();
@@ -66,7 +66,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentDeletedAuditIntergration_Success() throws Exception {
-        mockMvc.perform(get("/downloadPDF/1"));
+        mockMvc.perform(get("/document/download/1"));
 
         List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
         int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
@@ -78,7 +78,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentViewedAuditIntergration_Success() throws Exception {
-        mockMvc.perform(get("/viewPDF/1"));
+        mockMvc.perform(get("/document/view/1"));
 
         List<Access_Audit_Reports> allSuccesfulViews = auditService.getAllAuditLogsByActionID(9);
         int allSuccesfulViewsSize = allSuccesfulViews.size();
@@ -90,7 +90,7 @@ public class AuditServiceTests {
     @Test
     @WithMockUser("testUser")
     public void canSaveDocumentViewedAuditIntergration_Failed() throws Exception {
-        mockMvc.perform(get("/viewPDF/7"));
+        mockMvc.perform(get("/document/view/7"));
 
         List<Access_Audit_Reports> allFailedViews = auditService.getAllAuditLogsByActionID(15);
         int allFailedViewsSize = allFailedViews.size();

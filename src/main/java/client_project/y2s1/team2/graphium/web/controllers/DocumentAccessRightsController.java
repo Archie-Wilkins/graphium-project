@@ -6,10 +6,7 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.domain.ReturnError;
 import client_project.y2s1.team2.graphium.service.DocumentAccessRightService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -17,10 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class AccessRightsController {
+@RequestMapping("/document")
+public class DocumentAccessRightsController {
     DocumentAccessRightService accessRightService;
 
-    public AccessRightsController(DocumentAccessRightService anAccessRightService) {
+    public DocumentAccessRightsController(DocumentAccessRightService anAccessRightService) {
         accessRightService = anAccessRightService;
     }
 
@@ -28,7 +26,10 @@ public class AccessRightsController {
         return accessRightService.canUserShareDocument(documentID, username);
     }
 
-    @GetMapping({"/shareDocument/{documentID}"})
+    /*
+        Showing page to share the users document
+     */
+    @GetMapping({"/share/{documentID}"})
     public ModelAndView returnDocumentSharePage(@PathVariable("documentID") Long documentID, Principal principal) {
         ModelAndView model = new ModelAndView();
         if (!canAddAccessRight(documentID, principal.getName())) {
@@ -56,7 +57,10 @@ public class AccessRightsController {
         return model;
     }
 
-    @PostMapping({"/shareNewOrganisation"})
+    /*
+        Share the document to a new organisation
+     */
+    @PostMapping({"/share/newOrganisation"})
     public ModelAndView shareDocumentToOrg(
             @RequestParam("documentID") Long documentID,
             @RequestParam("newOrganisationID") Long organisationID,
@@ -89,7 +93,10 @@ public class AccessRightsController {
         return model;
     }
 
-    @PostMapping({"/shareNewUser"})
+    /*
+        Share the document to a new user
+     */
+    @PostMapping({"/share/newUser"})
     public ModelAndView shareDocumentToUser(
             @RequestParam("documentID") Long documentID,
             @RequestParam("newUsername") String newUserName,
