@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- This is a html page used to test the header (Not for production)-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -10,38 +9,35 @@
     <div th:replace="fragments/standardHead :: standardCSS"></div>
 </head>
 <body>
-<!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
+<!--Navigation Bar-->
 <div th:replace="fragments/header :: header"/>
-
-<div class="page_content">
-
-    <div class="d-flex align-items-center flex-column mb-2">
-        <h1 class="page_title">Register New Organisation</h1>
-        <div class="w-50 rounded color-bg-accent" style="height:8px;"></div>
-    </div><br>
-<div class="container d-flex justify-content-center">
-    <div class="alert alert-primary"  th:if="${userFeedback != ''}" th:text="${userFeedback}">Static summary</div>
-    <form th:action="@{/systemAdmin/newOrganisation}" th:method="post" th:object="${organisationDTO}" class="form">
-        <div class="form-group">
-            <label for="organisationNameInput">Organisation Name</label>
-            <input type="text" th:field="*{name}" class="form-control" id="organisationNameInput"  placeholder="organisationName">
-<!--            Span error here-->
-            <div class="form-group mt-3">
-                <label for="emailInput">Email address</label>
-                <input type="email" class="form-control" th:field="*{email}" id="emailInput" placeholder="Enter email">
-<!--                span error here-->
-            </div>
-            <div class="d-flex justify-content-center w-100">
-            <button type="submit" class="btn btn-primary mt-4 w-100">Submit</button>
-            </div>
-            </div>
-
-    </form>
-</div>
+    <!--All the content of the page is here-->
+    <div class="page_content">
+        <div class="d-flex align-items-center flex-column mb-2">
+            <h1 class="page_title">Register New Organisation</h1>
+            <div class="w-50 rounded color-bg-accent" style="height:8px;"></div>
+        </div><br>
+        <!--SystemAdmin can create an organisation that orgAdmins and researchers can use-->
+        <div class="container d-flex justify-content-center">
+            <div class="alert alert-primary"  th:if="${userFeedback != ''}" th:text="${userFeedback}">Static summary</div>
+            <form th:action="@{/systemAdmin/newOrganisation}" th:method="post" th:object="${organisationDTO}" class="form">
+                <div class="form-group">
+                    <label for="organisationNameInput">Organisation Name</label>
+                    <input type="text" th:field="*{name}" class="form-control" id="organisationNameInput"  placeholder="organisationName">
+        <!--            Span error here-->
+                    <div class="form-group mt-3">
+                        <label for="emailInput">Email address</label>
+                        <input type="email" class="form-control" th:field="*{email}" id="emailInput" placeholder="Enter email">
+        <!--                span error here-->
+                    </div>
+                    <div class="d-flex justify-content-center w-100">
+                    <button type="submit" class="btn btn-primary mt-4 w-100">Submit</button>
+                    </div>
+                    </div>
+            </form>
+        </div>
     </div>
-</div>
-
-
+<!--Page Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

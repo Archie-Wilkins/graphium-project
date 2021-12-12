@@ -10,13 +10,16 @@
     <link th:href="@{/css/bootstrap_form_sign_in.css}" rel="stylesheet" />
 </head>
 <body>
+<!--Navigation Bar-->
 <div th:replace="fragments/header :: header"/>
-<div class="page_content">
-<div class="container text-center">
-    <h1>Account Created successfully!</h1>
-    <h3>Back to <a href="/">home</a></h3>
-</div>
-</div>
+    <!--All the content of the page is here-->
+    <div class="page_content">
+        <div class="container text-center">
+            <h1>Account Created successfully!</h1>
+            <h3>Back to <a href="/">home</a></h3>
+        </div>
+    </div>
+<!--Page Footer-->
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
