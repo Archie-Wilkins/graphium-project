@@ -89,7 +89,7 @@ public class SystemAdminOrganisationController {
         }
 
         if(bindingResult.hasErrors()){
-            return "redirect:/newOrgAdmin?user";
+            return "redirect:/systemAdmin/newOrgAdmin?user";
         }
 
         if (passwordCheck.fileReader(attemptedPassword) == false) {
@@ -102,7 +102,7 @@ public class SystemAdminOrganisationController {
             authorityRepo.save(authority);
             return "register_success";
         } else {
-            return "redirect:/adminreg?error";
+            return "redirect:/systemAdmin/newOrgAdmin?error";
         }
     }
 }
