@@ -121,7 +121,8 @@ CREATE TABLE IF NOT EXISTS `document_access_rights` (
 CREATE TABLE IF NOT EXISTS `access_audit_reports` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fk_username` VARCHAR(50) NOT NULL,
-    `document_id` INT,
+    `fk_document_id` INT,
+    `fk_organisation_id` INT,
     `fk_action_id` INT NOT NULL,
     `action_date` VARCHAR(50) NOT NULL,
     `action_description` VARCHAR(400) NOT NULL,
@@ -129,7 +130,12 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
      CONSTRAINT `fk_access_audit_users` FOREIGN KEY (`fk_username`) REFERENCES users(`username`)
      ON UPDATE CASCADE
 	 ON DELETE CASCADE,
-     -- CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`),
+     CONSTRAINT `fk_document_id` FOREIGN KEY (`fk_document_id`) REFERENCES documents(`id`)
+     ON UPDATE CASCADE
+	 ON DELETE CASCADE,
+     CONSTRAINT `fk_organisation_id` FOREIGN KEY (`fk_organisation_id`) REFERENCES organisations(`id`)
+     ON UPDATE CASCADE
+	 ON DELETE CASCADE,
      CONSTRAINT `fk_action_id` FOREIGN KEY (`fk_action_id`) REFERENCES access_audit_actions(`id`)
      ON UPDATE CASCADE
 	 ON DELETE CASCADE

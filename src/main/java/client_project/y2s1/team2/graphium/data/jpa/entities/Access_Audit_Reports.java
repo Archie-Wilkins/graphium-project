@@ -19,8 +19,12 @@ public class Access_Audit_Reports {
     private String fkUsername;
 
     @Getter
-    @Column(name = "document_id")
+    @Column(name = "fk_document_id")
     private Integer DocumentId;
+
+    @Getter
+    @Column(name = "fk_organisation_id")
+    private Integer orgId;
 
     @Getter
     @Column(name = "fk_action_id")
