@@ -7,38 +7,38 @@
     <link th:href="@{/css/bootstrap_form_sign_in.css}" rel="stylesheet" />
 </head>
 <body>
-    <div th:replace="fragments/header :: header"/>
-
+<!--Navigation Bar-->
+<div th:replace="fragments/header :: header"/>
+    <!--All the content of the page is here-->
     <div class="page_content">
         <div class="d-flex align-items-center flex-column mb-2">
             <h1 class="page_title">Select File to Upload</h1>
             <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
         </div><br>
-
-    <form class="form-signin" th:action="@{/document/upload}" th:method="post" enctype="multipart/form-data">
-        <div class="form-group pb-4">
-            <label>Document Title: </label>
-            <input class="form-control" type="text" name="documentTitle" id="documentTitle" placeholder="Title" required minlength="2">
-        </div>
-
-        <div class="form-group pb-4">
-            <label>Select document: </label><br>
-            <input class="form-control" type="file" name="documentData" id="documentData" accept=".pdf, .docx" />
-        </div>
-
-        <div class="form-group pb-4">
-            <label for="documentVisibility">Set visibility</label>
-            <select class="form-control" name="documentVisibility" id="documentVisibility">
-                <option value="private">Private</option>
-                <option value="organisation">Organisation</option>
-                <option value="public">Public</option>
-            </select>
-        </div>
-        <div class="submit">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
-        </div>
-    </form>
+        <!--Form that allows users to upload a file from their device to share-->
+        <form class="form-signin" th:action="@{/document/upload}" th:method="post" enctype="multipart/form-data">
+            <div class="form-group pb-4">
+                <label>Document Title: </label>
+                <input class="form-control" type="text" name="documentTitle" id="documentTitle" placeholder="Title" required minlength="2">
+            </div>
+            <div class="form-group pb-4">
+                <label>Select document: </label><br>
+                <input class="form-control" type="file" name="documentData" id="documentData" accept=".pdf, .docx" />
+            </div>
+            <div class="form-group pb-4">
+                <label for="documentVisibility">Set visibility</label>
+                <select class="form-control" name="documentVisibility" id="documentVisibility">
+                    <option value="private">Private</option>
+                    <option value="organisation">Organisation</option>
+                    <option value="public">Public</option>
+                </select>
+            </div>
+            <div class="submit">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
+            </div>
+        </form>
     </div>
-    <div th:replace="fragments/footer :: footer"/>
+<!--Page Footer-->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
