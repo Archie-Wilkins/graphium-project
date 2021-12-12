@@ -30,6 +30,9 @@
                          <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
                              <a class="nav-link"  href="/systemAdmin/newOrgAdmin">Register New Admin</a>
                          </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <a class="nav-link"  href="/systemAdmin/newOrganisation">Register New Organisation</a>
+                         </li>
                          <li class="nav-item">
                              <form method="post" name="logOut" th:action="@{/logout}" th:hidden="true"></form>
                              <a class="nav-link" href="javascript: document.logOut.submit()">Log Out</a>
