@@ -74,7 +74,7 @@ public class SystemAdminOrganisationController {
 
         String name = auth.getName();
         model.addAttribute("user", new Users());
-        return "adminRegister.html";
+        return "systemAdminRegisterNewOrgAdmin.html";
     }
 
     @PostMapping("/newOrgAdmin")
