@@ -9,38 +9,43 @@
           th:fragment="bootstrap-css">
     <link th:href="@{/css/nav.css}" rel="stylesheet"/>
     <link th:href="@{/css/footer.css}" rel="stylesheet"/>
+    <link th:href="@{/css/universal.css}" rel="stylesheet" />
 </head>
 <body>
 <!-- Using Thymeleaf, the header can be placed just above the rest of the pages body -->
 <div th:replace="fragments/header :: header"/>
 
+<div class="page_content">
+    <!--Specific page title, home page displays the username of the user-->
+    <div class="d-flex align-items-center flex-column mb-2">
+        <h1 class="page_title">All Documents in Organisation</h1>
+        <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
+    </div><br>
 <div class="container">
-    <h1>Welcome <span th:text="${userName}"></span></h1>
-
-    <h2>Documents</h2>
     <div th:each="document: ${orgDocuments}">
         <div class="card mt-2">
-            <div class="card-body">
-                <h2 class="card-title" th:text="${document.title}"></h2>
+            <div class ="card-body">
+                <!--Card Meta data-->
+                <h3 th:text="${document.title}">Document Title</h3>
                 <div class="d-flex justify-content-around">
                     <div>
-                        <p th:text="${document.user.getUsername()}"></p>
-                        <p th:text="${document.user.organisation.getName()}"></p>
-                        <p th:text="${document.date}"></p>
+                        <h5 th:text="${document.user.getUsername()}" class="text-secondary">Owned by</h5>
+                        <h5 th:text="${document.user.organisation.getName()}" class="text-secondary">Organisation</h5>
+                        <h5 th:text="${document.date}" class="text-secondary">Date Created</h5>
                     </div>
-
-                    <div class="d-flex px-4 align-items-center justify-content-around">
-                        <a href="#" class="btn btn-info card-button-css">Edit</a>
-                        <a href="#" class="btn btn-danger card-button-css">Delete</a>
-                        <a th:href="'/document/view/' + ${document.id}" class="btn btn-primary card-button-css">View</a>
-                        <a th:href="'/document/download/'+${document.id}" class="btn btn-secondary card-button-css" >Download</a>
+                    <!--Buttons that allow user to interact with documents-->
+                    <div class="d-flex align-items-center justify-content-around">
+                        <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
+                        <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary mx-3">View</a>
+                        <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary">Download</a>
+                        <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success mx-3" >Share</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 
 <div th:replace="fragments/footer :: footer"/>
 </body>
