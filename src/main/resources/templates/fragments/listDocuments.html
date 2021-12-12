@@ -38,10 +38,10 @@
                         </div>
                         <!--Buttons that allow user to interact with documents-->
                         <div class="d-flex align-items-center justify-content-around">
-                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
                             <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary mx-3">View</a>
                             <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary">Download</a>
                             <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success mx-3" >Share</a>
+                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>
