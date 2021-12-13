@@ -1,6 +1,11 @@
-body{
+body, html {
     overflow-x: hidden;
     height: 100vh;
+    background-color: #F5F8FA;
+}
+
+.svg-background-color {
+    background-color: #F5F8FA;
 }
 
 .color-bg-primary{
@@ -15,28 +20,21 @@ body{
     background: #1E4C63;
 }
 
-.page_content{
-    /*disabled for now as its not implemented into all pages*/
-    /*background: #F5F8FA;*/
-    padding: 10%;
-}
-
-#search {
-    margin-left: 0;
-    padding: 0;
+#search{
+    margin: auto;
     text-align: center;
+    width: 50%;
 }
 
-.documents {
+.documents{
     margin: auto;
     width: 90%;
     padding: 10px;
 }
 
 .page_content{
-    /*disabled for now as its not implemented into all pages*/
-    /*background: #F5F8FA;*/
-    padding: 10%;
+    background: #F5F8FA;
+    padding: 5%;
 }
 
 .card-button-css{
@@ -55,4 +53,23 @@ body{
     color: #1E4C63;
     border-color: #1E4C63;
     transition-duration: 0.4s;
+}
+
+.todayDate{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#share{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.submit{
+    margin: auto;
+    width: 50%;
+    text-align: center;
 }

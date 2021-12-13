@@ -5,7 +5,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepos
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
-import client_project.y2s1.team2.graphium.service.OrganisationAdminRegisterService;
+import client_project.y2s1.team2.graphium.service.UserRegisterService;
 import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import client_project.y2s1.team2.graphium.service.UserFeedbackNewOrganisationService;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
@@ -28,10 +28,10 @@ import java.io.IOException;
 public class SystemAdminOrganisationController {
     private UsersRepositoryJPA userRepo;
     private AuthoritiesRepositoryJPA authorityRepo;
-    private final OrganisationAdminRegisterService orgService;
+    private final UserRegisterService orgService;
     private UserFeedbackNewOrganisationService feedbackService;
 
-    public SystemAdminOrganisationController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, OrganisationAdminRegisterService aOrgService, UserFeedbackNewOrganisationService aFeedbackService) {
+    public SystemAdminOrganisationController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserRegisterService aOrgService, UserFeedbackNewOrganisationService aFeedbackService) {
         this.userRepo = aUserRepo;
         this.authorityRepo = aAuthorityRepo;
         this.orgService = aOrgService;

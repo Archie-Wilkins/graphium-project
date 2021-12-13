@@ -8,40 +8,42 @@
     <link th:href="@{/css/universal.css}" rel="stylesheet" />
 </head>
 <body>
-
-    <div th:fragment="documentListFull" class="container">
-
-        <div th:fragment="documentListNav" class="d-flex justify-content-center boarder">
-            <div class="col-3 mx-2">
-                <a class="btn btn-info w-100 mini_nav" href="/document/myUploads">My Documents</a>
-            </div>
-            <div class="col-3 mx-2">
-                <a class="btn btn-info w-100 mini_nav" href="/document/myOrganisationDocuments">My Organisation</a>
-            </div>
-            <div class="col-3 mx-2">
-                <a class="btn btn-info w-100 mini_nav" href="/document/otherOrganisationDocuments">Other Organisation</a>
-            </div>
-            <div class="col-3 mx-2">
-                <a class="btn btn-info w-100 mini_nav" href="/document/otherUsersDocuments">Other Researchers</a>
-            </div>
+<div th:fragment="documentListFull" class="container">
+    <!--All buttons for viewing all documents-->
+    <div th:fragment="documentListNav" class="d-flex justify-content-center boarder">
+        <div class="col-3 mx-2">
+            <a class="btn btn-info w-100 mini_nav" href="/document/myUploads">My Documents</a>
         </div>
-
-        <div th:fragment="documentListList">
-            <div th:each="document: ${documentList}" class="row border my-4">
-                <div class="col-8">
-                    <div class="col-12">
-                        <h3 th:text="${document.getTitle()}">Document Title</h3>
+        <div class="col-3 mx-2">
+            <a class="btn btn-info w-100 mini_nav" href="/document/myOrganisationDocuments">My Organisation</a>
+        </div>
+        <div class="col-3 mx-2">
+            <a class="btn btn-info w-100 mini_nav" href="/document/otherOrganisationDocuments">Other Organisation</a>
+        </div>
+        <div class="col-3 mx-2">
+            <a class="btn btn-info w-100 mini_nav" href="/document/otherUsersDocuments">Other Researchers</a>
+        </div>
+    </div>
+    <!--Displaying the documents in cards-->
+    <div th:fragment="documentListList">
+        <div th:each="document: ${documentList}" class="documents">
+            <div class="card mt-2">
+                <div class ="card-body">
+                    <!--Card Meta data-->
+                    <h3 th:text="${document.getTitle()}">Document Title</h3>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 th:text="'User: '+${document.getOwnerUsername()}" class="text-secondary">Owned by</h5>
+                            <h5 th:text="'Date Created: '+${document.getDateCreated()}" class="text-secondary">Date Created</h5>
+                        </div>
+                        <!--Buttons that allow user to interact with documents-->
+                        <div class="d-flex align-items-center justify-content-around w-50">
+                            <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary w-25 mx-3">View</a>
+                            <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary w-25 ">Download</a>
+                            <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success w-25 mx-3" >Share</a>
+                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger w-25 ">Delete</a>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <h5 th:text="${document.getOwnerUsername()}" class="text-secondary">Owned by</h5>
-                        <h5 th:text="${document.getDateCreated()}" class="text-secondary">Date Created</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <a th:href="'/document/view/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-info">View</a>
-                    <a th:href="'/document/download/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-primary">Download</a>
-                    <a th:href="'/document/share/'+${document.getId()}" class="btn btn-block w-100 h-25 btn-outline-success">Share</a>
-                    <button th:attr="onclick=|deleteFunction('${document.getId()}', '${document.getTitle()}')|"  type="button" class="btn btn-block w-100 h-25 btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
                 </div>
             </div>
             <script>
@@ -54,6 +56,6 @@
             </script>
         </div>
     </div>
-
+</div>
 </body>
 </html>
