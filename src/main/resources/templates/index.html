@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- This is a html page used to test the header (Not for production)-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Graphium - Welcome</title>
@@ -8,21 +7,24 @@
     <link th:href="@{/css/universal.css}" rel="stylesheet" />
 </head>
 <body>
-    <div th:replace="fragments/header :: header"/>
-    <div class="container">
-
+<!--Navigation Bar-->
+<div th:replace="fragments/header :: header"/>
+    <!--All the content of the page is here-->
+    <div class="page_content">
+        <!--Specific page title, home page displays the username of the user-->
         <div class="d-flex align-items-center flex-column mb-2">
             <h1 class="page_title">Welcome <span th:text="${userName}"></span></h1>
-            <div class="w-50 rounded" style="height:8px;">  </div>
+            <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
         </div><br>
-
-        <div>
-            <h4>Todays date is <span th:text="${date}"></span></h4>
+        <!--Displaying the current date-->
+        <div class="todayDate">
+            <h4>Today's date is <span th:text="${date}"></span></h4>
         </div>
 
-    <div th:replace="fragments/listDocuments :: documentListFull" />
-
+        <!--List of all documents the user can view (my documents, my organisations, other organisations, other researchers)-->
+        <div th:replace="fragments/listDocuments :: documentListFull" />
     </div>
-    <div th:replace="fragments/footer :: footer"/>
+<!--Page Footer-->
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
