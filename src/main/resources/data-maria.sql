@@ -14,8 +14,10 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- -----------------------------------
 -- Organisations 
 -- -----------------------------------
-INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Cardiff University', 'Cardiff@CardiffEmail.com');
-INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Swansea University', 'Swansea@SwanseaEmail.com');
+INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Cardiff University', 'Cardiff@CardiffUniversity.ac.uk');
+INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Swansea University', 'Swansea@SwanseaUniversity.ac.uk');
+INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Cardiff Council', 'Cardiff@CardiffCouncil.com');
+
 
 -- ------------------------------------
 -- Users
@@ -23,78 +25,104 @@ INSERT INTO `organisations` (`id`,`name`,`email`) VALUES (null, 'Swansea Univers
 -- both the passwords decrypt to just be password (using bcrypt)
 -- If usernames are changed, make sure to refactor all tests using them or they will error
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('RyanBeck','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'Ryan','Beck','RyanBeck@CardiffUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Swansea.ac.uk',NOW());
+VALUES ('ChloeWick','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'Chloe','Wick','ChloeWick@SwanseaUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser3','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Swansea.ac.uk',NOW());
+VALUES ('GeorgeBold','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'George','Bould','GeorgeBould@SwanseaUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testUser4','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Swansea.ac.uk',NOW());
+VALUES ('RonMicky','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'Ron','Micky','RonMick@SwanseaUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testOrgAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('RobBarlow','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'Rob','Barlow','RobBarlow@CardiffUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testOrgAdmin2','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'John','Smith','John@Swansea.ac.uk',NOW());
+VALUES ('PeteEvans','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 2, 'Pete','Evans','PeteEvans@SwanseaUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('testSystemAdmin','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('ClaireShore','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'Claire','Shore','John@CardiffUni.ac.uk',NOW());
 
 INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('the_invalid_username_king','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Cardiff.ac.uk',NOW());
+VALUES ('EricVan','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'Pete','Evans','John@Cardiff.ac.uk',NOW());
 
 -- ------------------------
 -- Authorities
 -- ------------------------
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser', 'researcher');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser2', 'researcher');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser3', 'researcher');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testUser4', 'researcher');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin', 'orgAdmin');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testOrgAdmin2', 'orgAdmin');
-INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('testSystemAdmin', 'systemAdmin');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('RyanBeck', 'researcher');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('ChloeWick', 'researcher');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('GeorgeBold', 'researcher');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('RonMicky', 'researcher');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('RobBarlow', 'orgAdmin');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('PeteEvans', 'orgAdmin');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('ClaireShore', 'systemAdmin');
+INSERT INTO `authorities` (`fk_username`, `authority`) VALUES ('EricVan', 'systemAdmin');
 
 
 -- --------------------------
 -- Documents
 -- ---------------------------
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'An Excellent File', '2021-10-13' ,'pdf', null);
+VALUES (null, 'RyanBeck', 'A Study On Bridges', '2021-10-13' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'A Fun PDF', '2021-12-14' ,'pdf', null);
+VALUES (null, 'RyanBeck', 'The Science of Bridges', '2021-12-14' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser', 'Word Test', '2021-11-08' ,'docx', null);
+VALUES (null, 'RyanBeck', 'A Critical Review of Bridges', '2021-11-08' ,'docx', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 1', '2021-07-26' ,'pdf', null);
+VALUES (null, 'PeteEvans', 'Computer Science Made Easy', '2021-07-26' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 2', '2021-04-06' ,'pdf', null);
+VALUES (null, 'PeteEvans', 'Computer Goes Beep Boop', '2021-04-06' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Different Org 3', '2020-12-31' ,'pdf', null);
+VALUES (null, 'PeteEvans', 'Agile Architecture', '2020-12-31' ,'pdf', null);
 
 INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
-VALUES (null, 'testUser2', 'Swansea Uni PDF', '2021-12-03' ,'pdf', null);
+VALUES (null, 'PeteEvans', 'Agile Methodologies', '2021-12-03' ,'pdf', null);
 
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'ClaireShore', 'Structuring a business', '2021-04-06' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'ClaireShore', 'Developing a USP', '2020-12-31' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'ClaireShore', 'Starting a start-up', '2021-12-03' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'A Star Wars Deep Dive', '2021-12-03' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'Critical Review of Narnia', '2021-06-04' ,'pdf', null);
+
+INSERT INTO `documents` (`id`, `fk_creator`, `title`, `date`, `file_type`, `file_data`)
+VALUES (null, 'RonMicky', 'How to be an engineer', '2021-12-05' ,'pdf', null);
 
 -- --------------------------
 -- Document Access Rights
 -- --------------------------
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 1, 1, null);
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
-VALUES (null, 2, null, 'testUser2');
+VALUES (null, 2, null, 'PeteEvans');
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 4, 1, null);
+
 INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
 VALUES (null, 5, 1, null);
 
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 13, null, 'RyanBeck');
+
+INSERT INTO `document_access_rights` (`id`, `fk_document_id`, `fk_organisation_id`, `fk_user_id`)
+VALUES (null, 12, null, 'RyanBeck');
 
 -- --------------------------
 -- Access_Audit_Actions
@@ -148,13 +176,12 @@ VALUES (null, 'View document failed');
 -- --------------------------
 -- Access_Audit_Reports
 -- --------------------------
-INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', null, null,1, NOW(), 'User Logged in (Test Data)');
+INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fK_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
+VALUES (null, 'RyanBeck', null, null, 1, NOW(), 'User Logged In (Test Data)');
 
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', null, 1,6, NOW(), 'Organisation Documents Accessed Failed Attempt (Test Data)');
+VALUES (null, 'RyanBeck', null, 1,6, NOW(), 'Organisation Documents Access Failed (Test Data)');
 
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
-VALUES (null, 'testUser', 1, null,7, NOW(), 'Document Downloaded (Test Data)');
-
+VALUES (null, 'RyanBeck', 1, null, 7, NOW(), 'Document Downloaded (Test Data)');
 

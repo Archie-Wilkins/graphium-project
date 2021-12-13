@@ -30,7 +30,7 @@ public class StoreFileDatabaseService {
     public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            auditService.documentUploadFailed("the_invalid_username_king", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
+            auditService.documentUploadFailed("EricVan", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
             return new ReturnError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
