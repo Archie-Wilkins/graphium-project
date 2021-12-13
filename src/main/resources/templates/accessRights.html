@@ -22,34 +22,32 @@
                 <h3 th:text="${document.getTitle()}"></h3>
             </div><br>
             <!--Allowing the user to share a document to others -->
-            <div class="row">
-                <div class="col">
+            <div class="row pb-4 mb-4">
+                <div class="col px-1">
                     <h3>Share to organisation</h3>
-                    <form th:action="@{/document/newOrganisation}" th:method="post">
-                        <div class="form-group">
+                    <form th:action="@{/document/share/newOrganisation}" th:method="post">
+                        <div class="form-group mb-3">
                             <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
                             <label for="newOrganisationID">Select Organisation</label>
                             <select class="form-select" name="newOrganisationID" id="newOrganisationID">
                                 <option th:each="organisation: ${shareableOrganisations}" th:value="${organisation.getId}" th:text="${organisation.getName()}"></option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success w-50">Submit</button>
                     </form>
                 </div>
                 <!--List of organisations that the document is shared to-->
-                <div class="col">
+                <div class="col px-1">
                     <h3>Shared organisations</h3>
-                    <ul>
-                        <li th:each="organisation: ${currentSharedOrganisations}">
-                            <span th:text="${organisation.getName()}"></span>
-                        </li>
-                    </ul>
+                    <div th:each="organisation: ${currentSharedOrganisations}" class="col border my-2" style="background-color: white;">
+                        <h5 class="m-0 p-1" th:text="${organisation.getName()}"></h5>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class="row pt-4 mt-4">
+                <div class="col px-1">
                     <h3>Share to users</h3>
-                    <form th:action="@{/document/newUser}" th:method="post">
+                    <form th:action="@{/document/share/newUser}" th:method="post">
                         <div class="form-group">
                             <input type="hidden" id="documentID" name="documentID" th:value="${document.getId()}">
                             <label for="newUsername">Select a user</label>
@@ -57,17 +55,15 @@
                                 <option th:each="user: ${shareableUsers}" th:value="${user.getUsername}" th:text="${user.getUsername()}"></option>
                             </select>
                         </div>
-                        <button class="btn btn-success">Submit</button>
+                        <button class="btn btn-success mt-3 w-50">Submit</button>
                     </form>
                 </div>
                 <!--List of users that the document is shared to-->
-                <div class="col">
+                <div class="col px-1">
                     <h3>Shared users</h3>
-                    <ul>
-                        <li th:each="user: ${currentSharedUsers}">
-                            <span th:text="${user.getUsername()}"></span>
-                        </li>
-                    </ul>
+                    <div th:each="user: ${currentSharedUsers}"  class="col border my-2" style="background-color: white;">
+                        <h5 class="m-0 p-1" th:text="${user.getUsername()}"></h5>
+                    </div>
                 </div>
             </div>
         </div>

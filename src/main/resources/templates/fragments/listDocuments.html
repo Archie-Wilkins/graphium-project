@@ -31,17 +31,17 @@
                 <div class ="card-body">
                     <!--Card Meta data-->
                     <h3 th:text="${document.getTitle()}">Document Title</h3>
-                    <div class="d-flex justify-content-around">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <h5 th:text="${document.getOwnerUsername()}" class="text-secondary">Owned by</h5>
-                            <h5 th:text="${document.getDateCreated()}" class="text-secondary">Date Created</h5>
+                            <h5 th:text="'User: '+${document.getOwnerUsername()}" class="text-secondary">Owned by</h5>
+                            <h5 th:text="'Date Created: '+${document.getDateCreated()}" class="text-secondary">Date Created</h5>
                         </div>
                         <!--Buttons that allow user to interact with documents-->
-                        <div class="d-flex align-items-center justify-content-around">
-                            <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary mx-3">View</a>
-                            <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary">Download</a>
-                            <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success mx-3" >Share</a>
-                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger">Delete</a>
+                        <div class="d-flex align-items-center justify-content-around w-50">
+                            <a th:href="'/document/view/'+${document.getId()}" class="btn btn-primary w-25 mx-3">View</a>
+                            <a th:href="'/document/download/'+${document.getId()}" class="btn btn-secondary w-25 ">Download</a>
+                            <a th:href="'/document/share/'+${document.getId()}" class="btn btn-success w-25 mx-3" >Share</a>
+                            <a th:href="'/document/delete/'+${document.getId()}" class="btn btn-danger w-25 ">Delete</a>
                         </div>
                     </div>
                 </div>

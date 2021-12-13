@@ -1,6 +1,7 @@
-body{
+body, html {
     overflow-x: hidden;
     height: 100vh;
+    background-color: #F5F8FA;
 }
 
 .svg-background-color {
@@ -19,13 +20,13 @@ body{
     background: #1E4C63;
 }
 
-#search {
+#search{
     margin: auto;
     text-align: center;
     width: 50%;
 }
 
-.documents {
+.documents{
     margin: auto;
     width: 90%;
     padding: 10px;
