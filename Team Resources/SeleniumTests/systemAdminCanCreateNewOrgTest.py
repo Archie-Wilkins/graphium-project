@@ -1,12 +1,25 @@
+########################
+#   Imports
+########################
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
 
 
+
+########################
+# Variables
+########################
 driver = webdriver.Chrome('./chromedriver')
 driver.fullscreen_window()
 
+
+
+########################
+# General Navigation Functions
+########################
+# Get pass Google's 'connection not provate' page (cuz Https)
 def byPassConnectionNotPrivate():
     driver.get("https://localhost:8443/")
 
@@ -17,14 +30,18 @@ def byPassConnectionNotPrivate():
     proceedButton.click()
 
 
-
+# Enter Our page
 def startUp():
     driver.get("https://localhost:8443/")
-    print(driver.title)
     assert "Graphium" in driver.title
     driver.fullscreen_window()
 
 
+
+########################
+# System Admin Navigation Functions
+########################
+# Login as a System Admin
 def logInAsSystemAdmin():
     usernameField = driver.find_element(By.XPATH,"/html/body/form/div[2]/input")
     passwordField = driver.find_element(By.XPATH,"/html/body/form/div[3]/input")
@@ -36,22 +53,24 @@ def logInAsSystemAdmin():
     submitButton.click()
 
     assert "Welcome" in driver.title
-    print(driver.title)
 
+# Go to system admin home via System Admin Nav Bar
 def goToSystemAdminPageUsingNavBar():
     systemAdminButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[4]/a')
     systemAdminButton.click()
     assert "System Admin" in driver.title
-    print(driver.title)
 
+# Go to Register New Org Admin via System Admin NavBar
 def goToSystemAdminRegisterNewAdminPageUsingNavBar():
     systemAdminNewOrgButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[6]/a')
     systemAdminNewOrgButton.click()
     assert "New Organisation" in driver.title
-    print(driver.title)
 
 
 
+########################
+# Create Org Page Navigation Functions
+########################
 def createNewOrganisation():
     newOrgNameInput = driver.find_element(By.XPATH,'//*[@id="organisationNameInput"]')
     newOrgEmailInput = driver.find_element(By.XPATH,'//*[@id="emailInput"]')
@@ -63,25 +82,25 @@ def createNewOrganisation():
     print("Register New Organisation Form Submitted")
     time.sleep(3)
 
+
 def checkForSuccessMessage():
-    print("Nice")
     responseMessage = driver.find_element(By.XPATH,'/html/body/div/div/div')
-    print("Nice 2")
     if "already exists" in responseMessage.text:
         print("Already Exists")
     elif "has been saved" in responseMessage.text:
         print("Success")
     else:
         print("FAIL")
+        raise ValueError("Success Message Did Not Exist")
 
 
-def checkSystemAdminFiles():
-    print("Complete this")
 
-# Can Create New Org
+########################
+# System Admin Tests
+#########################
+# System Admin can create new Organisation Admin Account
 def systemAdminCanCreateNewOrganisationAdmin():
     print("Starting Test: System Admin Can Create New Organisation Admin")
-    print("Starting")
     try:
         byPassConnectionNotPrivate()
         print("Passed Stage 1 / 6")
@@ -98,10 +117,17 @@ def systemAdminCanCreateNewOrganisationAdmin():
         print("Test Passed")
     except:
         print("Error - Test Failed")
-#Go to add org
-#add org
-#check for success
+
+
+
+########################
+# Calling Tests
+########################
 systemAdminCanCreateNewOrganisationAdmin()
 
 
+
+########################
+# End
+########################
 driver.close()
