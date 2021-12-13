@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
+import random
+
 
 
 
@@ -54,46 +56,38 @@ def logInAsSystemAdmin():
 
     assert "Welcome" in driver.title
 
-# Go to system admin home via System Admin Nav Bar
-def goToSystemAdminPageUsingNavBar():
-    systemAdminButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[4]/a')
-    systemAdminButton.click()
-    assert "System Admin" in driver.title
-
-# Go to Register New Org Admin via System Admin NavBar
-def goToSystemAdminRegisterNewOrgPageUsingNavBar():
-    systemAdminNewOrgButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[6]/a')
+def goToSystemAdminRegisterNewAdminPageUsingNavBar():
+    systemAdminNewOrgButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[5]/a')
     systemAdminNewOrgButton.click()
-    assert "New Organisation" in driver.title
+    assert "Register new organisation admin" in driver.title
 
+def submitNewOrgAdminAccount():
+    usernameField = driver.find_element(By.XPATH,'//*[@id="username"]')
+    passwordField = driver.find_element(By.XPATH,'//*[@id="password"]')
+    emailField = driver.find_element(By.XPATH,'//*[@id="email"]')
+    firstNameField = driver.find_element(By.XPATH,'//*[@id="firstName"]')
+    lastNameField = driver.find_element(By.XPATH,'//*[@id="lastName"]')
+    organisationsField = driver.find_element(By.XPATH,'//*[@id="orgId"]')
+    submitButton = driver.find_element(By.XPATH,'/html/body/form/fieldset/div[8]/div/button')
 
+    usernameField.send_keys('test' + str(random.randint(0,1000000)))
+    passwordField.send_keys('aVeryComplexPassword')
+    emailField.send_keys('Selenium2' + str(random.randint(0,1000000)) + '@Selinum.com')
+    firstNameField.send_keys('SeleniumTest')
+    lastNameField.send_keys('SeleniumTest')
+    organisationsField.send_keys('1')
 
-########################
-# Create Org Page Navigation Functions
-########################
-def createNewOrganisation():
-    newOrgNameInput = driver.find_element(By.XPATH,'//*[@id="organisationNameInput"]')
-    newOrgEmailInput = driver.find_element(By.XPATH,'//*[@id="emailInput"]')
-    newOrgSubmitButton = driver.find_element(By.XPATH,'/html/body/div/div/form/div/div[2]/button')
+    submitButton.click()
+    time.sleep(4)
 
-    newOrgNameInput.send_keys('The Selenium Test Company')
-    newOrgEmailInput.send_keys('Selenium@SeleniumTest.com')
-    newOrgSubmitButton.click()
-    print("Register New Organisation Form Submitted")
-    time.sleep(3)
+def submitSuccessRedirectsToHome():
+    successMessage = driver.find_element(By.XPATH,'/html/body/div/h3')
 
-
-def checkForSuccessMessage():
-    responseMessage = driver.find_element(By.XPATH,'/html/body/div/div/div')
-    if "already exists" in responseMessage.text:
-        print("Already Exists - Success")
-    elif "has been saved" in responseMessage.text:
-        print("Saved New Org - Success")
+    if "Account Created successfully!" in successMessage.text:
+        return True
     else:
-        print("FAIL")
         raise ValueError("Success Message Did Not Exist")
-
-
+        return False
 
 ########################
 # System Admin Tests
@@ -108,11 +102,11 @@ def systemAdminCanCreateNewOrganisationAdmin():
         print("Passed Stage 2 / 6")
         logInAsSystemAdmin()
         print("Passed Stage 3 / 6")
-        goToSystemAdminRegisterNewOrgPageUsingNavBar()
+        goToSystemAdminRegisterNewAdminPageUsingNavBar()
         print("Passed Stage 4 / 6")
-        createNewOrganisation()
+        submitNewOrgAdminAccount()
         print("Passed Stage 5 / 6")
-        checkForSuccessMessage()
+        submitSuccessRedirectsToHome()
         print("Passed Stage 6 / 6")
         print("Test Passed")
     except:
