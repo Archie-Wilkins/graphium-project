@@ -57,9 +57,9 @@ def logInAsSystemAdmin():
     assert "Welcome" in driver.title
 
 def goToSystemAdminRegisterNewAdminPageUsingNavBar():
-    systemAdminNewOrgButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[5]/a')
+    systemAdminNewOrgButton = driver.find_element(By.XPATH,'/html/body/nav/nav/div/div[2]/ul/li[4]/a')
     systemAdminNewOrgButton.click()
-    assert "Register new organisation admin" in driver.title
+    assert "new admin" in driver.title
 
 def submitNewOrgAdminAccount():
     usernameField = driver.find_element(By.XPATH,'//*[@id="username"]')
@@ -68,7 +68,7 @@ def submitNewOrgAdminAccount():
     firstNameField = driver.find_element(By.XPATH,'//*[@id="firstName"]')
     lastNameField = driver.find_element(By.XPATH,'//*[@id="lastName"]')
     organisationsField = driver.find_element(By.XPATH,'//*[@id="orgId"]')
-    submitButton = driver.find_element(By.XPATH,'/html/body/form/fieldset/div[8]/div/button')
+    submitButton = driver.find_element(By.XPATH,'/html/body/div/form/fieldset/div[7]/div/button')
 
     usernameField.send_keys('test' + str(random.randint(0,1000000)))
     passwordField.send_keys('aVeryComplexPassword')
@@ -78,10 +78,10 @@ def submitNewOrgAdminAccount():
     organisationsField.send_keys('1')
 
     submitButton.click()
-    time.sleep(4)
+    time.sleep(3)
 
 def submitSuccessRedirectsToHome():
-    successMessage = driver.find_element(By.XPATH,'/html/body/div/h3')
+    successMessage = driver.find_element(By.XPATH,'/html/body/div/div/h1')
 
     if "Account Created successfully!" in successMessage.text:
         return True

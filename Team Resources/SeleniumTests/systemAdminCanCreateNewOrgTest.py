@@ -84,7 +84,7 @@ def createNewOrganisation():
 
 
 def checkForSuccessMessage():
-    responseMessage = driver.find_element(By.XPATH,'/html/body/div/div/div')
+    responseMessage = driver.find_element(By.XPATH,'/html/body/div/div[2]/form/div/div[2]')
     if "already exists" in responseMessage.text:
         print("Already Exists - Success")
     elif "has been saved" in responseMessage.text:

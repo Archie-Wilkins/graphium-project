@@ -22,7 +22,6 @@ def byPassConnectionNotPrivate():
 
 def startUp():
     driver.get("https://localhost:8443/")
-    print(driver.title)
     assert "Graphium" in driver.title
     driver.fullscreen_window()
 
@@ -37,41 +36,25 @@ def logInAsResearcher():
 
     submitButton.click()
     assert "Welcome" in driver.title
-    print(driver.title)
 
 def goToUploadPageUsingNavBar():
     systemAdminButton = driver.find_element(By.XPATH,'//*[@id="navbarSupportedContent"]/ul/li[1]/a')
     systemAdminButton.click()
     assert "Upload" in driver.title
-    print(driver.title)
 
 def submitUploadRequest():
     documentTitle = driver.find_element(By.XPATH,'//*[@id="documentTitle"]')
     selectDocument = driver.find_element(By.XPATH,'//*[@id="documentData"]')
     documentUploadSubmit = driver.find_element(By.XPATH,'/html/body/form/button')
-    # selectDocument = EC.presence_of_element_located((By.XPATH, '//*[@id="documentData"]'))  # Example xpath
-
 
     documentTitle.send_keys(random.randint(0,100000000))
-    # WebDriverWait(self.driver, 10).until(selectDocument).click() # This opens the windows file selector
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    print(dir_path)
-
     selectDocument.send_keys(dir_path + "/charity-guide.pdf")
-    # pyautogui.write("C:/Users/c2043958/OneDrive - Cardiff University/Documents/Year 2/Assessments/Semester 1/ClientProject/Team Resources/SeleniumTests/charity-guide.pdf")
-    # pyautogui.press('enter')
-    print("Upload begin")
-    # selectDocument.sendKeys(os.path.abspath(os.getcwd()) +"/charity-guide.pdf")
-    time.sleep(1)
-    print("Test")
+
     documentUploadSubmit.click()
-    time.sleep(1)
-    print("Test")
-    print("Submitted")
     time.sleep(3)
 
 def checkSuccessRedirectedToHomePage():
-    print(driver.title)
     if "Welcome" in driver.title:
         return True
     else:
