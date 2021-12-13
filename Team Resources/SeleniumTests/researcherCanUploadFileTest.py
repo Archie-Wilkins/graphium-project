@@ -1,8 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 import time
-
+import os
+import pyautogui
+import path
+import random
 
 driver = webdriver.Chrome('./chromedriver')
 driver.fullscreen_window()
@@ -42,6 +46,41 @@ def goToUploadPageUsingNavBar():
     assert "Upload" in driver.title
     print(driver.title)
 
+def submitUploadRequest():
+    documentTitle = driver.find_element(By.XPATH,'//*[@id="documentTitle"]')
+    selectDocument = driver.find_element(By.XPATH,'//*[@id="documentData"]')
+    documentUploadSubmit = driver.find_element(By.XPATH,'/html/body/form/button')
+    # selectDocument = EC.presence_of_element_located((By.XPATH, '//*[@id="documentData"]'))  # Example xpath
+
+
+    documentTitle.send_keys(random.randint(0,100000000))
+    # WebDriverWait(self.driver, 10).until(selectDocument).click() # This opens the windows file selector
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print(dir_path)
+
+    selectDocument.send_keys(dir_path + "/charity-guide.pdf")
+    # pyautogui.write("C:/Users/c2043958/OneDrive - Cardiff University/Documents/Year 2/Assessments/Semester 1/ClientProject/Team Resources/SeleniumTests/charity-guide.pdf")
+    # pyautogui.press('enter')
+    print("Upload begin")
+    # selectDocument.sendKeys(os.path.abspath(os.getcwd()) +"/charity-guide.pdf")
+    time.sleep(1)
+    print("Test")
+    documentUploadSubmit.click()
+    time.sleep(1)
+    print("Test")
+    print("Submitted")
+    time.sleep(3)
+
+def checkSuccessRedirectedToHomePage():
+    print(driver.title)
+    if "Welcome" in driver.title:
+        return True
+    else:
+        return False
+
+
+
+
 # Can Create New Org
 def researcherCanUploadFileTest():
     print("Starting Test: Researcher Can Upload File Test")
@@ -55,10 +94,10 @@ def researcherCanUploadFileTest():
         print("Passed Stage 3 / 6")
         goToUploadPageUsingNavBar()
         print("Passed Stage 4 / 6")
-        # createNewOrganisation()
-        # print("Passed Stage 5 / 6")
-        # checkForSuccessMessage()
-        # print("Passed Stage 6 / 6")
+        submitUploadRequest()
+        print("Passed Stage 5 / 6")
+        checkSuccessRedirectedToHomePage()
+        print("Passed Stage 6 / 6")
         print("Test Passed")
     except:
         print("Error - Test Failed")
