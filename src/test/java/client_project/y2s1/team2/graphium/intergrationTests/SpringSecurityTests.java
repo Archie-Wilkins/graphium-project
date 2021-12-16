@@ -144,8 +144,8 @@ public class SpringSecurityTests {
 
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
-    public void systemAdminCanAccessAdminReg() throws Exception {
-        mockMvc.perform(get("/systemAdmin/newOrgAdmin")
+        public void systemAdminCanAccessAdminReg() throws Exception {
+            mockMvc.perform(get("/systemAdmin/newOrgAdmin")
                         .with(csrf())
                 )
                 .andExpect(status().isOk());

@@ -17,8 +17,10 @@
                 <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
             </div>
 
+
+
             <div th:if="${param.error}" class="alert alert-danger mt-1" role="alert">
-                Invalid username and password.
+                Invalid username or password.
             </div>
             <div th:if="${param.logout}" class="alert alert-success mt-1" role="alert">
                 You have been logged out.
