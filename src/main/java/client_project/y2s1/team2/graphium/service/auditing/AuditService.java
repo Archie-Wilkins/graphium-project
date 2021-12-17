@@ -1,14 +1,14 @@
 package client_project.y2s1.team2.graphium.service.auditing;
 
-import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
+import client_project.y2s1.team2.graphium.data.jpa.entities.AccessAuditReports;
 
 import java.util.List;
 
 public interface AuditService {
 
-    List<Access_Audit_Reports> getAllAuditLogs();
+    List<AccessAuditReports> getAllAuditLogs();
 
-    List<Access_Audit_Reports> getAllAuditLogsByActionID(int actionID);
+    List<AccessAuditReports> getAllAuditLogsByActionID(int actionID);
 
     void userLoggedIn(String username, boolean Success, String actionDescription);
 

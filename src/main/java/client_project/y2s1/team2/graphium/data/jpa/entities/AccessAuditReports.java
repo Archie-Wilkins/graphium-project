@@ -8,7 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Access_Audit_Reports {
+public class AccessAuditReports {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter

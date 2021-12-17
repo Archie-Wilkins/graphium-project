@@ -146,7 +146,7 @@ VALUES (null, 'View document failed');
 
 
 -- --------------------------
--- Access_Audit_Reports
+-- AccessAuditReports
 -- --------------------------
 INSERT INTO `access_audit_reports` (`id`, `fk_username`, `fk_document_id`,`fk_organisation_id`, `fk_action_id`, `action_date`, `action_description`)
 VALUES (null, 'testUser', null, null,1, NOW(), 'User Logged in (Test Data)');
