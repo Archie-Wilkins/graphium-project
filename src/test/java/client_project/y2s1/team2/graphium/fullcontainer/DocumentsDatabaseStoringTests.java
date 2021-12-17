@@ -108,6 +108,7 @@ public class DocumentsDatabaseStoringTests {
         MockMultipartFile fileToUpload = new MockMultipartFile("data", "testName.pdf", "application/pdf", "The Text".getBytes());
         // Storing first document
         ReturnError StoreResult = storeFileService.storeFile("Document Title","invalidUsername", fileToUpload.getOriginalFilename().split("[.]")[1], fileToUpload);
+        System.out.println("Errored");
         assertEquals(true, StoreResult.errored());
         assertEquals("invalid_username", StoreResult.getError());
     }

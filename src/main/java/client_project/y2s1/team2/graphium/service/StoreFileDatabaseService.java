@@ -5,11 +5,11 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.ReturnError;
+import client_project.y2s1.team2.graphium.service.auditing.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.Document;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +30,7 @@ public class StoreFileDatabaseService {
     public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
         if (currentUser.isEmpty()) {
-            auditService.documentUploadFailed("the_invalid_username_king", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
+            auditService.documentUploadFailed("invalid_username", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
             return new ReturnError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {

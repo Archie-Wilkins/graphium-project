@@ -1,7 +1,7 @@
 package client_project.y2s1.team2.graphium.intergrationTests;
 
-import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
-import client_project.y2s1.team2.graphium.data.jpa.repositories.Access_Audit_ReportsRepositoryJPA;
+import client_project.y2s1.team2.graphium.data.jpa.entities.AccessAuditReports;
+import client_project.y2s1.team2.graphium.data.jpa.repositories.AccessAuditReportsRepositoryJPA;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ActionAuditReportsJPATests {
 
     @Autowired
-    Access_Audit_ReportsRepositoryJPA reportRepo;
+    AccessAuditReportsRepositoryJPA reportRepo;
 
     @Test
     public void canRetrieveAll3AuditReports() throws Exception{
-        List<Access_Audit_Reports> auditLogsList = reportRepo.findAll();
+        List<AccessAuditReports> auditLogsList = reportRepo.findAll();
         int listLength = auditLogsList.size();
 
         assertEquals(3, listLength);

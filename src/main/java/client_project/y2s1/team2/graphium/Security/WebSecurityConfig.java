@@ -7,12 +7,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -23,7 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorizeRequests ->
@@ -32,18 +28,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/orgAdmin/**").hasAnyAuthority("systemAdmin", "orgAdmin")
                                 .mvcMatchers("/css/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
+                                .antMatchers("/login").permitAll()
+                                .antMatchers("/login?error=true").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                        .permitAll()
+                                .failureHandler(failureHandler)
+                                .successHandler(authenticationSuccessHandler())
                 ).logout(logout ->
                         logout.permitAll()
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"))
-                .headers().frameOptions().disable();
+                        .deleteCookies("JSESSIONID"));
+
     }
 
 
@@ -62,5 +61,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new userAuthenticationSuccessHandler();
+    }
+
+    @Autowired
+    private userAuthenticationFailureHandler failureHandler;
+
 
 }
