@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class userAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+class userAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     AuditService auditService;
