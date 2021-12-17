@@ -1,24 +1,19 @@
-package client_project.y2s1.team2.graphium.service;
+package client_project.y2s1.team2.graphium.service.auditing;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
-import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
-import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.Access_Audit_ReportsRepositoryJPA;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import client_project.y2s1.team2.graphium.service.TimeService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class AuditService {
+class AuditServiceImpl implements client_project.y2s1.team2.graphium.service.auditing.AuditService {
 
     private Access_Audit_ReportsRepositoryJPA auditRepo;
     private TimeService timeService;
 
-    public AuditService(Access_Audit_ReportsRepositoryJPA anAuditRepo, TimeService aTimeService){
+    public AuditServiceImpl(Access_Audit_ReportsRepositoryJPA anAuditRepo, TimeService aTimeService){
         auditRepo = anAuditRepo;
         timeService = aTimeService;
     }

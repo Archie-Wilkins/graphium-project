@@ -1,8 +1,9 @@
 package client_project.y2s1.team2.graphium.intergrationTests;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
-import client_project.y2s1.team2.graphium.service.AuditService;
+import client_project.y2s1.team2.graphium.service.auditing.AuditService;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
+import client_project.y2s1.team2.graphium.service.auditing.AuditServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,7 +28,7 @@ public class AuditServiceTests {
 
     @Autowired
     AuditService auditService;
-
+    
     @Autowired
     StoreFileDatabaseService storeFile;
 
