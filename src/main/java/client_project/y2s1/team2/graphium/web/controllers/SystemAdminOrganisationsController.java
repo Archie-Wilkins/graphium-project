@@ -25,16 +25,16 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping(path = "/systemAdmin")
-public class SystemAdminOrganisationController {
-    private UsersRepositoryJPA userRepo;
-    private AuthoritiesRepositoryJPA authorityRepo;
-    private final UserRegisterService orgService;
-    private UserFeedbackNewOrganisationService feedbackService;
+public class SystemAdminOrganisationsController {
+    private final UsersRepositoryJPA userRepo;
+    private final AuthoritiesRepositoryJPA authorityRepo;
+    private final UserRegisterService userRegisterService;
+    private final UserFeedbackNewOrganisationService feedbackService;
 
-    public SystemAdminOrganisationController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserRegisterService aOrgService, UserFeedbackNewOrganisationService aFeedbackService) {
+    public SystemAdminOrganisationsController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserRegisterService userRegisterService, UserFeedbackNewOrganisationService aFeedbackService) {
         this.userRepo = aUserRepo;
         this.authorityRepo = aAuthorityRepo;
-        this.orgService = aOrgService;
+        this.userRegisterService = userRegisterService;
         this.feedbackService = aFeedbackService;
     }
 
@@ -82,9 +82,9 @@ public class SystemAdminOrganisationController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String attemptedPassword = user.getPassword();
         PasswordReaderService passwordCheck = new PasswordReaderService();
-        if (orgService.usernameExists(user.getUsername())) {
+        if (userRegisterService.usernameExists(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "Username already exists!"));
-        } else if (orgService.emailExists(user.getEmail())){
+        } else if (userRegisterService.emailExists(user.getEmail())){
             bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
         }
 
@@ -92,7 +92,7 @@ public class SystemAdminOrganisationController {
             return "redirect:/systemAdmin/newOrgAdmin?user";
         }
 
-        if (passwordCheck.fileReader(attemptedPassword) == false) {
+        if (PasswordReaderService.fileReader(attemptedPassword) == false) {
             String encodedPassword = passwordEncoder.encode(attemptedPassword);
             user.setPassword(encodedPassword);
             user.setEnabled(Boolean.TRUE);
@@ -105,5 +105,6 @@ public class SystemAdminOrganisationController {
             return "redirect:/systemAdmin/newOrgAdmin?error";
         }
     }
+
 }
 

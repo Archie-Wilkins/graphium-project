@@ -36,7 +36,7 @@ public class UserFeedbackNewOrganisationServiceTests {
     public void UserFeedbackNewOrganisationServiceCanSaveOrganisations(){
         List<Organisations> allOrgs = orgRepo.findAll();
         int totalOrganisations = allOrgs.size();
-        OrganisationDTO orgDTO = new OrganisationDTO("A Unique Test Org", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO = new OrganisationDTO(null,"A Unique Test Org", "TestEmail@Test.co.uk");
 
         feedbackService.newOrganisationSubmit(orgDTO);
 
@@ -50,7 +50,7 @@ public class UserFeedbackNewOrganisationServiceTests {
 
     @Test
     public void UserFeedbackNewOrganisationServiceReturnsNullFormDTOOnSuccess(){
-        OrganisationDTO orgDTO = new OrganisationDTO("Returns Null Form Values", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO = new OrganisationDTO(null,"Returns Null Form Values", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback = feedbackService.newOrganisationSubmit(orgDTO);
 
         String orgName = feedback.getOrganisationDTO().getName();
@@ -63,10 +63,10 @@ public class UserFeedbackNewOrganisationServiceTests {
     @Test
     public void UserFeedbackNewOrganisationServiceReturnsPreviousDTOObjectOnFailure(){
         //Needs to be repeated to force duplication
-        OrganisationDTO orgDTO = new OrganisationDTO("Returns Previous Form", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO = new OrganisationDTO(null,"Returns Previous Form", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback = feedbackService.newOrganisationSubmit(orgDTO);
 
-        OrganisationDTO orgDTO2 = new OrganisationDTO("Returns Previous Form", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO2 = new OrganisationDTO(null,"Returns Previous Form", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback2 = feedbackService.newOrganisationSubmit(orgDTO);
 
         String orgName = feedback2.getOrganisationDTO().getName();
@@ -78,7 +78,7 @@ public class UserFeedbackNewOrganisationServiceTests {
 
     @Test
     public void UserFeedbackNewOrganisationServiceReturnsSuccessFeedback(){
-        OrganisationDTO orgDTO = new OrganisationDTO("A Successful Org", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO = new OrganisationDTO(null,"A Successful Org", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback = feedbackService.newOrganisationSubmit(orgDTO);
 
         String submitFeedback = feedback.getUserFeedback();
@@ -89,10 +89,10 @@ public class UserFeedbackNewOrganisationServiceTests {
     @Test
     public void UserFeedbackNewOrganisationServiceReturnsDuplicationErrorFeedback(){
         //Needs to be repeated to force duplication
-        OrganisationDTO orgDTO = new OrganisationDTO("A Duplicate Org", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO = new OrganisationDTO(null,"A Duplicate Org", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback = feedbackService.newOrganisationSubmit(orgDTO);
 
-        OrganisationDTO orgDTO2 = new OrganisationDTO("A Duplicate Org", "TestEmail@Test.co.uk");
+        OrganisationDTO orgDTO2 = new OrganisationDTO(null,"A Duplicate Org", "TestEmail@Test.co.uk");
         OrganisationFeedbackDTO feedback2 = feedbackService.newOrganisationSubmit(orgDTO);
 
         String submitFeedback = feedback2.getUserFeedback();

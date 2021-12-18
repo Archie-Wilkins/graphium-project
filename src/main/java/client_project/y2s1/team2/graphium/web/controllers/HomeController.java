@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private DocumentsListDocumentsController docListDocController;
+    private final DocumentsListDocumentsController docListDocController;
 
     public HomeController(DocumentsListDocumentsController aDocListDocController) {
         docListDocController = aDocListDocController;

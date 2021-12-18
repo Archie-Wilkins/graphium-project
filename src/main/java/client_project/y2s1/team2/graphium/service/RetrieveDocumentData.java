@@ -16,9 +16,9 @@ import java.util.Optional;
 
 @Service
 public class RetrieveDocumentData {
-    private DocumentsRepositoryJPA docRepository;
-    private UsersRepositoryJPA userRepository;
-    private DocumentAccessRightsRepositoryJPA accessRightsRepository;
+    private final DocumentsRepositoryJPA docRepository;
+    private final UsersRepositoryJPA userRepository;
+    private final DocumentAccessRightsRepositoryJPA accessRightsRepository;
 
     public RetrieveDocumentData(DocumentsRepositoryJPA aDocRepo, UsersRepositoryJPA aUserRepo, DocumentAccessRightsRepositoryJPA aAccessRightsRepository) {
         docRepository = aDocRepo;

@@ -11,7 +11,7 @@ public class TimeService {
     public String getTimeStamp(){
         DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String date = String.valueOf(dateTime.format(now));
+        String date = dateTime.format(now);
 
         return date;
     }

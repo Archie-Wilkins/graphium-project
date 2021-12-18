@@ -29,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .mvcMatchers("/css/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
                                 .antMatchers("/login").permitAll()
-                                .antMatchers("/login?error=true").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->

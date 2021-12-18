@@ -2,13 +2,15 @@ package client_project.y2s1.team2.graphium.domain;
 
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrganisationDTO {
+
+    @Getter
+    private Long id;
 
     @Getter
     private String name;
@@ -24,7 +26,7 @@ public class OrganisationDTO {
 
     public OrganisationForm toOrganisationForm(){
         OrganisationForm organisationForm = new OrganisationForm(
-                this.name, this.email );
+               this.name, this.email );
         return organisationForm;
     }
 }

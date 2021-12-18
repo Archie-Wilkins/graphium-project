@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/systemAdmin")
 public class SystemAdminDocumentsController {
-    private DocumentsRepositoryJPA docsRepo;
+    private final DocumentsRepositoryJPA docsRepo;
 
     public SystemAdminDocumentsController(DocumentsRepositoryJPA aDocRepo) {
         this.docsRepo = aDocRepo;

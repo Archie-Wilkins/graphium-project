@@ -29,11 +29,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/organisation")
 public class OrganisationAdminController {
-    private DocumentsRepositoryJPA docsRepo;
-    private UsersRepositoryJPA userRepo;
+    private final DocumentsRepositoryJPA docsRepo;
+    private final UsersRepositoryJPA userRepo;
     private final UserRegisterService resService;
-    private RetrieveDocumentData retrieveDocumentData;
-    private AuthoritiesRepositoryJPA authorityRepo;
+    private final RetrieveDocumentData retrieveDocumentData;
+    private final AuthoritiesRepositoryJPA authorityRepo;
 
     public OrganisationAdminController(DocumentsRepositoryJPA aDocsRepo, UsersRepositoryJPA aUserRepo, UserRegisterService aResService, RetrieveDocumentData aRetrieveDocumentData, AuthoritiesRepositoryJPA aAuthorityRepo) {
         this.docsRepo = aDocsRepo;
@@ -80,7 +80,7 @@ public class OrganisationAdminController {
         if(bindingResult.hasErrors()){
             return "redirect:/organisation/newResearcher?user";
         }
-        if (passwordCheck.fileReader(attemptedPassword) == false) {
+        if (PasswordReaderService.fileReader(attemptedPassword) == false) {
             String encodedPassword = passwordEncoder.encode(attemptedPassword);
             user.setPassword(encodedPassword);
             user.setEnabled(Boolean.TRUE);

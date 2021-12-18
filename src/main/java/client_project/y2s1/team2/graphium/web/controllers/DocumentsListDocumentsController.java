@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/document")
 public class DocumentsListDocumentsController {
-    private RetrieveDocumentData documentData;
+    private final RetrieveDocumentData documentData;
 
     public DocumentsListDocumentsController(RetrieveDocumentData aDocumentData) {
         documentData = aDocumentData;

@@ -31,7 +31,6 @@ public class Users {
 
     private String authority_set_date;
 
-
     public String getUsername(){
         return username;
     }

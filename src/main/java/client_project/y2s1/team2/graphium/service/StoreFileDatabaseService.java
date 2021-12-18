@@ -25,7 +25,7 @@ public class StoreFileDatabaseService {
     @Autowired
     AuditService auditService;
 
-    private String[] allowedFileExstensions = {"pdf", "docx"};
+    private final String[] allowedFileExstensions = {"pdf", "docx"};
 
     public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
@@ -48,7 +48,7 @@ public class StoreFileDatabaseService {
         try {
             DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
-            String date = String.valueOf(dateTime.format(now));
+            String date = dateTime.format(now);
 
         Documents newDoc = new Documents(
                 docTitle,

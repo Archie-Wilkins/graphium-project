@@ -5,13 +5,13 @@ import lombok.Getter;
 
 public class ReturnError {
     @Getter
-    private boolean errored;        // Did it not pass or succeed
+    private final boolean errored;        // Did it not pass or succeed
     @Getter
-    private String error;           // It's short error, maybe the main title to check against
+    private final String error;           // It's short error, maybe the main title to check against
     @Getter
-    private String niceError;       // It's longer error message to explain the issue, possibly display to users
+    private final String niceError;       // It's longer error message to explain the issue, possibly display to users
 
-    private boolean hasErrorMessage;
+    private final boolean hasErrorMessage;
 
 
     public ReturnError(boolean didError, String aError, String aNiceError) {

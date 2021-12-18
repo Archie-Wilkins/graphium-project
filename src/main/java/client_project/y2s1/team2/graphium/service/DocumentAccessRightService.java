@@ -17,10 +17,10 @@ import java.util.Optional;
 
 @Service
 public class DocumentAccessRightService {
-    private DocumentAccessRightsRepositoryJPA accessRightsRepository;
-    private UsersRepositoryJPA userRepository;
-    private DocumentsRepositoryJPA docRepository;
-    private OrganisationsRepositoryJPA orgRepository;
+    private final DocumentAccessRightsRepositoryJPA accessRightsRepository;
+    private final UsersRepositoryJPA userRepository;
+    private final DocumentsRepositoryJPA docRepository;
+    private final OrganisationsRepositoryJPA orgRepository;
 
     public DocumentAccessRightService(DocumentAccessRightsRepositoryJPA aAccessRightRepo, UsersRepositoryJPA aUserRepo, DocumentsRepositoryJPA aDocRepo, OrganisationsRepositoryJPA aOrgRepo) {
         accessRightsRepository = aAccessRightRepo;
@@ -42,9 +42,7 @@ public class DocumentAccessRightService {
         if (owner.isPresent()) {
             Optional<Documents> document = docRepository.findById(documentID);
             if (document.isPresent()) {
-                if (document.get().isOwner(owner.get())) {
-                    return true;
-                }
+                return document.get().isOwner(owner.get());
             }
         }
         return false;
