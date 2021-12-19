@@ -55,7 +55,7 @@ public class NewUserService {
                     userDTO.getFirst_name(),
                     userDTO.getLast_name(),
                     userDTO.getEmail(),
-                    timeService.getTimeStamp(),
+                    userDTO.getAuthority_set_date(),
                     authorityDTO.getAuthority()
             );
             NewUserFeedBackDTO newUserFeedBackDTO = new NewUserFeedBackDTO(errorMessage, newUserForm);
@@ -66,6 +66,7 @@ public class NewUserService {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(password);
             userDTO.setPassword(encodedPassword);
+            userDTO.setAuthority_set_date(timeService.getTimeStamp());
             this.saveUser(userDTO);
 
             this.saveAuthority(authorityDTO);
