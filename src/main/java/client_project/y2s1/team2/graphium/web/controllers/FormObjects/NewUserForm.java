@@ -9,38 +9,51 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewUserForm {
 
+    @NotNull(message = "Username is required")
+    @NotBlank(message = "Username is required")
     @Size(min = 4, max = 20,
     message = "Username must be between 4 and 20 characters long")
     private String username;
 
-    @Size(min = 6, max = 20,
-    message = "Password must be between 6 and 20 characters long")
+    @NotNull(message = "Password is required")
+    @NotBlank(message = "Password is required")
+    @Size(max = 20,
+    message = "Password must be between 6 and 20 characters long - We recommend using 3 words, for example 'BottleDoorPanda'")
     private String password;
 
     private Boolean enabled = true;
 
+    @NotNull(message = "Organisation is required")
     private Integer fk_organisation_id;
 
-    @Size(min = 1, max = 20)
+    @NotNull(message = "First name is required")
+    @NotBlank(message = "First name is required")
+    @Size(max = 20,
+    message = "First name must be between 1 and 20 characters long")
     private String first_name;
 
-    @Size(min = 1, max = 20)
+    @NotNull(message = "Last name is required")
+    @NotBlank(message = "Last name is required")
+    @Size(max = 20,
+    message = "Last name must be between 1 and 20 characters long")
     private String last_name;
 
-    @Pattern(regexp = "([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{1,}$)",
-    message = "Email must contain @ sign e.g example@example.com")
+    @NotNull(message = "Email is required")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email must contain '@' sign")
     private String email;
 
     private String authority_set_date;
 
+    @NotNull(message = "Authority is required")
+    @NotBlank(message = "Authority is required")
     private String authority;
 
     public UserDTO toUserDTO(){
