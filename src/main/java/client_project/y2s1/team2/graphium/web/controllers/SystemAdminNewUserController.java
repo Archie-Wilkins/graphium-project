@@ -21,13 +21,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/systemAdmin")
 public class SystemAdminNewUserController {
-    @Autowired
-    NewUserService newUserService;
 
+    private final NewUserService newUserService;
     private final OrganisationsService orgService;
 
-    public SystemAdminNewUserController(OrganisationsService anOrgService) {
+    public SystemAdminNewUserController(OrganisationsService anOrgService, NewUserService aNewUserService) {
         this.orgService = anOrgService;
+        this.newUserService = aNewUserService;
     }
 
 
