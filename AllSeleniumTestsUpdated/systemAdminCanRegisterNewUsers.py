@@ -56,40 +56,30 @@ def logInAsSystemAdmin():
 
     assert "Welcome" in driver.title
 
-def goToSystemAdminRegisterNewAdminPageUsingNavBar():
-    systemAdminNewOrgButton = driver.find_element(By.XPATH,'/html/body/nav/nav/div/div[2]/ul/li[4]/a')
-    systemAdminNewOrgButton.click()
-    assert "new admin" in driver.title
+def goToRegisterNewUsersPage():
+        driver.get("https://localhost:8443/systemAdmin/newUser")
 
-def submitNewOrgAdminAccount():
-    usernameField = driver.find_element(By.XPATH,'//*[@id="username"]')
-    passwordField = driver.find_element(By.XPATH,'//*[@id="password"]')
-    emailField = driver.find_element(By.XPATH,'//*[@id="email"]')
-    firstNameField = driver.find_element(By.XPATH,'//*[@id="firstName"]')
-    lastNameField = driver.find_element(By.XPATH,'//*[@id="lastName"]')
-    organisationsField = driver.find_element(By.XPATH,'//*[@id="orgId"]')
-    submitButton = driver.find_element(By.XPATH,'/html/body/div/form/fieldset/div[7]/div/button')
+def submitNewUsersForm():
+    usernameField = driver.find_element(By.XPATH,"/html/body/div/div/form/div[1]/input")
+    passwordField = driver.find_element(By.XPATH,"/html/body/div/div/form/div[2]/input")
+    emailField = driver.find_element(By.XPATH,"/html/body/div/div/form/div[3]/input")
+    firstNameField = driver.find_element(By.XPATH,"/html/body/div/div/form/div[4]/div/input")
+    lastNameField = driver.find_element(By.XPATH,"/html/body/div/div/form/div[5]/input")
+    submitButton = driver.find_element(By.XPATH,"/html/body/div/div/form/button")
 
-    usernameField.send_keys('test' + str(random.randint(0,1000000)))
-    passwordField.send_keys('aVeryComplexPassword')
-    emailField.send_keys('Selenium2' + str(random.randint(0,10000)) + '@Selinum.com')
-    firstNameField.send_keys('SeleniumTest')
-    lastNameField.send_keys('SeleniumTest')
-    organisationsField.send_keys('1')
+    usernameField.send_keys("Selenium" + str(random.randint(0,1000000)))
+    passwordField.send_keys("password")
+    emailField.send_keys("Selenium@Test.com")
+    firstNameField.send_keys("Selenium")
+    lastNameField.send_keys("Selenium")
 
-    driver.execute_script("arguments[0].scrollIntoView();", submitButton)
-    time.sleep(3)
+    time.sleep(2)
     submitButton.click()
-    time.sleep(3)
+    time.sleep(2)
 
-def submitSuccessRedirectsToHome():
-    successMessage = driver.find_element(By.XPATH,'/html/body/div/div/h1')
-
-    if "Account Created successfully!" in successMessage.text:
-        return True
-    else:
-        raise ValueError("Success Message Did Not Exist")
-        return False
+def checkSuccess():
+    feedBack = driver.find_element(By.XPATH,"/html/body/div/div/form/div[1]/div")
+    assert "has been saved" in driver.title
 
 ########################
 # System Admin Tests
@@ -98,17 +88,22 @@ def submitSuccessRedirectsToHome():
 def systemAdminCanCreateNewOrganisationAdmin():
     print("Starting Test: System Admin Can Create New Organisation Admin")
     try:
+        #Get pass advanced security warning
         byPassConnectionNotPrivate()
         print("Passed Stage 1 / 6")
+        #Go to login page
         startUp()
         print("Passed Stage 2 / 6")
         logInAsSystemAdmin()
         print("Passed Stage 3 / 6")
-        goToSystemAdminRegisterNewAdminPageUsingNavBar()
+        #Navigate to systemAdmin/newUser
+        goToRegisterNewUsersPage()
         print("Passed Stage 4 / 6")
-        submitNewOrgAdminAccount()
+        #Fill in form and submit it
+        submitNewUsersForm()
         print("Passed Stage 5 / 6")
-        submitSuccessRedirectsToHome()
+
+        # check success
         print("Passed Stage 6 / 6")
         print("Test Passed")
     except:
