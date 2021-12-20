@@ -5,11 +5,10 @@ import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.DocumentsRepositoryJPA;
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
-import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import client_project.y2s1.team2.graphium.domain.ListOfDocumentsDTO;
 import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import client_project.y2s1.team2.graphium.service.RetrieveDocumentData;
-import client_project.y2s1.team2.graphium.service.UserRegisterService;
+import client_project.y2s1.team2.graphium.service.UserDataRetrievalService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,11 +30,11 @@ import java.util.List;
 public class OrganisationAdminController {
     private final DocumentsRepositoryJPA docsRepo;
     private final UsersRepositoryJPA userRepo;
-    private final UserRegisterService resService;
+    private final UserDataRetrievalService resService;
     private final RetrieveDocumentData retrieveDocumentData;
     private final AuthoritiesRepositoryJPA authorityRepo;
 
-    public OrganisationAdminController(DocumentsRepositoryJPA aDocsRepo, UsersRepositoryJPA aUserRepo, UserRegisterService aResService, RetrieveDocumentData aRetrieveDocumentData, AuthoritiesRepositoryJPA aAuthorityRepo) {
+    public OrganisationAdminController(DocumentsRepositoryJPA aDocsRepo, UsersRepositoryJPA aUserRepo, UserDataRetrievalService aResService, RetrieveDocumentData aRetrieveDocumentData, AuthoritiesRepositoryJPA aAuthorityRepo) {
         this.docsRepo = aDocsRepo;
         this.userRepo = aUserRepo;
         this.resService = aResService;

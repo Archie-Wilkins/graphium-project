@@ -5,7 +5,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepos
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
-import client_project.y2s1.team2.graphium.service.UserRegisterService;
+import client_project.y2s1.team2.graphium.service.UserDataRetrievalService;
 import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import client_project.y2s1.team2.graphium.service.UserFeedbackNewOrganisationService;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
@@ -28,13 +28,13 @@ import java.io.IOException;
 public class SystemAdminOrganisationsController {
     private final UsersRepositoryJPA userRepo;
     private final AuthoritiesRepositoryJPA authorityRepo;
-    private final UserRegisterService userRegisterService;
+    private final UserDataRetrievalService userDataRetrievalService;
     private final UserFeedbackNewOrganisationService feedbackService;
 
-    public SystemAdminOrganisationsController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserRegisterService userRegisterService, UserFeedbackNewOrganisationService aFeedbackService) {
+    public SystemAdminOrganisationsController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserDataRetrievalService userDataRetrievalService, UserFeedbackNewOrganisationService aFeedbackService) {
         this.userRepo = aUserRepo;
         this.authorityRepo = aAuthorityRepo;
-        this.userRegisterService = userRegisterService;
+        this.userDataRetrievalService = userDataRetrievalService;
         this.feedbackService = aFeedbackService;
     }
 
@@ -82,9 +82,9 @@ public class SystemAdminOrganisationsController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String attemptedPassword = user.getPassword();
         PasswordReaderService passwordCheck = new PasswordReaderService();
-        if (userRegisterService.usernameExists(user.getUsername())) {
+        if (userDataRetrievalService.usernameExists(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "Username already exists!"));
-        } else if (userRegisterService.emailExists(user.getEmail())){
+        } else if (userDataRetrievalService.emailExists(user.getEmail())){
             bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
         }
 
