@@ -1,7 +1,7 @@
 package client_project.y2s1.team2.graphium.intergrationTests;
 
-import client_project.y2s1.team2.graphium.data.jpa.entities.Access_Audit_Reports;
-import client_project.y2s1.team2.graphium.service.AuditService;
+import client_project.y2s1.team2.graphium.data.jpa.entities.AccessAuditReports;
+import client_project.y2s1.team2.graphium.service.auditing.AuditService;
 import client_project.y2s1.team2.graphium.service.StoreFileDatabaseService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class AuditServiceTests {
     public void canSaveDocumentDownloadedLog_Success() throws Exception {
         mockMvc.perform(get("/document/download/1"));
 
-        List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
+        List<AccessAuditReports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
         int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
 
         assertEquals(allSuccesfulDownloadsSize, 2);
@@ -56,7 +56,7 @@ public class AuditServiceTests {
     public void canSaveDocumentDownloadedLog_Failed() throws Exception {
         mockMvc.perform(get("/document/download/7"));
 
-        List<Access_Audit_Reports> allFailedDownloads = auditService.getAllAuditLogsByActionID(14);
+        List<AccessAuditReports> allFailedDownloads = auditService.getAllAuditLogsByActionID(14);
         int allFailedDownloadsSize = allFailedDownloads.size();
 
         assertEquals(allFailedDownloadsSize, 1);
@@ -68,7 +68,7 @@ public class AuditServiceTests {
     public void canSaveDocumentDeletedAuditIntergration_Success() throws Exception {
         mockMvc.perform(get("/document/download/1"));
 
-        List<Access_Audit_Reports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
+        List<AccessAuditReports> allSuccesfulDownloads = auditService.getAllAuditLogsByActionID(7);
         int allSuccesfulDownloadsSize = allSuccesfulDownloads.size();
 
         assertEquals(allSuccesfulDownloadsSize, 2);
@@ -80,7 +80,7 @@ public class AuditServiceTests {
     public void canSaveDocumentViewedAuditIntergration_Success() throws Exception {
         mockMvc.perform(get("/document/view/1"));
 
-        List<Access_Audit_Reports> allSuccesfulViews = auditService.getAllAuditLogsByActionID(9);
+        List<AccessAuditReports> allSuccesfulViews = auditService.getAllAuditLogsByActionID(9);
         int allSuccesfulViewsSize = allSuccesfulViews.size();
 
         assertEquals(allSuccesfulViewsSize, 1);
@@ -92,7 +92,7 @@ public class AuditServiceTests {
     public void canSaveDocumentViewedAuditIntergration_Failed() throws Exception {
         mockMvc.perform(get("/document/view/7"));
 
-        List<Access_Audit_Reports> allFailedViews = auditService.getAllAuditLogsByActionID(15);
+        List<AccessAuditReports> allFailedViews = auditService.getAllAuditLogsByActionID(15);
         int allFailedViewsSize = allFailedViews.size();
 
         assertEquals(allFailedViewsSize, 1);
@@ -102,7 +102,7 @@ public class AuditServiceTests {
     public void canSaveUploadedFileAuditIntergration_Successful() throws Exception {
         auditService.documentUploaded("testUser", 1, "automated test data");
 
-        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
+        List<AccessAuditReports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
         int documentUploadedSavedSize = documentUploadedSaved.size();
 
         assertEquals(documentUploadedSavedSize, 1);
@@ -116,7 +116,7 @@ public class AuditServiceTests {
 
         storeFile.storeFile("data", "testUser", "pdf",fileToUpload);
 
-        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
+        List<AccessAuditReports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(12);
         int documentUploadedSavedSize = documentUploadedSaved.size();
 
         assertEquals(documentUploadedSavedSize, 1);
@@ -129,7 +129,7 @@ public class AuditServiceTests {
 
         storeFile.storeFile("data", "testUser", "invalidFileType",fileToUpload);
 
-        List<Access_Audit_Reports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(13);
+        List<AccessAuditReports> documentUploadedSaved = auditService.getAllAuditLogsByActionID(13);
         int documentUploadedSavedSize = documentUploadedSaved.size();
 
         assertEquals(documentUploadedSavedSize, 1);
@@ -140,7 +140,7 @@ public class AuditServiceTests {
     public void canSaveSuccessfulLogInAuditService() throws Exception {
         auditService.userLoggedIn("testUser", true, "automated test data");
 
-        List<Access_Audit_Reports> allSuccesfulLogIns = auditService.getAllAuditLogsByActionID(1);
+        List<AccessAuditReports> allSuccesfulLogIns = auditService.getAllAuditLogsByActionID(1);
         int allSuccesfulLogInsSize = allSuccesfulLogIns.size();
 
         assertEquals(allSuccesfulLogInsSize, 2);
@@ -150,7 +150,7 @@ public class AuditServiceTests {
     public void canSaveSuccessfulDocumentUploadedAuditService() throws Exception {
         auditService.organisationDocumentsAccessed("testUser", true, "automated test data", 1);
 
-        List<Access_Audit_Reports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
+        List<AccessAuditReports> allSuccesfulDocumentsSaved = auditService.getAllAuditLogsByActionID(5);
         int allSuccesfulDocumentsSavedSize = allSuccesfulDocumentsSaved.size();
 
         assertEquals(allSuccesfulDocumentsSavedSize, 1);
@@ -160,7 +160,7 @@ public class AuditServiceTests {
     public void canSaveFailedDocumentSavedAuditService() throws Exception {
         auditService.organisationDocumentsAccessed("testUser", false, "automated test data", 1);
 
-        List<Access_Audit_Reports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
+        List<AccessAuditReports> allFailedDocumentsSaved = auditService.getAllAuditLogsByActionID(6);
         int allFailedDocumentsSavedSize = allFailedDocumentsSaved.size();
 
         assertEquals(allFailedDocumentsSavedSize, 2);

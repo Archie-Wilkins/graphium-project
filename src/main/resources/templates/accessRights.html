@@ -33,11 +33,11 @@
                                 <option th:each="organisation: ${shareableOrganisations}" th:value="${organisation.getId}" th:text="${organisation.getName()}"></option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success w-50">Submit</button>
+                        <button type="submit" id="submit-org" class="btn btn-success w-50">Submit</button>
                     </form>
                 </div>
                 <!--List of organisations that the document is shared to-->
-                <div class="col px-1">
+                <div id="list-orgs" class="col px-1">
                     <h3>Shared organisations</h3>
                     <div th:each="organisation: ${currentSharedOrganisations}" class="col border my-2" style="background-color: white;">
                         <h5 class="m-0 p-1" th:text="${organisation.getName()}"></h5>
@@ -55,11 +55,11 @@
                                 <option th:each="user: ${shareableUsers}" th:value="${user.getUsername}" th:text="${user.getUsername()}"></option>
                             </select>
                         </div>
-                        <button class="btn btn-success mt-3 w-50">Submit</button>
+                        <button id="submit-user" class="btn btn-success mt-3 w-50">Submit</button>
                     </form>
                 </div>
                 <!--List of users that the document is shared to-->
-                <div class="col px-1">
+                <div id="list-users" class="col px-1">
                     <h3>Shared users</h3>
                     <div th:each="user: ${currentSharedUsers}"  class="col border my-2" style="background-color: white;">
                         <h5 class="m-0 p-1" th:text="${user.getUsername()}"></h5>
