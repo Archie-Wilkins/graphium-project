@@ -1,4 +1,44 @@
 -- ------------------------------------
+-- Database Accounts
+-- ------------------------------------
+
+use mysql;
+show tables;
+SELECT * FROM user;
+
+-- Made up names for sake of assessment 
+-- User can access database from localhost as we only want users to be able to access the database from known hosts.
+-- Passwords follows 3 random words best practice (automatically hashed by mySQL)
+
+-- Senior Developer (Trusted with more privilidges such as drop table) 
+CREATE USER 'JackCooperSuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
+GRANT SELECT, CREATE, DELETE, DROP, INSERT, UPDATE ON graphium.* TO 'JackCooperSuperAdmin'@'127.0.0.1';
+
+CREATE USER 'JackCooperStandardUse'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
+GRANT SELECT, CREATE, INSERT, UPDATE ON graphium.* TO 'JackCooperSuperAdmin'@'127.0.0.1';
+
+-- Junior Developer (Given less priviledges)
+CREATE USER 'TomScott'@'127.0.0.1' IDENTIFIED BY 'DogSpeakerMarmalade';
+
+-- access_audit_actions 
+GRANT SELECT, INSERT, UPDATE ON graphium.access_audit_actions TO 'TomScott'@'127.0.0.1';
+-- access_audit_reports
+GRANT SELECT ON graphium.access_audit_reports TO 'TomScott'@'127.0.0.1';
+-- authorities 
+GRANT SELECT, INSERT, UPDATE ON graphium.authorities TO 'TomScott'@'127.0.0.1';
+-- document_access_rights
+GRANT SELECT ON graphium.document_access_rights TO 'TomScott'@'127.0.0.1';
+-- documents 
+GRANT SELECT ON graphium.documents TO 'TomScott'@'127.0.0.1';
+-- organisations 
+GRANT SELECT, INSERT, UPDATE ON graphium.organisations TO 'TomScott'@'127.0.0.1';
+-- users 
+GRANT SELECT, INSERT, UPDATE ON graphium.users TO 'TomScott'@'127.0.0.1';
+
+SHOW GRANTS FOR 'TomScott'@'127.0.0.1';
+
+
+-- ------------------------------------
 -- Database 'graphium'
 -- ------------------------------------
 
