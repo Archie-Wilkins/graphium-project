@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.validation.constraints.*;
 
@@ -31,6 +32,7 @@ public class NewUserForm {
     private Boolean enabled = true;
 
     @NotNull(message = "Organisation is required")
+    //Need to create a custom validator to make sure answer within list range
     private Integer fk_organisation_id;
 
     @NotNull(message = "First name is required")
