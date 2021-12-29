@@ -5,6 +5,7 @@ import client_project.y2s1.team2.graphium.domain.AuthorityDTO;
 import client_project.y2s1.team2.graphium.domain.UserDTO;
 import client_project.y2s1.team2.graphium.service.TimeService;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.CustomValidators.OrganisationExists;
+import client_project.y2s1.team2.graphium.web.controllers.FormObjects.CustomValidators.ValidAuthority;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -61,6 +62,7 @@ public class NewUserForm {
 
     @NotNull(message = "Authority is required")
     @NotBlank(message = "Authority is required")
+    @ValidAuthority
     private String authority;
 
     public UserDTO toUserDTO(){
