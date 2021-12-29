@@ -4,6 +4,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.AccessAuditRepor
 import client_project.y2s1.team2.graphium.domain.AuthorityDTO;
 import client_project.y2s1.team2.graphium.domain.UserDTO;
 import client_project.y2s1.team2.graphium.service.TimeService;
+import client_project.y2s1.team2.graphium.web.controllers.FormObjects.CustomValidators.OrganisationExists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class NewUserForm {
 
     @NotNull(message = "Organisation is required")
     //Need to create a custom validator to make sure answer within list range
+    @OrganisationExists
     private Integer fk_organisation_id;
 
     @NotNull(message = "First name is required")
