@@ -51,7 +51,7 @@ public class NewUserService {
                     userDTO.getUsername(),
                     userDTO.getPassword(),
                     userDTO.getEnabled(),
-                    userDTO.getFk_organisation_id(),
+                    userDTO.getFk_organisation_id().toString(),
                     userDTO.getFirst_name(),
                     userDTO.getLast_name(),
                     userDTO.getEmail(),

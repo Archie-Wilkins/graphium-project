@@ -6,7 +6,7 @@ import client_project.y2s1.team2.graphium.web.controllers.FormObjects.NewUserFor
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class OrganisationExistsValidator implements ConstraintValidator<OrganisationExists, Integer>{
+public class OrganisationExistsValidator implements ConstraintValidator<OrganisationExists, String>{
 
     OrganisationsRepositoryJPA orgsRepo;
 
@@ -15,10 +15,15 @@ public class OrganisationExistsValidator implements ConstraintValidator<Organisa
     }
 
     @Override
-    public boolean isValid(Integer orgID,
+    public boolean isValid(String orgID,
                            ConstraintValidatorContext constraintValidatorContext){
-        long numberOfOrganisations = orgsRepo.count();
-        return (1 <= orgID) && (orgID <= numberOfOrganisations);
+        try{
+            int orgIdConverted = Integer.valueOf(orgID);
+            long numberOfOrganisations = orgsRepo.count();
+            return (1 <= orgIdConverted) && (orgIdConverted <= numberOfOrganisations);
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }

@@ -33,9 +33,12 @@ public class NewUserForm {
     private Boolean enabled = true;
 
     @NotNull(message = "Organisation is required")
-    //Need to create a custom validator to make sure answer within list range
     @OrganisationExists
-    private Integer fk_organisation_id;
+    // Need to use string incase user manipulates HTML to enter letter character
+    ///Validation checks that value can be parse into an int
+    //DTO still takes fk_organistion_id int
+    //This allows for the error to be handled without needing to redirect the user to the error page
+    private String fk_organisation_id;
 
     @NotNull(message = "First name is required")
     @NotBlank(message = "First name is required")
@@ -62,7 +65,7 @@ public class NewUserForm {
 
     public UserDTO toUserDTO(){
         UserDTO userDTO = new UserDTO(
-                this.username, this.password, true, this.fk_organisation_id, this.first_name, this.last_name,this.email, this.authority_set_date);
+                this.username, this.password, true, Integer.valueOf(this.fk_organisation_id), this.first_name, this.last_name,this.email, this.authority_set_date);
         return userDTO;
     }
 
