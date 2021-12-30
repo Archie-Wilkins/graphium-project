@@ -22,8 +22,6 @@ create schema `graphium`;
 use `graphium`;
 
 
--- Code based on from https://www.baeldung.com/spring-security-jdbc-authentication tutorial
-
 -- ------------------------------------
 -- organisations
 -- -----------------------------------
@@ -37,8 +35,6 @@ CREATE TABLE IF NOT EXISTS `organisations`(
 -- Table 'users'
 -- ------------------------------------
 CREATE TABLE IF NOT EXISTS `users` (
-    -- Might want to come back to this foreign_keys have to point to primary keys
-	-- `id` INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(50) NOT NULL PRIMARY KEY, 
     `password` VARCHAR(100) NOT NULL, 
     `enabled` BOOLEAN NOT NULL, 
@@ -148,3 +144,62 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
 CREATE UNIQUE INDEX `ix_auth_username`
     on authorities(`fk_username`,`authority`);
 
+-- ----------------------------------
+-- Sample Improved Auditing System 
+-- ----------------------------------
+DROP TABLE IF EXISTS `users_audit`;
+
+CREATE TABLE IF NOT EXISTS `users_audit` (
+    `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `timestamp` DATETIME NOT NULL ,
+    `type` VARCHAR(20) NOT NULL,
+    `creator` VARCHAR(250) NOT NULL,
+    `username` VARCHAR(50) NOT NULL, 
+    `password` VARCHAR(100) NOT NULL, 
+    `enabled` BOOLEAN NOT NULL, 
+    `fk_organisation_id` INT NOT NULL, 
+    `first_name` VARCHAR(50) NOT NULL, 
+    `last_name` VARCHAR(50) NOT NULL, 
+    `email` VARCHAR(100) NOT NULL, 
+    -- set to NOT NULL until issue is resolved
+    `authority_set_date` DATETIME
+);
+
+DROP TRIGGER IF EXISTS users_insert_audit_trigger;
+DELIMITER $$ 
+CREATE TRIGGER users_insert_audit_trigger
+AFTER INSERT ON users FOR EACH ROW 
+BEGIN
+    INSERT INTO users_audit (
+        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+        first_name, last_name, email, authority_set_date
+	)
+    VALUES(
+		null, CURRENT_TIMESTAMP, 'INSERT', user(), new.username, new.password,
+		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+	);
+END $$ 
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS users_update_audit_trigger;
+DELIMITER $$ 
+CREATE TRIGGER users_update_audit_trigger
+AFTER UPDATE ON users FOR EACH ROW 
+BEGIN
+    INSERT INTO users_audit (
+        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+        first_name, last_name, email, authority_set_date
+	)
+    VALUES(
+		null, CURRENT_TIMESTAMP, 'UPDATE', user(), new.username, new.password,
+		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+	);
+END $$ 
+DELIMITER ;
+
+INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
+VALUES ('audit_test4','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Audit.ac.uk',NOW());
+
+UPDATE users
+SET first_name= 'Bill'
+WHERE username = 'audit_test4';
