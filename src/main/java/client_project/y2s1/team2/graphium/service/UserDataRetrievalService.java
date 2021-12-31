@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class UserRegisterService {
+public class UserDataRetrievalService {
 
     @Autowired
     private UsersRepositoryJPA usersRepo;

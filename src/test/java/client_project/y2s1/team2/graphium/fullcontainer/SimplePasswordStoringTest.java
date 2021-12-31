@@ -13,7 +13,7 @@ public class SimplePasswordStoringTest {
     public void passwordWontStoreIfFoundInList() throws IOException {
         String password = "password";
         PasswordReaderService passwordCheck = new PasswordReaderService();
-        Boolean test = passwordCheck.fileReader(password);
+        Boolean test = PasswordReaderService.fileReader(password);
         assertEquals(test, true);
     }
 
@@ -21,7 +21,7 @@ public class SimplePasswordStoringTest {
     public void passwordIsNotCaseSensitive() throws IOException {
         String password = "pAsSwOrD";
         PasswordReaderService passwordCheck = new PasswordReaderService();
-        Boolean test = passwordCheck.fileReader(password);
+        Boolean test = PasswordReaderService.fileReader(password);
         assertEquals(test, false);
     }
 

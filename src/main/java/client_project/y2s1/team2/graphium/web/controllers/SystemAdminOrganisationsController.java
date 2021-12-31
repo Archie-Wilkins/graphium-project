@@ -5,7 +5,7 @@ import client_project.y2s1.team2.graphium.data.jpa.repositories.AuthoritiesRepos
 import client_project.y2s1.team2.graphium.data.jpa.repositories.UsersRepositoryJPA;
 import client_project.y2s1.team2.graphium.domain.OrganisationDTO;
 import client_project.y2s1.team2.graphium.domain.OrganisationFeedbackDTO;
-import client_project.y2s1.team2.graphium.service.UserRegisterService;
+import client_project.y2s1.team2.graphium.service.UserDataRetrievalService;
 import client_project.y2s1.team2.graphium.service.PasswordReaderService;
 import client_project.y2s1.team2.graphium.service.UserFeedbackNewOrganisationService;
 import client_project.y2s1.team2.graphium.web.controllers.FormObjects.OrganisationForm;
@@ -25,16 +25,16 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping(path = "/systemAdmin")
-public class SystemAdminOrganisationController {
-    private UsersRepositoryJPA userRepo;
-    private AuthoritiesRepositoryJPA authorityRepo;
-    private final UserRegisterService orgService;
-    private UserFeedbackNewOrganisationService feedbackService;
+public class SystemAdminOrganisationsController {
+    private final UsersRepositoryJPA userRepo;
+    private final AuthoritiesRepositoryJPA authorityRepo;
+    private final UserDataRetrievalService userDataRetrievalService;
+    private final UserFeedbackNewOrganisationService feedbackService;
 
-    public SystemAdminOrganisationController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserRegisterService aOrgService, UserFeedbackNewOrganisationService aFeedbackService) {
+    public SystemAdminOrganisationsController(UsersRepositoryJPA aUserRepo, AuthoritiesRepositoryJPA aAuthorityRepo, UserDataRetrievalService userDataRetrievalService, UserFeedbackNewOrganisationService aFeedbackService) {
         this.userRepo = aUserRepo;
         this.authorityRepo = aAuthorityRepo;
-        this.orgService = aOrgService;
+        this.userDataRetrievalService = userDataRetrievalService;
         this.feedbackService = aFeedbackService;
     }
 
@@ -82,9 +82,9 @@ public class SystemAdminOrganisationController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String attemptedPassword = user.getPassword();
         PasswordReaderService passwordCheck = new PasswordReaderService();
-        if (orgService.usernameExists(user.getUsername())) {
+        if (userDataRetrievalService.usernameExists(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "Username already exists!"));
-        } else if (orgService.emailExists(user.getEmail())){
+        } else if (userDataRetrievalService.emailExists(user.getEmail())){
             bindingResult.addError(new FieldError("user2", "email", "Email already exists"));
         }
 
@@ -92,7 +92,7 @@ public class SystemAdminOrganisationController {
             return "redirect:/systemAdmin/newOrgAdmin?user";
         }
 
-        if (passwordCheck.fileReader(attemptedPassword) == false) {
+        if (PasswordReaderService.fileReader(attemptedPassword) == false) {
             String encodedPassword = passwordEncoder.encode(attemptedPassword);
             user.setPassword(encodedPassword);
             user.setEnabled(Boolean.TRUE);
@@ -105,5 +105,6 @@ public class SystemAdminOrganisationController {
             return "redirect:/systemAdmin/newOrgAdmin?error";
         }
     }
+
 }
 

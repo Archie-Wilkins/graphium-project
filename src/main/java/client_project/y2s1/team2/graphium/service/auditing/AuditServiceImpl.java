@@ -10,8 +10,8 @@ import java.util.List;
 @Service
 class AuditServiceImpl implements client_project.y2s1.team2.graphium.service.auditing.AuditService {
 
-    private AccessAuditReportsRepositoryJPA auditRepo;
-    private TimeService timeService;
+    private final AccessAuditReportsRepositoryJPA auditRepo;
+    private final TimeService timeService;
 
     public AuditServiceImpl(AccessAuditReportsRepositoryJPA anAuditRepo, TimeService aTimeService){
         auditRepo = anAuditRepo;

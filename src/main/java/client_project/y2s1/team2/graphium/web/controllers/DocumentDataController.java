@@ -21,10 +21,10 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/document")
 public class DocumentDataController {
-    private RetrieveDocumentData docData;
-    private DocumentsRepositoryJPA docsRepo;
-    private AuditService auditService;
-    private StoreFileDatabaseService storeFileService;
+    private final RetrieveDocumentData docData;
+    private final DocumentsRepositoryJPA docsRepo;
+    private final AuditService auditService;
+    private final StoreFileDatabaseService storeFileService;
 
     public DocumentDataController(RetrieveDocumentData aDocData, DocumentsRepositoryJPA aDocsRepo, AuditService aAuditService, StoreFileDatabaseService aStoreFileService) {
         docData = aDocData;

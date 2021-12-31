@@ -23,6 +23,7 @@ public class Authorities {
     @JoinColumn(name="fk_username")
     private Users user;
 
+
     public String getFk_Username() {
         return username;
     }

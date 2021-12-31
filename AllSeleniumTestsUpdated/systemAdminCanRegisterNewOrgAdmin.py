@@ -72,11 +72,13 @@ def submitNewOrgAdminAccount():
 
     usernameField.send_keys('test' + str(random.randint(0,1000000)))
     passwordField.send_keys('aVeryComplexPassword')
-    emailField.send_keys('Selenium2' + str(random.randint(0,1000000)) + '@Selinum.com')
+    emailField.send_keys('Selenium2' + str(random.randint(0,10000)) + '@Selinum.com')
     firstNameField.send_keys('SeleniumTest')
     lastNameField.send_keys('SeleniumTest')
     organisationsField.send_keys('1')
 
+    driver.execute_script("arguments[0].scrollIntoView();", submitButton)
+    time.sleep(3)
     submitButton.click()
     time.sleep(3)
 
