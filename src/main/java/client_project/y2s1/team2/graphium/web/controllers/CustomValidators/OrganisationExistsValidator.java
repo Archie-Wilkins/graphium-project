@@ -1,7 +1,6 @@
-package client_project.y2s1.team2.graphium.web.controllers.FormObjects.CustomValidators;
+package client_project.y2s1.team2.graphium.web.controllers.CustomValidators;
 
 import client_project.y2s1.team2.graphium.data.jpa.repositories.OrganisationsRepositoryJPA;
-import client_project.y2s1.team2.graphium.web.controllers.FormObjects.NewUserForm;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

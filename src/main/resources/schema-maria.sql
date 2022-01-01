@@ -2,49 +2,52 @@
 -- Database Accounts
 -- ------------------------------------
 
-use mysql;
-SELECT * FROM user;
-
--- Made up names for sake of assessment 
 -- User can access database from localhost as we only want users to be able to access the database from known hosts.
 -- Passwords follows 3 random words best practice (automatically hashed by mySQL)
 -- For the sake of demonstration I have created various users with different roles 
 
+-- ====================================
+-- Comment out before running project from here end point on line 48 (Marked) 
+-- ====================================
+
 -- Senior Developer (Trusted with more privilidges such as drop table) 
-CREATE USER 'RonSwansonSuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
-GRANT SELECT, CREATE, DELETE, DROP, INSERT, UPDATE ON graphium.* TO 'JackCooperSuperAdmin'@'127.0.0.1';
+-- CREATE USER 'SuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
+-- GRANT ALL ON graphium.* TO 'SuperAdmin'@'127.0.0.1';
 
-CREATE USER 'JackCooperSeniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
-GRANT SELECT, CREATE, INSERT, UPDATE ON graphium.* TO 'JackCooperSeniorDeveloper'@'127.0.0.1';
+-- CREATE USER 'SeniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
+-- GRANT SELECT, CREATE, INSERT, DELETE, UPDATE ON graphium.* TO 'SeniorDeveloper'@'127.0.0.1';
 
--- Junior Developer (Given less priviledges)
-CREATE USER 'TomScott'@'127.0.0.1' IDENTIFIED BY 'DogSpeakerMarmalade';
+-- -- Junior Developer (Given less priviledges)
+-- CREATE USER 'JuniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'DogSpeakerMarmalade';
 
--- access_audit_actions 
-GRANT SELECT, INSERT, UPDATE ON graphium.access_audit_actions TO 'TomScott'@'127.0.0.1';
--- access_audit_reports
-GRANT SELECT ON graphium.access_audit_reports TO 'TomScott'@'127.0.0.1';
--- authorities 
-GRANT SELECT, INSERT, UPDATE ON graphium.authorities TO 'TomScott'@'127.0.0.1';
--- document_access_rights
-GRANT SELECT ON graphium.document_access_rights TO 'TomScott'@'127.0.0.1';
--- documents 
-GRANT SELECT ON graphium.documents TO 'TomScott'@'127.0.0.1';
--- organisations 
-GRANT SELECT, INSERT, UPDATE ON graphium.organisations TO 'TomScott'@'127.0.0.1';
--- users 
-GRANT SELECT, INSERT, UPDATE ON graphium.users TO 'TomScott'@'127.0.0.1';
+-- -- access_audit_actions 
+-- GRANT SELECT, INSERT, UPDATE ON graphium.access_audit_actions TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- access_audit_reports
+-- GRANT SELECT ON graphium.access_audit_reports TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- authorities 
+-- GRANT SELECT, INSERT, UPDATE ON graphium.authorities TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- document_access_rights
+-- GRANT SELECT ON graphium.document_access_rights TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- documents 
+-- GRANT SELECT ON graphium.documents TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- organisations 
+-- GRANT SELECT, INSERT, UPDATE ON graphium.organisations TO 'JuniorDeveloper'@'127.0.0.1';
+-- -- users 
+-- GRANT SELECT, INSERT, UPDATE ON graphium.users TO 'JuniorDeveloper'@'127.0.0.1';
 
-SHOW GRANTS FOR 'TomScott'@'127.0.0.1';
+-- SHOW GRANTS FOR 'JuniorDeveloper'@'127.0.0.1';
 
--- Sam Robin represents a user who should only be able to view database data for example he may be a 
--- customer support assistant who should be able to look up a users account, documents, users actions without updating them
--- the decisions to not allow Sam to update,delete or insert data was on the basis that Sam may not have developer expierence 
--- so should not have access to potentially disruptive or destructive commands.
-CREATE USER 'SamRobbin'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
-GRANT SELECT ON graphium.* TO 'SamRobbin'@'127.0.0.1';
+-- -- Sam Robin represents a user who should only be able to view database data for example he may be a 
+-- -- customer support assistant who should be able to look up a users account, documents, users actions without updating them
+-- -- the decisions to not allow Sam to update,delete or insert data was on the basis that Sam may not have developer expierence 
+-- -- so should not have access to potentially disruptive or destructive commands.
+-- CREATE USER 'MarketingExpert'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
+-- GRANT SELECT ON graphium.users TO 'MarketingExpert'@'127.0.0.1';
+-- GRANT SELECT ON graphium.documents TO 'MarketingExpert'@'127.0.0.1';
 
-
+-- ==============================
+-- End of section to comment out 
+-- ==============================
 
 -- ------------------------------------
 -- Database 'graphium'
@@ -192,62 +195,74 @@ CREATE TABLE IF NOT EXISTS `access_audit_reports` (
 CREATE UNIQUE INDEX `ix_auth_username`
     on authorities(`fk_username`,`authority`);
 
+
+
+-- ====================================
+-- Comment out before running project from here end point on 256 (Marked) 
+-- ====================================
+
+
 -- ----------------------------------
 -- Sample Improved Auditing System 
 -- ----------------------------------
-DROP TABLE IF EXISTS `users_audit`;
+-- DROP TABLE IF EXISTS `users_audit`;
 
-CREATE TABLE IF NOT EXISTS `users_audit` (
-    `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `timestamp` DATETIME NOT NULL ,
-    `type` VARCHAR(20) NOT NULL,
-    `creator` VARCHAR(250) NOT NULL,
-    `username` VARCHAR(50) NOT NULL, 
-    `password` VARCHAR(100) NOT NULL, 
-    `enabled` BOOLEAN NOT NULL, 
-    `fk_organisation_id` INT NOT NULL, 
-    `first_name` VARCHAR(50) NOT NULL, 
-    `last_name` VARCHAR(50) NOT NULL, 
-    `email` VARCHAR(100) NOT NULL, 
-    -- set to NOT NULL until issue is resolved
-    `authority_set_date` DATETIME
-);
+-- CREATE TABLE IF NOT EXISTS `users_audit` (
+--     `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     `timestamp` DATETIME NOT NULL ,
+--     `type` VARCHAR(20) NOT NULL,
+--     `creator` VARCHAR(250) NOT NULL,
+--     `username` VARCHAR(50) NOT NULL, 
+--     `password` VARCHAR(100) NOT NULL, 
+--     `enabled` BOOLEAN NOT NULL, 
+--     `fk_organisation_id` INT NOT NULL, 
+--     `first_name` VARCHAR(50) NOT NULL, 
+--     `last_name` VARCHAR(50) NOT NULL, 
+--     `email` VARCHAR(100) NOT NULL, 
+--     -- set to NOT NULL until issue is resolved
+--     `authority_set_date` DATETIME
+-- );
 
-DROP TRIGGER IF EXISTS users_insert_audit_trigger;
-DELIMITER $$ 
-CREATE TRIGGER users_insert_audit_trigger
-AFTER INSERT ON users FOR EACH ROW 
-BEGIN
-    INSERT INTO users_audit (
-        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
-        first_name, last_name, email, authority_set_date
-	)
-    VALUES(
-		null, CURRENT_TIMESTAMP, 'INSERT', user(), new.username, new.password,
-		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
-	);
-END $$ 
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS users_insert_audit_trigger;
+-- DELIMITER $$ 
+-- CREATE TRIGGER users_insert_audit_trigger
+-- AFTER INSERT ON users FOR EACH ROW 
+-- BEGIN
+--     INSERT INTO users_audit (
+--         audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+--         first_name, last_name, email, authority_set_date
+-- 	)
+--     VALUES(
+-- 		null, CURRENT_TIMESTAMP, 'INSERT', user(), new.username, new.password,
+-- 		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+-- 	);
+-- END $$ 
+-- DELIMITER ;
 
-DROP TRIGGER IF EXISTS users_update_audit_trigger;
-DELIMITER $$ 
-CREATE TRIGGER users_update_audit_trigger
-AFTER UPDATE ON users FOR EACH ROW 
-BEGIN
-    INSERT INTO users_audit (
-        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
-        first_name, last_name, email, authority_set_date
-	)
-    VALUES(
-		null, CURRENT_TIMESTAMP, 'UPDATE', user(), new.username, new.password,
-		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
-	);
-END $$ 
-DELIMITER ;
+-- DROP TRIGGER IF EXISTS users_update_audit_trigger;
+-- DELIMITER $$ 
+-- CREATE TRIGGER users_update_audit_trigger
+-- AFTER UPDATE ON users FOR EACH ROW 
+-- BEGIN
+--     INSERT INTO users_audit (
+--         audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+--         first_name, last_name, email, authority_set_date
+-- 	)
+--     VALUES(
+-- 		null, CURRENT_TIMESTAMP, 'UPDATE', user(), new.username, new.password,
+-- 		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+-- 	);
+-- END $$ 
+-- DELIMITER ;
 
-INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
-VALUES ('audit_test4','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Audit.ac.uk',NOW());
+-- ==============================
+-- End of section to comment out 
+-- ==============================
 
-UPDATE users
-SET first_name= 'Bill'
-WHERE username = 'audit_test4';
+-- Test values used to test triggers left here for demonstration 
+-- INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
+-- VALUES ('audit_test4','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Audit.ac.uk',NOW());
+
+-- UPDATE users
+-- SET first_name= 'Bill'
+-- WHERE username = 'audit_test4';
