@@ -201,68 +201,86 @@ CREATE UNIQUE INDEX `ix_auth_username`
 -- Comment out before running project from here end point on 256 (Marked) 
 -- ====================================
 
-
 -- ----------------------------------
 -- Sample Improved Auditing System 
 -- ----------------------------------
--- DROP TABLE IF EXISTS `users_audit`;
+DROP TABLE IF EXISTS `users_audit`;
 
--- CREATE TABLE IF NOT EXISTS `users_audit` (
---     `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
---     `timestamp` DATETIME NOT NULL ,
---     `type` VARCHAR(20) NOT NULL,
---     `creator` VARCHAR(250) NOT NULL,
---     `username` VARCHAR(50) NOT NULL, 
---     `password` VARCHAR(100) NOT NULL, 
---     `enabled` BOOLEAN NOT NULL, 
---     `fk_organisation_id` INT NOT NULL, 
---     `first_name` VARCHAR(50) NOT NULL, 
---     `last_name` VARCHAR(50) NOT NULL, 
---     `email` VARCHAR(100) NOT NULL, 
---     -- set to NOT NULL until issue is resolved
---     `authority_set_date` DATETIME
--- );
+CREATE TABLE IF NOT EXISTS `users_audit` (
+    `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `timestamp` DATETIME NOT NULL ,
+    `type` VARCHAR(20) NOT NULL,
+    `creator` VARCHAR(250) NOT NULL,
+    `username` VARCHAR(50) NOT NULL, 
+    `password` VARCHAR(100) NOT NULL, 
+    `enabled` BOOLEAN NOT NULL, 
+    `fk_organisation_id` INT NOT NULL, 
+    `first_name` VARCHAR(50) NOT NULL, 
+    `last_name` VARCHAR(50) NOT NULL, 
+    `email` VARCHAR(100) NOT NULL, 
+    -- set to NOT NULL until issue is resolved
+    `authority_set_date` DATETIME
+);
 
--- DROP TRIGGER IF EXISTS users_insert_audit_trigger;
--- DELIMITER $$ 
--- CREATE TRIGGER users_insert_audit_trigger
--- AFTER INSERT ON users FOR EACH ROW 
--- BEGIN
---     INSERT INTO users_audit (
---         audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
---         first_name, last_name, email, authority_set_date
--- 	)
---     VALUES(
--- 		null, CURRENT_TIMESTAMP, 'INSERT', user(), new.username, new.password,
--- 		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
--- 	);
--- END $$ 
--- DELIMITER ;
+DROP TRIGGER IF EXISTS users_insert_audit_trigger;
+DELIMITER $$ 
+CREATE TRIGGER users_insert_audit_trigger
+AFTER INSERT ON users FOR EACH ROW 
+BEGIN
+    INSERT INTO users_audit (
+        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+        first_name, last_name, email, authority_set_date
+	)
+    VALUES(
+		null, CURRENT_TIMESTAMP, 'INSERT', user(), new.username, new.password,
+		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+	);
+END $$ 
+DELIMITER ;
 
--- DROP TRIGGER IF EXISTS users_update_audit_trigger;
--- DELIMITER $$ 
--- CREATE TRIGGER users_update_audit_trigger
--- AFTER UPDATE ON users FOR EACH ROW 
--- BEGIN
---     INSERT INTO users_audit (
---         audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
---         first_name, last_name, email, authority_set_date
--- 	)
---     VALUES(
--- 		null, CURRENT_TIMESTAMP, 'UPDATE', user(), new.username, new.password,
--- 		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
--- 	);
--- END $$ 
--- DELIMITER ;
+DROP TRIGGER IF EXISTS users_update_audit_trigger;
+DELIMITER $$ 
+CREATE TRIGGER users_update_audit_trigger
+AFTER UPDATE ON users FOR EACH ROW 
+BEGIN
+    INSERT INTO users_audit (
+        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+        first_name, last_name, email, authority_set_date
+	)
+    VALUES(
+		null, CURRENT_TIMESTAMP, 'UPDATE', user(), new.username, new.password,
+		new.enabled, new.fk_organisation_id, new.first_name, new.last_name, new.email ,new.authority_set_date
+	);
+END $$ 
+DELIMITER ;
 
--- ==============================
--- End of section to comment out 
--- ==============================
+DROP TRIGGER IF EXISTS users_delete_audit_trigger;
+DELIMITER $$ 
+CREATE TRIGGER users_delete_audit_trigger
+AFTER DELETE ON users FOR EACH ROW 
+BEGIN
+    INSERT INTO users_audit (
+        audit_id, timestamp, type, creator, username, password, enabled, fk_organisation_id, 
+        first_name, last_name, email, authority_set_date
+	)
+    VALUES(
+		null, CURRENT_TIMESTAMP, 'DELETE', user(), OLD.username, OLD.password,
+		OLD.enabled, OLD.fk_organisation_id, OLD.first_name, OLD.last_name, OLD.email , OLD.authority_set_date
+	);
+END $$ 
+DELIMITER ;
+
 
 -- Test values used to test triggers left here for demonstration 
 -- INSERT INTO `users` (`username`,`password`, `enabled`, `fk_organisation_id`,`first_name`, `last_name`, `email`, `authority_set_date`)
--- VALUES ('audit_test4','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Audit.ac.uk',NOW());
+-- VALUES ('audit_test','$2a$10$9ch3QV3gYNS7lPW/m.TUr.LcH9uEynCbmbGGocRkBAavzRzU0mYa.', 1, 1, 'John','Smith','John@Audit.ac.uk',NOW());
 
 -- UPDATE users
 -- SET first_name= 'Bill'
--- WHERE username = 'audit_test4';
+-- WHERE username = 'audit_test';
+
+-- DELETE FROM users WHERE username = 'audit_test';
+-- ==============================
+-- End 
+-- ==============================
+
