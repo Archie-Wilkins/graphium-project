@@ -132,16 +132,6 @@ public class SpringSecurityTests {
                 .andExpect(status().isOk());
     }
 
-    //researcher cant create new org admin
-//    @Test
-//    @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
-//    public void researcherCantCreateNewOrgAdmin() throws Exception {
-//        mockMvc.perform(post("/systemAdmin/process_register")
-//                        .with(csrf())
-//                )
-//                .andExpect(status().isOk());
-//    }
-
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
         public void systemAdminCanAccessAdminReg() throws Exception {

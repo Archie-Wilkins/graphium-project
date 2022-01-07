@@ -7,43 +7,69 @@
 -- For the sake of demonstration I have created various users with different roles 
 
 -- ====================================
--- Comment out before running project from here end point on line 48 (Marked) 
+-- Comment code out before running project from here end point on line 48 (Marked) 
 -- ====================================
 
 -- Senior Developer (Trusted with more privilidges such as drop table) 
--- CREATE USER 'SuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
--- GRANT ALL ON graphium.* TO 'SuperAdmin'@'127.0.0.1';
+CREATE USER 'MarkPaulSuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
 
--- CREATE USER 'SeniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
--- GRANT SELECT, CREATE, INSERT, DELETE, UPDATE ON graphium.* TO 'SeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.documents TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.document_access_rights TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.users TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.authorities TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.organisations TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.access_audit_actions TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON access_audit_reports TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, ALTER, CREATE, GRANT OPTION ON graphium.documents_audit TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+GRANT SELECT, ALTER, CREATE, GRANT OPTION ON graphium.users_audit TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+
+
+CREATE USER 'KevinWilliamsSeniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
+
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.documents TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.document_access_rights TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.users TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.authorities TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.organisations TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON graphium.access_audit_actions TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, ALTER ON access_audit_reports TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.documents_audit TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.users_audit TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+
+
 
 -- -- Junior Developer (Given less priviledges)
--- CREATE USER 'JuniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'DogSpeakerMarmalade';
+CREATE USER 'ChrisHansenJuniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'DogSpeakerMarmalade';
 
--- -- access_audit_actions 
--- GRANT SELECT, INSERT, UPDATE ON graphium.access_audit_actions TO 'JuniorDeveloper'@'127.0.0.1';
--- -- access_audit_reports
--- GRANT SELECT ON graphium.access_audit_reports TO 'JuniorDeveloper'@'127.0.0.1';
--- -- authorities 
--- GRANT SELECT, INSERT, UPDATE ON graphium.authorities TO 'JuniorDeveloper'@'127.0.0.1';
--- -- document_access_rights
--- GRANT SELECT ON graphium.document_access_rights TO 'JuniorDeveloper'@'127.0.0.1';
--- -- documents 
--- GRANT SELECT ON graphium.documents TO 'JuniorDeveloper'@'127.0.0.1';
--- -- organisations 
--- GRANT SELECT, INSERT, UPDATE ON graphium.organisations TO 'JuniorDeveloper'@'127.0.0.1';
--- -- users 
--- GRANT SELECT, INSERT, UPDATE ON graphium.users TO 'JuniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE ON graphium.documents TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE ON graphium.document_access_rights TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT ON graphium.users TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT ON graphium.authorities TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE ON graphium.organisations TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.access_audit_actions TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.access_audit_reports TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.documents_audit TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+GRANT SELECT ON graphium.users_audit TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
 
--- SHOW GRANTS FOR 'JuniorDeveloper'@'127.0.0.1';
 
--- -- Sam Robin represents a user who should only be able to view database data for example he may be a 
+-- -- Mark Strange represents a user who should only be able to view database data for example he may be a 
 -- -- customer support assistant who should be able to look up a users account, documents, users actions without updating them
--- -- the decisions to not allow Sam to update,delete or insert data was on the basis that Sam may not have developer expierence 
+-- -- the decisions to not allow MarkStrange to update,delete or insert data was on the basis that Sam may not have developer expierence 
 -- -- so should not have access to potentially disruptive or destructive commands.
--- CREATE USER 'MarketingExpert'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
--- GRANT SELECT ON graphium.users TO 'MarketingExpert'@'127.0.0.1';
--- GRANT SELECT ON graphium.documents TO 'MarketingExpert'@'127.0.0.1';
+-- CREATE USER 'MarkStrangeMarketingExpert'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
+-- GRANT SELECT ON graphium.users TO 'MarkStrangeMarketingExpert'@'127.0.0.1';
+-- GRANT SELECT ON graphium.documents TO 'MarkStrangeMarketingExpert'@'127.0.0.1';
+
+-- System 
+CREATE USER 'GraphiumApplication'@'127.0.0.1' IDENTIFIED BY 'PrincePandaDepot';
+
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP ON graphium.documents TO 'GraphiumApplication'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP ON graphium.document_access_rights TO 'GraphiumApplication'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP ON graphium.users TO 'GraphiumApplication'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP ON graphium.authorities TO 'GraphiumApplication'@'127.0.0.1';
+GRANT SELECT, UPDATE, DELETE, INSERT, CREATE, DROP ON graphium.organisations TO 'GraphiumApplication'@'127.0.0.1';
+GRANT INSERT, CREATE, DROP ON graphium.access_audit_actions TO 'GraphiumApplication'@'127.0.0.1';
+GRANT INSERT, CREATE, DROP ON graphium.access_audit_reports TO 'GraphiumApplication'@'127.0.0.1';
 
 -- ==============================
 -- End of section to comment out 
@@ -199,12 +225,13 @@ CREATE UNIQUE INDEX `ix_auth_username`
 
 
 -- ====================================
--- Comment out before running project from here end point on 256 (Marked) 
+-- Comment code out before running project from here end point on 256 (Marked) 
 -- ====================================
 
--- ----------------------------------
--- Sample Improved Auditing System 
--- ----------------------------------
+-- ======================================
+-- Users
+-- ======================================
+
 -- DROP TABLE IF EXISTS `users_audit`;
 -- CREATE TABLE IF NOT EXISTS `users_audit` (
 --     `audit_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
