@@ -26,9 +26,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         authorizeRequests
                                 .mvcMatchers("/systemAdmin/**").hasAnyAuthority("systemAdmin")
                                 .mvcMatchers("/orgAdmin/**").hasAnyAuthority("systemAdmin", "orgAdmin")
+                                //===============================================
+                                //PermitAll needed otherwise css and images won't display on login page
                                 .mvcMatchers("/css/**").permitAll()
                                 .mvcMatchers("/images/**").permitAll()
+                                //Needed to be able to redirect user to error login page 
                                 .antMatchers("/login").permitAll()
+                                //================================================
+                                //could replace .authenticated() with specific authorities to prevent invalid authority levels
+                                //using controllers
+                                //currently the researcher's role just represents an authenticated user
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
