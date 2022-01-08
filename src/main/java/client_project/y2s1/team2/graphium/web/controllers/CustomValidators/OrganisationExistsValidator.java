@@ -17,9 +17,9 @@ public class OrganisationExistsValidator implements ConstraintValidator<Organisa
     public boolean isValid(String orgID,
                            ConstraintValidatorContext constraintValidatorContext){
         try{
-            int orgIdConverted = Integer.valueOf(orgID);
-            long numberOfOrganisations = orgsRepo.count();
-            return (1 <= orgIdConverted) && (orgIdConverted <= numberOfOrganisations);
+            long orgIdConverted = Integer.valueOf(orgID);
+            boolean orgExists = orgsRepo.existsById(orgIdConverted);
+            return orgExists;
         }catch (Exception e){
             return false;
         }
