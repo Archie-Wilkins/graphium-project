@@ -10,29 +10,29 @@
 -- Comment code out before running project from here end point on line 48 (Marked) 
 -- ====================================
 
--- Senior Developer (Trusted with more privilidges such as drop table) 
+-- Super admin(Trusted with more privilidges such as drop table) 
 -- CREATE USER 'MarkPaulSuperAdmin'@'127.0.0.1' IDENTIFIED BY 'PlantBridgeTrain';
 
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.documents TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.document_access_rights TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.users TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.authorities TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.organisations TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON graphium.access_audit_actions TO 'MarkPaulSuperAdmin'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, GRANT OPTION ON access_audit_reports TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.documents TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.document_access_rights TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.users TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.authorities TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.organisations TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON graphium.access_audit_actions TO 'MarkPaulSuperAdmin'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, CREATE, DROP, INDEX, GRANT OPTION ON access_audit_reports TO 'MarkPaulSuperAdmin'@'127.0.0.1';
 -- GRANT SELECT, ALTER, CREATE, GRANT OPTION ON graphium.documents_audit TO 'MarkPaulSuperAdmin'@'127.0.0.1';
 -- GRANT SELECT, ALTER, CREATE, GRANT OPTION ON graphium.users_audit TO 'MarkPaulSuperAdmin'@'127.0.0.1';
 
-
+-- Senior Developer 
 -- CREATE USER 'KevinWilliamsSeniorDeveloper'@'127.0.0.1' IDENTIFIED BY 'HorseLightPlane';
 
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.documents TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.document_access_rights TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.users TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.authorities TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.organisations TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON graphium.access_audit_actions TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT, ALTER, INDEX ON access_audit_reports TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.documents TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.document_access_rights TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.users TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.authorities TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.organisations TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON graphium.access_audit_actions TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE, INSERT, INDEX ON access_audit_reports TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT ON graphium.documents_audit TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT ON graphium.users_audit TO 'KevinWilliamsSeniorDeveloper'@'127.0.0.1';
 
@@ -43,8 +43,8 @@
 
 -- GRANT SELECT, UPDATE, DELETE ON graphium.documents TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT, UPDATE, DELETE ON graphium.document_access_rights TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT ON graphium.users TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
--- GRANT SELECT, UPDATE, DELETE, INSERT ON graphium.authorities TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE ON graphium.users TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
+-- GRANT SELECT, UPDATE, DELETE ON graphium.authorities TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT, UPDATE, DELETE ON graphium.organisations TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT ON graphium.access_audit_actions TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
 -- GRANT SELECT ON graphium.access_audit_reports TO 'ChrisHansenJuniorDeveloper'@'127.0.0.1';
@@ -545,6 +545,7 @@ CREATE UNIQUE INDEX `ix_auth_username`
 --     VALUES(
 -- 		null, CURRENT_TIMESTAMP, 'DELETE', user(), OLD.id, OLD.fk_document_id, OLD.fk_organisation_id, OLD.fk_user_id
 -- 	);
+-- END $$ 
 -- END $$ 
 -- DELIMITER ;
 
