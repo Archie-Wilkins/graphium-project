@@ -29,21 +29,25 @@ public class StoreFileDatabaseService {
 
     public ReturnError storeFile(String docTitle, String username, String fileType, MultipartFile file) throws IOException {
         Optional<Users> currentUser = userRepository.findByUsername(username);
+        //check if account exists
         if (currentUser.isEmpty()) {
             auditService.documentUploadFailed("invalid_username", "an invalid username (" + username + ") was passed in to the storeFile method under within the StoreFileDatabaseService");
             return new ReturnError(true, "invalid_username", "Could not find your account, please try signing in again");
         }
+        //check for duplicate file
         if (docRepository.findByTitleAndUser(docTitle, currentUser.get()).isPresent()) {
             auditService.documentUploadFailed(username, "a duplicate title was submitted by a user within the storeFile method under the storeFileDatabaseService");
             return new ReturnError(true, "duplicate_title_and_user", "You already have a document with that title");
         }
+        //check if document is an invalid file type
         if (!Arrays.stream(allowedFileExstensions).anyMatch(fileType::equals)) {
             auditService.documentUploadFailed(username, "an invalid file type was submitted by a user within the storeFile method under the storeFileDatabaseService");
             return new ReturnError(true, "file_type_invalid", "Document is in an unsupported format");
         }
+        //check if document has a valid file extension
         if (!Arrays.stream(allowedFileExstensions).anyMatch(file.getOriginalFilename().split("[.]")[1]::equals)) {
             auditService.documentUploadFailed(username, "a file with an invalid file extension was submitted by a user within the storeFile method under the storeFileDatabaseService");
-            return new ReturnError(true, "file_extension_invalid", "Document is in an unsupported format");
+            return new ReturnError(true, "file_extension_invalid", "Document has an invalid file extension");
         }
         try {
             DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
