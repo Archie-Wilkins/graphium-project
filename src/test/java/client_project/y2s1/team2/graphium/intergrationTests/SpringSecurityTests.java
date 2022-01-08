@@ -104,7 +104,6 @@ public class SpringSecurityTests {
                 .andExpect(status().isOk());
     }
 
-//    need to ref baeldung
     @WithMockUser("testOrgAdmin")
     @Test
     public void orgAdminCantAccessSysAdminPage_shouldFailWithForbidden() throws Exception {
@@ -112,7 +111,6 @@ public class SpringSecurityTests {
                 .andExpect(status().isForbidden());
     }
 
-    //researcher cant create new org
     @Test
     @WithMockUser(username = "testUser", authorities = "researcher")
     public void researcherCantCreateNewOrg() throws Exception {
@@ -122,7 +120,6 @@ public class SpringSecurityTests {
                 .andExpect(status().isForbidden());
     }
 
-    //system admin can access new org controller
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanCreateNewOrg() throws Exception {
@@ -150,10 +147,6 @@ public class SpringSecurityTests {
                 .andExpect(status().isForbidden());
     }
 
-
-
-//    system admin can create new org admin
-//    In-progress test
     @Test
     @WithMockUser(username = "testSystemAdmin", authorities = "systemAdmin")
     public void systemAdminCanCreateNewOrgAdmin() throws Exception {
@@ -173,8 +166,8 @@ public class SpringSecurityTests {
                         .with(csrf())
                 )
                 .andExpect(status().is4xxClientError());
-//               Expecting a 400 error is a little hackey I know but it shows the SysAdmin can get to the controller
-//              where as the researcher cant
+//               Expecting a 400 error its a little hackey but it shows the SysAdmin can get to the controller
+//              where as the researcher cant because they are forbidden before they even try
     }
 
     @Test
