@@ -20,13 +20,12 @@ configurations {
     checkstyleMain.enabled = true
     checkstyleTest.enabled = false
     ignoreFailures = true
-
+ }
+ 
 checkstyleMain {
     configFile = file("DevOpsAssessment/checkstyleMain.xml")
 }
 
-
-}
 
 repositories {
     mavenCentral()
