@@ -19,6 +19,7 @@ configurations {
     toolVersion = 8.25
     checkstyleMain.enabled = true
     checkstyleTest.enabled = false
+    ignoreFailures = true
 
 checkstyleMain {
     configFile = file("DevOpsAssessment/checkstyleMain.xml")
