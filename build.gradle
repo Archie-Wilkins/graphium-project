@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+     id 'checkstyle'
 }
 
 group = 'client_project.y2s1.team2'
@@ -12,6 +13,18 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
+    checkstyle {
+    toolVersion = 8.25
+    checkstyleMain.enabled = true
+    checkstyleTest.enabled = false
+}
+
+checkstyleMain {
+    configFile = file("DevOpsAssessment/checkstyleMain.xml")
+}
+
+
 }
 
 repositories {
