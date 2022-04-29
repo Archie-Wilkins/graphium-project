@@ -1,0 +1,32 @@
+/*
+    For the information footer at the bottom of every page
+*/
+
+body {
+    display: table;
+}
+body > footer {
+    display: table-row;
+    height: 0;
+}
+
+.page-footer {
+    background: #1E4C63;
+}
+
+.linksButton{
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+}
+.linksButton:hover{
+    color: white;
+    text-decoration: underline;
+}
+.links{
+    text-align: center;
+}
+
+.footer-copyright{
+    color: white;
+}

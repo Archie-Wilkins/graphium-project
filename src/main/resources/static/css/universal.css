@@ -1,0 +1,75 @@
+body, html {
+    overflow-x: hidden;
+    height: 100vh;
+    background-color: #F5F8FA;
+}
+
+.svg-background-color {
+    background-color: #F5F8FA;
+}
+
+.color-bg-primary{
+    background: white;
+}
+
+.color-primary{
+    color:white;
+}
+
+.color-bg-accent{
+    background: #1E4C63;
+}
+
+#search{
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+.documents{
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+}
+
+.page_content{
+    background: #F5F8FA;
+    padding: 5%;
+}
+
+.card-button-css{
+    width: 50px;
+    margin-left: 5px;
+}
+
+.mini_nav{
+    background: #1E4C63;
+    color: white;
+    border-color: #1E4C63;
+}
+
+.mini_nav:hover{
+    background: white;
+    color: #1E4C63;
+    border-color: #1E4C63;
+    transition-duration: 0.4s;
+}
+
+.todayDate{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#share{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.submit{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <title>footer</title>
+            <div th:replace="fragments/standardHead :: standardCSS"></div>
+        </head>
+    <body>
+        <footer th:fragment="footer">
+            <div>
+                <!-- This allows to create the geometric shape of the footer -->
+                <svg class="svg-background-color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path transform="scale(1, -1) translate(0, -100)"  fill="#1e4c63" fill-opacity="1" d="M 0 0 L 1200 50 L 1450 0 "></path></svg>
+            </div>
+            <div class="page-footer font-small pt-4">
+                <div class="links">
+                    <a href="#" class="linksButton">Support</a>
+                    <a href="https://www.linkedin.com/company/graphiumai/" class="linksButton">LinkedIn</a>
+                    <a href="https://www.graphium.ai//#get-in-touch" class="linksButton">Get in touch</a>
+                </div>
+                <div class="footer-copyright text-center py-3">
+                    © Copyright & Design By Graphium Technologies Ltd 13451839
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

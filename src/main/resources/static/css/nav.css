@@ -1,0 +1,64 @@
+nav {
+    width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* This is the main nav bar area */
+.navbar {
+    background: #1E4C63;
+    color: white;
+    text-align: center;
+    height: 15vh;
+    padding-top: 1rem;
+}
+
+/* This allows the nav bar logo to have some basic animation */
+.navbar-brand img{
+    width: 25%;
+    height: 25%;
+    text-align: left;
+    transition-duration: 0.5s;
+}
+.navbar-brand img:hover{
+    width: 27%;
+    height: 27%;
+    transition-duration: 0.5s;
+}
+
+/* This aligns the logo to the left of the nav bar */
+.nav-container {
+    width: 50rem;
+    text-align: left;
+    margin-left: 7rem;
+}
+
+/* This makes sure the nav items stay white */
+.nav-link {
+    color: white;
+}
+.nav-link:hover {
+    color: white;
+}
+
+/* This spaces the items ever so slightly*/
+.nav-item{
+    margin: 10px;
+}
+
+/* This makes the log-out button more interactive */
+.nav-item button{
+    color: white;
+    border-color: white;
+}
+.nav-item button:hover{
+    transition-duration: 0.4s;
+    color: #1E4C63;
+    border-color: white;
+    background: white;
+
+}
+
+.navbar-collapse{
+    flex-grow: 0;
+}

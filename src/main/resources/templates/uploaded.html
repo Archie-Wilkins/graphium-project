@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphium - Document Uploaded</title>
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <h1 th:if="${uploaded}">Document was uploaded</h1>
+        <h1 th:unless="${uploaded}">Issue with document submission</h1>
+        <h2 th:unless="${uploaded}" th:text="${errorMessage}" class="text-secondary">Issue with document submission</h2>
+
+        <div class="row py-2">
+            <div class="col-6">
+                <a th:href="/" class="btn btn-block w-100 h-25 btn-primary">Home</a>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-6">
+                <a th:href="/document/upload" class="btn btn-block w-100 h-25 btn-primary">Submit Another</a>
+
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <title>header</title>
+     </head>
+     <body>
+     <nav th:fragment="header">
+         <nav class="navbar navbar-expand-lg">
+             <div class="container-fluid">
+                 <div class="container nav-container">
+                     <a class="navbar-brand" href="/">
+                         <img alt="Logo" src="/images/logo.jpg">
+                     </a>
+                 </div>
+                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                         <li class="nav-item">
+                             <a class="nav-link" href="/document/upload">Upload</a>
+                         </li>
+
+
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin','systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/organisation/admin">Organisation Admin</a>
+                         </li>
+
+
+<!--                         System admin -->
+
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <!-- Only users with admin authority can view this link -->
+                             <a class="nav-link" href="/systemAdmin/home">System Admin</a>
+                         </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <a class="nav-link"  href="/systemAdmin/newOrgAdmin">Register New Admin</a>
+                         </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('orgAdmin', 'systemAdmin')" >
+                             <a class="nav-link"  href="/organisation/newResearcher">Register New Researcher</a>
+                         </li>
+                         <li class="nav-item" sec:authorize="hasAnyAuthority('systemAdmin')" >
+                             <a class="nav-link"  href="/systemAdmin/newOrganisation">Register New Organisation</a>
+                         </li>
+                         <li class="nav-item">
+                             <form method="post" name="logOut" th:action="@{/logout}" th:hidden="true"></form>
+                             <a class="nav-link" href="javascript: document.logOut.submit()">Log Out</a>
+                         </li>
+
+
+                     </ul>
+                 </div>
+             </div>
+         </nav>
+         <!-- This allows to create the geometric shape of the navigation bar -->
+         <svg class="svg-background-color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="#1e4c63" fill-opacity="1" d="M 0 0 L 150 50 L 1900 0 "></path></svg>
+     </nav>
+     </body>
+</html>

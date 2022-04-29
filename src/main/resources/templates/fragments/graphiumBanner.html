@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+     <head>
+         <meta charset="UTF-8">
+         <title>header</title>
+         <div th:replace="fragments/standardHead :: standardCSS"></div>
+     </head>
+     <body>
+     <nav th:fragment="header">
+         <nav class="navbar navbar-expand-lg">
+             <div class="container-fluid">
+                 <div class="container">
+                     <a class="navbar-brand" href="/">
+                         <img alt="Logo" src="/images/logo.jpg">
+                     </a>
+                 </div>
+             </div>
+         </nav>
+         <!-- This allows to create the geometric shape of the navigation bar -->
+         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="#1e4c63" fill-opacity="1" d="M 0 0 L 150 50 L 1900 0 "></path></svg>
+     </nav>
+     </body>
+</html>

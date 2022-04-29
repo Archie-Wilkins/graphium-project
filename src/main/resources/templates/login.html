@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Graphium - Login</title>
+    <meta charset="UTF-8">
+    <div th:replace="fragments/standardHead :: standardCSS"></div>
+</head>
+
+<body class="bg-light">
+
+<div th:replace="fragments/graphiumBanner :: header"/>
+
+    <form name="f" th:action="@{/login}" method="post" class="position-absolute top-50 start-50 translate-middle">
+
+            <div class="d-flex align-items-center flex-column mb-2">
+                <h2>Login</h2>
+                <div class="w-50 rounded color-bg-accent" style="height:8px;">  </div>
+            </div>
+
+
+
+            <div th:if="${param.error}" class="alert alert-danger mt-1" role="alert">
+                Invalid username or password.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success mt-1" role="alert">
+                You have been logged out.
+            </div>
+
+            <div class="form-group mt-1">
+            <label for="username" >Username</label>
+            <input type="text" id="username" name="username" class="form-control"/>
+            </div>
+
+            <div class="form-group mt-2">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control"/>
+            </div>
+
+                <div class="form-actions mt-3 d-flex justify-content-center">
+                <button type="submit" class="btn color-bg-accent color-primary w-50">Log in</button>
+            </div>
+    </form>
+
+<div th:replace="fragments/footer :: footer"/>
+
+
+</body>
+</html>
