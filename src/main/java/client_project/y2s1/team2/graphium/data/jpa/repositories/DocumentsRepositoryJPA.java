@@ -3,6 +3,7 @@ package client_project.y2s1.team2.graphium.data.jpa.repositories;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Documents;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Organisations;
 import client_project.y2s1.team2.graphium.data.jpa.entities.Users;
+import client_project.y2s1.team2.graphium.domain.ListOfDocumentsDTO;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,7 @@ public interface DocumentsRepositoryJPA extends JpaRepository<Documents, Long> {
 
     List<Documents> findAllByUser_Organisation_Name(String orgName);
     List<Documents> findAllByUser(Users username);
+
+    @Query(value="select Documents.id, Documents.title, Documents.date FROM Documents where Documents.fk_creator = :username", nativeQuery = true)
+    List<Object[]> findIdDateAndTitle(@Param("username") String username);
 }

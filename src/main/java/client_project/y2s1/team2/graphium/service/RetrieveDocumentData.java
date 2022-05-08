@@ -59,13 +59,13 @@ public class RetrieveDocumentData {
         List<ListOfDocumentsDTO> documentDTOList = new ArrayList<>();
         Optional<Users> user = userRepository.findByUsername(userName);
         if (user.isPresent()) {
-            List<Documents> allDocuments = docRepository.findAllByUser(user.get());
-            for (Documents document : allDocuments) {
+            List<Object[]> allDocuments = docRepository.findIdDateAndTitle(userName);
+            for (Object[] document : allDocuments) {
                 documentDTOList.add(new ListOfDocumentsDTO(
-                        document.getId(),
-                        document.getTitle(),
-                        document.getUser().getUsername(),
-                        document.getDate()
+                        Long.valueOf(document[0].toString()),//id
+                        (String) document[1],//title
+                        userName,
+                        (String) document[2] //date
                 ));
             }
         }

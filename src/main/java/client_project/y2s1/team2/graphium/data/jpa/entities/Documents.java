@@ -4,6 +4,7 @@ import client_project.y2s1.team2.graphium.domain.DocumentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -19,8 +20,11 @@ public class Documents {
 
     private String date;
 
+    @Nullable
     @Column(name = "file_type")
     private String fileType;
+
+    @Nullable
     @Lob
     private byte[] fileData;
 
